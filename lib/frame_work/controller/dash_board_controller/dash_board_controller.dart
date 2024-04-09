@@ -5,6 +5,8 @@ import 'package:emploiflutter/ui/home/helper/recruiter/recruiter_home.dart';
 import 'package:emploiflutter/ui/settings/setting.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
+import '../../../ui/ai_for_jobseeker/ai_for_jobseeker.dart';
+
 final dashBoardController = ChangeNotifierProvider((ref) => DashBoardController());
 
 class DashBoardController extends ChangeNotifier{
@@ -20,6 +22,7 @@ class DashBoardController extends ChangeNotifier{
   List<Widget> jobSeekerPages = [
     const JobSeekerHome(),
     const Campus(),
+    const AIForJobSeeker(),
     const Setting()
   ];
 

@@ -59,14 +59,33 @@ class _DashBoardState extends ConsumerState<DashBoard> {
         bottomNavigationBar: BottomNavigationBar(
           selectedItemColor: AppColors.colors.clayColors,
           unselectedItemColor: AppColors.colors.blueColors,
-          items: [
+          items: userData.user.iRole  == 0?
+          [
              const BottomNavigationBarItem(
                icon: Icon(Icons.home),
                label: "Home"
              ),
             BottomNavigationBarItem(
-                icon: Icon(userData.user.iRole == 0?Icons.location_city_outlined : Icons.add_box_sharp),
-                label: userData.user.iRole  == 0? "Campus": "Post"
+                icon: Icon(Icons.location_city_outlined ),
+                label: "Campus"
+            ),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.rocket ),
+                label: "AI"
+            ),
+            const BottomNavigationBarItem(
+                icon: Icon(Icons.settings),
+                label: "Setting"
+            ),
+          ]:
+          [
+             const BottomNavigationBarItem(
+               icon: Icon(Icons.home),
+               label: "Home"
+             ),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.add_box_sharp),
+                label: "Post"
             ),
             const BottomNavigationBarItem(
                 icon: Icon(Icons.settings),
