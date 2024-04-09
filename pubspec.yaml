@@ -89,6 +89,8 @@ dependencies:
   just_the_tooltip: ^0.0.12
   geolocator: ^10.1.0
   permission_handler:
+#Gemini ai
+  google_generative_ai: ^0.2.2
 
 # video call ze go cloud
   zego_uikit_prebuilt_call: ^4.2.5
@@ -96,6 +98,8 @@ dependencies:
 
 # Balloon chat
 popover: ^0.2.9
+
+
 
 dev_dependencies:
   flutter_test:
