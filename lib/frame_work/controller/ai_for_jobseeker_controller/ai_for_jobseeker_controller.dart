@@ -103,7 +103,7 @@ class AiForJobSeekerController extends ChangeNotifier{
       notifyListeners();
     }catch(e){
       isLoading = false;
-      appCommonShowToast(context: context, msg: "Something went wrong try again!");
+      appCommonShowToast(context: context, msg: "Something went wrong");
       notifyListeners();
       Future.error("Gemini error ${e.toString()}");
     }
