@@ -1,11 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:emploiflutter/frame_work/repository/model/user_model/user_detail_data_model.dart';
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
-
-import '../../../../../frame_work/repository/model/user_model/user_with_device_token_model.dart';
+import 'package:emploiflutter/frame_work/repository/model/user_model/user_with_device_token_model.dart';
 
 class RecruiterProfileCard extends StatelessWidget {
   final UserWithDeviceTokenModel user;

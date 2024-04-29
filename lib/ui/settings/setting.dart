@@ -9,6 +9,7 @@ import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import '../../frame_work/controller/setting_controller/setting_controller.dart';
 import '../../frame_work/controller/setting_controller/terms_privacy_policy_controller/terms_privacy_policy_controller.dart';
 import '../utils/theme/text_styles.dart';
@@ -83,7 +84,7 @@ class _SettingState extends ConsumerState<Setting> {
               ):const SizedBox(),
               title: Text(userData.vFirstName !=""? "${userData.vFirstName} ${userData.vLastName}":"",style: TextStyles.w600.copyWith(fontSize: 18.sp,color: AppColors.colors.blackColors),),
               subtitle: userData.vCurrentCompany !="" ? Text(userData.vCurrentCompany??"",style: TextStyles.w500.copyWith(fontSize: 12.sp,color: AppColors.colors.blackColors),):const SizedBox(),
-            ),
+            ).animate().fadeIn(duration: Duration(milliseconds: 300)),
             SizedBox(height: 25.h,),
             ...List.generate(
                 userData.iRole == 0?
@@ -124,7 +125,7 @@ class _SettingState extends ConsumerState<Setting> {
                     ],
                   ),
                 ),
-              );
+              ).animate().fadeIn(duration: Duration(milliseconds: 300));
             })
           ],
         ),
@@ -132,23 +133,3 @@ class _SettingState extends ConsumerState<Setting> {
     );
   }
 }
-/*
-ListTile(
-                  onTap: (){
-                    if(userData.iRole == 0){
-                    settingWatch.seekerNavigatingToList(index, context);
-                    }else{
-                      settingWatch.recruiterNavigatingToList(index, context);
-                    }
-                  },
-                  dense: true,
-                  contentPadding: EdgeInsets.only(top:0,bottom: 5.h,right: 5.w,left: 3.w),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.r),
-                      side: BorderSide(color: AppColors.colors.blueColors,width: 1.w)
-                  ),
-                  leading: Icon(setting["Icon"],color: AppColors.colors.blueColors,),
-                  title: Text(setting["Text"],style: TextStyles.w600.copyWith(fontSize: 12.sp,color: AppColors.colors.blackColors),),
-                  trailing: Icon(Icons.arrow_forward_ios_outlined,color: AppColors.colors.clayColors,),
-                )
- */

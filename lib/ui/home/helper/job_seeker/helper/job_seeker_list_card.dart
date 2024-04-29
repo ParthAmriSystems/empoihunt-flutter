@@ -4,6 +4,7 @@ import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class JobSeekerListCard extends ConsumerWidget {
   final JobPostModel jobPostModel;
@@ -33,10 +34,16 @@ class JobSeekerListCard extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
-                      child: Text(
-                        jobPostModel.vJobTitle ?? "",
-                        style: TextStyles.w500.copyWith(
-                            fontSize: 14.sp, color: AppColors.colors.blackColors),
+                      child: Hero(
+                        tag: jobPostModel.vJobTitle!,
+                        child: Material(
+                          color: Colors.transparent,
+                          child: Text(
+                            jobPostModel.vJobTitle ?? "",
+                            style: TextStyles.w500.copyWith(
+                                fontSize: 14.sp, color: AppColors.colors.blackColors),
+                          ),
+                        ),
                       ),
                     ),
                     Text(
@@ -195,6 +202,6 @@ class JobSeekerListCard extends ConsumerWidget {
           ),
         ),
       ),
-    );
+    ).animate().fadeIn(duration: Duration(milliseconds: 600));
   }
 }

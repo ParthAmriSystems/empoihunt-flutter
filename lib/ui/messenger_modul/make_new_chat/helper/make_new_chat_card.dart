@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import '../../../utils/theme/app_color.dart';
-import '../../../utils/theme/text_styles.dart';
-import '../../../utils/theme/theme.dart';
+import 'package:emploiflutter/ui/utils/theme/app_color.dart';
+import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
+import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
 class MakeNewChatCard extends StatelessWidget {
   final void Function()? onTap;

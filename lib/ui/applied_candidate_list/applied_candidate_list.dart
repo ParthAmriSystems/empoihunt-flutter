@@ -6,6 +6,7 @@ import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 import '../utils/common_widget/common_no_data_found_layout.dart';
 import '../utils/theme/app_assets.dart';
@@ -65,7 +66,7 @@ class _AppliedCandidateListState extends ConsumerState<AppliedCandidateList> {
                 value: job,
                 child: SizedBox(
                   width: context.size!.width,
-                  child: Container(
+                  child: Container( 
                     decoration:  BoxDecoration(
                       borderRadius: BorderRadius.circular(6.r),
                     ),
@@ -87,7 +88,7 @@ class _AppliedCandidateListState extends ConsumerState<AppliedCandidateList> {
                     children:
                     List.generate(appliedCandidateWatch.appliedUserList.length, (index) {
                       final user = appliedCandidateWatch.appliedUserList[index];
-                      return  AppliedCandidateListTile(user: user,);
+                      return  AppliedCandidateListTile(user: user,).animate().fadeIn(duration: Duration(milliseconds: 400));
                     })
                 ) ,
               ),

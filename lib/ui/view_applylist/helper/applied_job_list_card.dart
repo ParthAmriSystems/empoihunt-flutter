@@ -33,10 +33,16 @@ class AppliedJobListCard extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
-                      child: Text(
-                        saveJobModel.vJobTitle ?? "",
-                        style: TextStyles.w500.copyWith(
-                            fontSize: 14.sp, color: AppColors.colors.blackColors),
+                      child: Hero(
+                        tag: saveJobModel.vJobTitle!,
+                        child: Material(
+                          color: Colors.transparent,
+                          child: Text(
+                            saveJobModel.vJobTitle ?? "",
+                            style: TextStyles.w500.copyWith(
+                                fontSize: 14.sp, color: AppColors.colors.blackColors),
+                          ),
+                        ),
                       ),
                     ),
                     Text(

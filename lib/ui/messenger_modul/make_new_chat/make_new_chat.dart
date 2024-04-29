@@ -7,9 +7,10 @@ import 'package:emploiflutter/ui/utils/app_constant.dart';
 import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:page_transition/page_transition.dart';
-import '../../utils/common_widget/common_no_data_found_layout.dart';
-import '../../utils/theme/app_assets.dart';
+import 'package:emploiflutter/ui/utils/common_widget/common_no_data_found_layout.dart';
+import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 
 class MakeNewChat extends ConsumerStatefulWidget {
@@ -71,7 +72,7 @@ class _MakeNewChatState extends ConsumerState<MakeNewChat> {
                   Navigator.push(context, PageTransition(child:   PersonalChat(profileUrl: recruiter.tProfileUrl!, personName: "${recruiter.vFirstName} ${recruiter.vLastName}", chatPersonFId: recruiter.vFirebaseId!, phone: recruiter.vMobile??"", ), type: PageTransitionType.rightToLeft,childCurrent: widget));
                 },
                   profileUrl: recruiter.tProfileUrl!,
-                  personName: "${recruiter.vFirstName} ${recruiter.vLastName}", );
+                  personName: "${recruiter.vFirstName} ${recruiter.vLastName}", ).animate().fadeIn(duration: Duration(milliseconds: 500));
               } else {
                 return const Center(child: CircularProgressIndicator());
               }
@@ -95,7 +96,7 @@ class _MakeNewChatState extends ConsumerState<MakeNewChat> {
                   Navigator.push(context, PageTransition(child: PersonalChat(profileUrl: jobSeeker.tProfileUrl!, personName: "${jobSeeker.vFirstName} ${jobSeeker.vLastName}", chatPersonFId: jobSeeker.vFirebaseId??"", phone: jobSeeker.vMobile??"",), type: PageTransitionType.rightToLeft,childCurrent: widget));
                 },
                   profileUrl: jobSeeker.tProfileUrl!,
-                  personName: '${jobSeeker.vFirstName} ${jobSeeker.vLastName}', );
+                  personName: '${jobSeeker.vFirstName} ${jobSeeker.vLastName}',).animate().fadeIn(duration: Duration(milliseconds: 500));
               } else {
                 return const Center(child: CircularProgressIndicator());
               }

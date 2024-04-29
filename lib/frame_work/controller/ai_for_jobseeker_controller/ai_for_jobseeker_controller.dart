@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:emploiflutter/ui/utils/app_constant.dart';
 import 'package:emploiflutter/ui/utils/common_widget/helper.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
@@ -69,6 +70,15 @@ class AiForJobSeekerController extends ChangeNotifier{
       if(selectedJobDepartment !=null){
         if(selectedExpertise != null){
           if(selectedYearlyEx != null){
+            // rocketVisible = true;
+            // loadingVisible = false;
+            // notifyListeners();
+           /* animationController.reset();
+            animationController.forward().then((value) {
+                rocketVisible = false;
+                loadingVisible = true;
+                aiSuggestQNA(context);
+            });*/
             aiSuggestQNA(context);
           }else{
             isYearlyExpSelect = false;
@@ -104,23 +114,41 @@ class AiForJobSeekerController extends ChangeNotifier{
     }catch(e){
       isLoading = false;
       appCommonShowToast(context: context, msg: "Something went wrong");
+      clearData();
       notifyListeners();
       Future.error("Gemini error ${e.toString()}");
     }
   }
+
+  /// Animation ///
+ /* late AnimationController animationController;
+  late Animation<double> animation;
+  bool rocketVisible = false;
+  bool loadingVisible = true;
+
+  initializeAnimation({required TickerProvider vsync}){
+    animationController =
+        AnimationController(vsync: vsync, duration: Duration(seconds:5));
+    animation = Tween(end: 1.0, begin: 0.0).animate(animationController);
+  }*/
+  /// Animation ///
+
   clearData(){
-      expertiseController.clear();
-      jobDepartmentController.clear();
-      yearlyExperienceController.clear();
-      selectedYearlyEx = null;
-      selectedExpertise = null;
-      selectedJobDepartment = null;
-      qnaList= [];
-      isJobDepartmentSelect=true;
-      isExpertiseSelect=true;
-      isYearlyExpSelect=true;
-      notifyListeners();
+    expertiseController.clear();
+    jobDepartmentController.clear();
+    yearlyExperienceController.clear();
+    selectedYearlyEx = null;
+    selectedExpertise = null;
+    selectedJobDepartment = null;
+    qnaList= [];
+    isJobDepartmentSelect=true;
+    isExpertiseSelect=true;
+    isYearlyExpSelect=true;
+   /* rocketVisible = false;
+    loadingVisible = true;*/
+    notifyListeners();
   }
+
 }
 
 class QNA{
@@ -135,7 +163,6 @@ class QNA{
     answer: json["answer"],
     question: json["question"]
   );
-
 }
 
 List<String> itExpertise = [

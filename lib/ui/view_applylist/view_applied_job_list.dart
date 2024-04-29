@@ -3,6 +3,7 @@ import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../frame_work/controller/job_details_controller/job_details_controller.dart';
 import '../job_details/job_details.dart';
@@ -83,7 +84,7 @@ class _ViewAppliedJobListState extends ConsumerState<ViewAppliedJobList> {
                             await Navigator.push(context,
                                 MaterialPageRoute(builder: (_) =>  JobDetails(jobDetail: jobList.job!,)));
                           },
-                        );}else{
+                        ).animate().fadeIn(duration: Duration(milliseconds: 300));}else{
                         return  const Center(child: CircularProgressIndicator());
                       }
                     })

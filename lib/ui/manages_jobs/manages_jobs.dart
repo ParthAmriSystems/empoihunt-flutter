@@ -3,9 +3,10 @@ import 'package:emploiflutter/ui/manages_jobs/helper/manage_job_tile.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_appbar.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
-import '../utils/common_widget/common_no_data_found_layout.dart';
-import '../utils/theme/app_assets.dart';
+import 'package:emploiflutter/ui/utils/common_widget/common_no_data_found_layout.dart';
+import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 
 class ManagesJobs extends ConsumerStatefulWidget {
   const ManagesJobs({super.key});
@@ -52,7 +53,7 @@ class _ManagesJobsState extends ConsumerState<ManagesJobs> {
                   manageJobPostWatch.jobPostList.length, (index) {
                 if(index < manageJobPostWatch.jobPostList.length){
                   final jobList = manageJobPostWatch.jobPostList[index];
-                  return  ManageJobTile(jobPost: jobList,);
+                  return  ManageJobTile(jobPost: jobList,).animate().fadeIn(duration: Duration(milliseconds: 400));
                 }else{
                   return  const Center(child: CircularProgressIndicator());
                 }

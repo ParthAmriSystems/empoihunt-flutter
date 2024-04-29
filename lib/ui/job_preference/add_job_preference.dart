@@ -144,7 +144,10 @@ class AddJobPreference extends ConsumerWidget {
                   onSuggestionSelected: (value) =>
                   jobPreferenceWatch.cityController.text = value),
                SizedBox(height: 10.h,),
-              CommonButton(btnText:jobPreferenceWatch.isUpdateFunc?"Update":"Submit", onPressed:(){
+              CommonButton(
+                backgroundColor: AppColors.colors.blueColors,
+                onPrimary: AppColors.colors.blueDark,
+                btnText:jobPreferenceWatch.isUpdateFunc?"Update":"Submit", onPressed:(){
                 jobPreferenceWatch.submitButton(context);
               },fontSize: 18.sp,txtPadding: EdgeInsets.symmetric(vertical: 8.h,horizontal: 70.w),)
 

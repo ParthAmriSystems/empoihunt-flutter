@@ -10,8 +10,9 @@ import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/scheduler.dart';
-import '../make_new_chat/make_new_chat.dart';
-import '../personal_chat/personal_chat.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:emploiflutter/ui/messenger_modul/make_new_chat/make_new_chat.dart';
+import 'package:emploiflutter/ui/messenger_modul/personal_chat/personal_chat.dart';
 
 
 class Messenger extends ConsumerStatefulWidget {
@@ -105,7 +106,7 @@ class _MessengerState extends ConsumerState<Messenger> {
                 ),
               ),
             ),
-          ).paddingOnly(top: 4.h,left: 6.w,right: 6.w);
+          ).animate().fadeIn(duration: Duration(milliseconds: 500)).paddingOnly(top: 4.h,left: 6.w,right: 6.w);
         },)
     );
   }

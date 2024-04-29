@@ -1,7 +1,9 @@
 
+import 'package:avatar_glow/avatar_glow.dart';
 import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
 import 'package:emploiflutter/ui/utils/app_constant.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 import '../utils/theme/app_assets.dart';
@@ -42,7 +44,7 @@ class _OnBoardingState extends ConsumerState<OnBoarding> {
               Container(
                 alignment:  Alignment.center,
                 height: 620.h,
-                width:  double.infinity.w,
+                width:  size.width.w,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(bottomRight: Radius.circular(50.r),bottomLeft: Radius.circular(50.r))
@@ -53,20 +55,28 @@ class _OnBoardingState extends ConsumerState<OnBoarding> {
                     introViewWatch.onPageChange(val);
                     SharedPrefServices.services.setBool(onBoardingKey, true);
                   },
-                  children: const [
-                    IntroPageView(model: (img: AppAssets.image1,title: "Welcome to EmploiHunt",subtile: "Discover your ideal job here")),
-                    IntroPageView(model: (img: AppAssets.image2,title: "Recruit best employee",subtile: "Employ the best talent more quickly with Emploihunt")),
-                    IntroPageView(model: (img: AppAssets.image3,title: "Get your Best Job Here",subtile: "Discover your ideal job here")),
-                    IntroPageView(model: (img: AppAssets.image4,title: "Campus Placement",subtile: "Emploihunt can help you find your ideal job on campus")),
+                  children:  [
+                    IntroPageView(model: (img: AppAssets.image1,title: "Welcome to EmploiHunt",subtile: "Discover your ideal job here"),imgEffects: [ScaleEffect(duration: Duration(milliseconds: 700),),SlideEffect()],),
+                        // .animate().slideY(),
+                    IntroPageView(model: (img: AppAssets.image2,title: "Recruit best employee",subtile: "Employ the best talent more quickly with Emploihunt"),imgEffects: [SlideEffect(begin: Offset(-1.0,0.0),end: Offset(0.0,0.0),duration: Duration(milliseconds: 700))]),
+                    IntroPageView(model: (img: AppAssets.image3,title: "Get your Best Job Here",subtile: "Discover your ideal job here"),imgEffects: [ScaleEffect(duration: Duration(milliseconds: 700))],),
+                    IntroPageView(model: (img: AppAssets.image4,title: "Campus Placement",subtile: "Emploihunt can help you find your ideal job on campus"),imgEffects: [ShimmerEffect(duration: Duration(milliseconds: 1000))],),
                   ],
                 ),
               ),
             ],
           ),
           Positioned(
-            bottom: 80.h,
-            left: 168.spMin,
-            child: const IntroNextButton(),)
+            bottom: 52.h,
+            left: 143.w,
+            child: AvatarGlow(
+                animate: true,
+                repeat: true,
+                curve: Curves.fastOutSlowIn,
+                glowColor: AppColors.colors.clayColors,
+                startDelay: Duration(milliseconds: 200),
+                endRadius: 50.r,child: const IntroNextButton().animate().scale(duration: Duration(milliseconds: 500))),),
+
         ],
       ),
     );

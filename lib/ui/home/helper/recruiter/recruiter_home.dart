@@ -7,12 +7,13 @@ import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:lottie/lottie.dart';
 import 'package:page_transition/page_transition.dart';
-import '../../../utils/app_constant.dart';
-import '../../../utils/common_widget/common_no_data_found_layout.dart';
-import '../../../utils/theme/app_assets.dart';
-import '../../../utils/theme/text_styles.dart';
+import 'package:emploiflutter/ui/utils/app_constant.dart';
+import 'package:emploiflutter/ui/utils/common_widget/common_no_data_found_layout.dart';
+import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
+import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 
 class RecruiterHome extends ConsumerStatefulWidget {
   const RecruiterHome({super.key});
@@ -109,7 +110,7 @@ class _RecruiterHomeState extends ConsumerState<RecruiterHome> {
                 itemBuilder: (context, index) {
                 if (index < recruiterHomeWatch.jobSeekerList.length) {
                   final jobSeeker = recruiterHomeWatch.jobSeekerList[index];
-                  return RecruiterListTile(user: jobSeeker);
+                  return RecruiterListTile(user: jobSeeker).animate().fadeIn(duration: Duration(milliseconds: 400));
                 } else {
                   return const Center(child: CircularProgressIndicator());
                 }

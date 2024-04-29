@@ -5,14 +5,27 @@ import 'package:emploiflutter/ui/utils/common_widget/common_dropdown_form_field.
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:lottie/lottie.dart';
 import '../utils/theme/text_styles.dart';
 
-class AIForJobSeeker extends ConsumerWidget {
+class AIForJobSeeker extends ConsumerStatefulWidget {
   const AIForJobSeeker({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<AIForJobSeeker> createState() => _AIForJobSeekerState();
+}
+
+class _AIForJobSeekerState extends ConsumerState<AIForJobSeeker>  with SingleTickerProviderStateMixin{
+
+  /*@override
+  void initState() {
+    super.initState();
+    ref.read(aiForJobSeekerController).initializeAnimation(vsync: this);
+  }*/
+
+  @override
+  Widget build(BuildContext context,) {
     final aiForJobSeekerWatch = ref.watch(aiForJobSeekerController);
     return PopScope(
       canPop: true,
@@ -43,7 +56,7 @@ class AIForJobSeeker extends ConsumerWidget {
                 ),
                 const Spacer(),
               ],
-            )):
+            )).animate().scale():
         aiForJobSeekerWatch.qnaList.isEmpty?
             ///------Form to get QNA ---------///
               Center(
@@ -120,8 +133,9 @@ class AIForJobSeeker extends ConsumerWidget {
                           fontSize: 16.sp,
                           txtPadding: EdgeInsetsDirectional.symmetric(vertical: 8.h),
                           onPressed: (){
-                        aiForJobSeekerWatch.submitButton(context);
-                      }),
+                            aiForJobSeekerWatch.submitButton(context);
+
+                          }),
                     ),
                   ],
                 ),
@@ -152,3 +166,22 @@ class AIForJobSeeker extends ConsumerWidget {
     );
   }
 }
+/*
+
+AnimatedBuilder(animation: aiForJobSeekerWatch.animation, builder: (context, child) {
+return Visibility(
+visible: aiForJobSeekerWatch.rocketVisible,
+child: Positioned(
+bottom:  MediaQuery.of(context).size.height/ 9 * (1 - aiForJobSeekerWatch.animation.value),
+top: MediaQuery.of(context).size.height * (1 - aiForJobSeekerWatch.animation.value),
+left: MediaQuery.of(context).size.width / 2 - 105.w,
+child: Container(
+width: 250,
+height: 250,
+child: Lottie.asset(AppAssets.rocketLaunchLottie,), // Your image URL
+),
+),
+);
+},)
+
+*/

@@ -4,9 +4,9 @@ import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
 import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
-import '../../../../../frame_work/controller/home_controller/job_seeker_home_controller/job_seeker_home_controller.dart';
-import '../../../../utils/theme/app_color.dart';
-import '../../../../utils/theme/text_styles.dart';
+import 'package:emploiflutter/frame_work/controller/home_controller/job_seeker_home_controller/job_seeker_home_controller.dart';
+import 'package:emploiflutter/ui/utils/theme/app_color.dart';
+import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 
 class JobSeekerHomeSearchDialog extends ConsumerWidget {
   const JobSeekerHomeSearchDialog({super.key});

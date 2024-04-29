@@ -7,7 +7,7 @@ class DioClient{
   static DioClient client = DioClient._private();
 
   BaseOptions baseUrl = BaseOptions(baseUrl: APIEndPoint.baseUrl);
-  static Dio dio =Dio();
+  static Dio dio=Dio();
 
   Future postDataWithJson(String endpoint, Map<String, dynamic> requestBody) async{
   dio.options = baseUrl;

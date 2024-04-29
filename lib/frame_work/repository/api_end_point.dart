@@ -3,7 +3,7 @@ class APIEndPoint{
   APIEndPoint._();
 
   static const String baseUrl= 'https://api.emploihunt.com/api';
-  // static const String baseUrl= 'http://192.168.1.3:5000/api';
+  // static const String baseUrl= 'http://191.232.33.124:5000/api';
 
   static const String privacyPolicy = "/terms-privacy-policy/get_terms_policy_by_id?id=1";
   static const String  termsAndCondition = '/terms-privacy-policy/get_terms_policy_by_id?id=2';

@@ -2,11 +2,10 @@
 
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter_svg/svg.dart';
-
-import '../../../frame_work/repository/model/job_seeker_model/job_post_model/job_post_model.dart';
-import '../../utils/theme/app_assets.dart';
-import '../../utils/theme/app_color.dart';
-import '../../utils/theme/text_styles.dart';
+import 'package:emploiflutter/frame_work/repository/model/job_seeker_model/job_post_model/job_post_model.dart';
+import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
+import 'package:emploiflutter/ui/utils/theme/app_color.dart';
+import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 
 class JobDetailsBelowPart extends StatelessWidget {
   final JobPostModel jobPostModel;

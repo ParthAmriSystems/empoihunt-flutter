@@ -124,7 +124,6 @@ class JobPreferenceController extends ChangeNotifier{
           context.pop();
           showSnackBar(context: context, error: "You've Successfully Added");
         }
-
       }
     }catch(e) {
       isLoading = false;
@@ -165,7 +164,19 @@ class JobPreferenceController extends ChangeNotifier{
     notifyListeners();
   }
     submitButton(BuildContext context,){
-   isUpdateFunc?updateJobPreferenceApiCall(context,): insertJobPreferenceApiCall(context);
+    if(jobTitleSearchController.text.isNotEmpty){
+      if(selectedRemoteValue!=""){
+        if(cityController.text.isNotEmpty){
+          isUpdateFunc?updateJobPreferenceApiCall(context,): insertJobPreferenceApiCall(context);
+        }else{
+          showSnackBar(context: context, error: "Prefer city is required!");
+        }
+      }else{
+        showSnackBar(context: context, error: "Please select working mode");
+      }
+    }else{
+      showSnackBar(context: context, error: "Job title is required!");
+    }
     notifyListeners();
     }
 

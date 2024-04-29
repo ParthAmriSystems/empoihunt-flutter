@@ -1,11 +1,12 @@
 import 'package:emploiflutter/frame_work/controller/setting_controller/job_preference/job_preference_controller.dart';
 import 'package:emploiflutter/frame_work/repository/model/job_preference_model/job_preference_model.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:page_transition/page_transition.dart';
 
-import '../../utils/theme/app_color.dart';
-import '../../utils/theme/text_styles.dart';
-import '../../utils/theme/theme.dart';
-import '../add_job_preference.dart';
+import 'package:emploiflutter/ui/utils/theme/app_color.dart';
+import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
+import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:emploiflutter/ui/job_preference/add_job_preference.dart';
 
 class JobPreferenceTile extends ConsumerWidget {
   final JobPreferenceModel jobData;
@@ -53,6 +54,6 @@ class JobPreferenceTile extends ConsumerWidget {
           ),
         ),
       ),
-    );
+    ).animate().fadeIn(duration: Duration(milliseconds: 300));
   }
 }
