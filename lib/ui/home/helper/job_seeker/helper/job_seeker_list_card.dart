@@ -35,7 +35,7 @@ class JobSeekerListCard extends ConsumerWidget {
                   children: [
                     Expanded(
                       child: Hero(
-                        tag: jobPostModel.vJobTitle!,
+                        tag: jobPostModel.tCompanyLogoUrl!,
                         child: Material(
                           color: Colors.transparent,
                           child: Text(

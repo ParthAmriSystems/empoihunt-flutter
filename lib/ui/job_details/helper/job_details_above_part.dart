@@ -30,7 +30,7 @@ class JobDetailsAbovePart extends ConsumerWidget {
               children: [
                 jobDetailsWatch.offset <= 0
                     ? Hero(
-                        tag: jobPostModel.vJobTitle!,
+                     tag: jobPostModel.tCompanyLogoUrl!,
                         child: Material(
                             color: Colors.transparent,
                             child: Text(
