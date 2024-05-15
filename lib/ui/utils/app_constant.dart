@@ -37,6 +37,20 @@
 
 ///------------ Hive Box Keys ----------///
 
+///----------------IN APP PURCHASE--------------///
+const String SKU_MONTHLY ="";
+const String SKU_YEARLY ="";
+const String SKU_MONTHLY_IOS ="";
+const String SKU_YEARLY_IOS ="";
+const bool IS_PRODUCTION_MODE =false;
+const String IS_PURCHASE ="IS_PURCHASE";
+const String APP_SECRET_KEY_PRODUCTION ="";
+const String APP_SECRET_KEY_DEV ="";
+const String ORIGINAL_TRANSACTION_ID ="ORIGINAL_TRANSACTION_ID";
+
+
+///----------------IN APP PURCHASE--------------///
+
 
 //// 0 job Seeker, 1 Recruiter
 // int userRole = 1;

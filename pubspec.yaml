@@ -67,6 +67,14 @@ dependencies:
   device_info_plus:
   package_info_plus:
 
+
+  # IN APP PURCHASE
+  in_app_purchase: ^3.2.0
+  rounded_loading_button: ^2.1.0
+  firebase_remote_config:
+  animator: ^3.3.0
+
+
   #Fire base
   firebase_core:
   firebase_auth:
