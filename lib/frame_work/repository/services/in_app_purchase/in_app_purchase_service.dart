@@ -54,6 +54,11 @@ class InAppPurchaseModule{
 
   PurchaseCallBack? callBack;
 
+
+  InAppPurchaseModule.init() {
+    if (_inApp == null) _inApp = InAppPurchaseModule._init();
+  }
+
   InAppPurchaseModule._init() {
     initStoreInfo();
   }
@@ -87,6 +92,8 @@ class InAppPurchaseModule{
       await iosPlatformAddition.setDelegate(ExamplePaymentQueueDelegate());
     }
 
+
+    /// for get data from play store ///
     final productDetailResponse  = await _inAppPurchase.queryProductDetails(productDetailList.toSet());
     if(productDetailResponse.error == null){
     productDetails = productDetailResponse.productDetails;
@@ -103,8 +110,15 @@ class InAppPurchaseModule{
         print("numberOfUnits free days ==>>> ${element.skProduct.introductoryPrice!.subscriptionPeriod.numberOfUnits}");
       }
       });
-    }
+      print("Subcription data ${subscriptionProductDetails[0].title}");
+      print("Subcription data ${subscriptionProductDetails[0].id}");
+      print("Subcription data ${subscriptionProductDetails[0].price}");
 
+      print("Subcription data ${subscriptionProductDetails[1].title}");
+      print("Subcription data ${subscriptionProductDetails[1].id}");
+      print("Subcription data ${subscriptionProductDetails[1].price}");
+
+    }
   }
 
 
@@ -146,11 +160,10 @@ class InAppPurchaseModule{
 
       purchaseDetailsList.forEach((PurchaseDetails purchaseDetails) async {
         if (purchaseDetails.status == PurchaseStatus.pending) {
-
         } else {
           if (purchaseDetails.status == PurchaseStatus.error) {
             // _handleError(purchaseDetails.error!);
-            print("purchase error${PurchaseStatus.error}");
+            print("purchase error ${PurchaseStatus.error}");
           } else if (purchaseDetails.status == PurchaseStatus.purchased ||
               purchaseDetails.status == PurchaseStatus.restored) {
             callBack?.onPurchaseSuccess(purchaseDetails);
@@ -226,6 +239,10 @@ class InAppPurchaseModule{
 
 
 
+
+  List<ProductDetails> getSubscriptionProductDetailsList(){
+    return subscriptionProductDetails;
+  }
 
 
   bool isPurchasePlan(){

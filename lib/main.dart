@@ -4,6 +4,8 @@ import 'package:emploiflutter/frame_work/repository/model/splash/native_device_m
 import 'package:emploiflutter/frame_work/repository/model/user_model/user_detail_data_model.dart';
 import 'package:emploiflutter/frame_work/repository/model/user_model/user_experience_model.dart';
 import 'package:emploiflutter/frame_work/repository/services/hive_service/box_service.dart';
+import 'package:emploiflutter/frame_work/repository/services/in_app_purchase/in_app_puchase_iu.dart';
+import 'package:emploiflutter/frame_work/repository/services/in_app_purchase/in_app_purchase_service.dart';
 import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
 import 'package:emploiflutter/ui/splash/splash.dart';
 import 'package:emploiflutter/ui/utils/app_constant.dart';
@@ -27,10 +29,12 @@ Future main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,);
 
-  ZegoUIKitPrebuiltCallInvitationService().setNavigatorKey(navigatorKey);
+  // ZegoUIKitPrebuiltCallInvitationService().setNavigatorKey(navigatorKey);
+  //
+  InAppPurchaseModule.init();
 
 
-///---------------FCM Token ------------///
+  ///---------------FCM Token ------------///
   await FirebaseMessaging.instance.setAutoInitEnabled(true);
   SystemChrome.setPreferredOrientations(
       [ DeviceOrientation.portraitUp, DeviceOrientation.portraitDown,]);
@@ -64,14 +68,14 @@ Future main() async {
 
 
    ///----------------- Video call -----------------------///
-  ZegoUIKit().initLog().then((value) {
-    ZegoUIKitPrebuiltCallInvitationService().useSystemCallingUI(
-      [ZegoUIKitSignalingPlugin()],
-    );
-
-    runApp( ProviderScope(child: MyApp(navigatorKey: navigatorKey,)));
-  });
-   // runApp( ProviderScope(child: MyApp(navigatorKey: navigatorKey,)));
+  // ZegoUIKit().initLog().then((value) {
+  //   ZegoUIKitPrebuiltCallInvitationService().useSystemCallingUI(
+  //     [ZegoUIKitSignalingPlugin()],
+  //   );
+  //
+  //   runApp( ProviderScope(child: MyApp(navigatorKey: navigatorKey,)));
+  // });
+   runApp( ProviderScope(child: MyApp(navigatorKey: navigatorKey,)));
 }
 
 class MyApp extends StatelessWidget {
@@ -89,6 +93,6 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(useMaterial3: true,
           colorScheme: ColorScheme.fromSeed(
               seedColor: AppColors.colors.blueColors),),
-        home: const Splash(),),);
+        home: const InAppPurchaseUI(),),);
   }
 }
