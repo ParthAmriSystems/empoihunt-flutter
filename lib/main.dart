@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:emploiflutter/frame_work/repository/model/splash/native_device_model/native_device_model.dart';
 import 'package:emploiflutter/frame_work/repository/model/user_model/user_detail_data_model.dart';
 import 'package:emploiflutter/frame_work/repository/model/user_model/user_experience_model.dart';
@@ -29,7 +27,7 @@ Future main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,);
 
-  // ZegoUIKitPrebuiltCallInvitationService().setNavigatorKey(navigatorKey);
+  ZegoUIKitPrebuiltCallInvitationService().setNavigatorKey(navigatorKey);
   //
   InAppPurchaseModule.init();
 
@@ -68,14 +66,14 @@ Future main() async {
 
 
    ///----------------- Video call -----------------------///
-  // ZegoUIKit().initLog().then((value) {
-  //   ZegoUIKitPrebuiltCallInvitationService().useSystemCallingUI(
-  //     [ZegoUIKitSignalingPlugin()],
-  //   );
-  //
-  //   runApp( ProviderScope(child: MyApp(navigatorKey: navigatorKey,)));
-  // });
-   runApp( ProviderScope(child: MyApp(navigatorKey: navigatorKey,)));
+  ZegoUIKit().initLog().then((value) {
+    ZegoUIKitPrebuiltCallInvitationService().useSystemCallingUI(
+      [ZegoUIKitSignalingPlugin()],
+    );
+
+    runApp( ProviderScope(child: MyApp(navigatorKey: navigatorKey,)));
+  });
+  //  runApp( ProviderScope(child: MyApp(navigatorKey: navigatorKey,)));
 }
 
 class MyApp extends StatelessWidget {

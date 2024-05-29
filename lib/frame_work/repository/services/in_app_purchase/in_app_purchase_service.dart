@@ -72,6 +72,7 @@ class InAppPurchaseModule{
     ///--------Check how many items in there--------///
     print("productDetailList size ----- ${productDetailList.length}");
 
+    ///-----------------Stream that continu ously listen to the user purchases list -------------------------------///
     final Stream<List<PurchaseDetails>> purchaseUpdated = _inAppPurchase.purchaseStream;
     _subscription = purchaseUpdated.listen((purchaseDetailsList) {
       print("_subscription ----- call");

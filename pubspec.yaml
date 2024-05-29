@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.1.0 <4.0.0'
+  sdk: '>=3.4.1 <4.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -58,7 +58,7 @@ dependencies:
   avatar_glow: ^2.0.2
   speech_to_text: ^6.4.1
   flutter_pdfview: ^1.3.2
-  syncfusion_flutter_pdfviewer: ^23.2.7
+  syncfusion_flutter_pdfviewer: ^24.0.0
 
   #for call and sms
   url_launcher: ^6.2.2
