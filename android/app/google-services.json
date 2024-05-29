@@ -79,6 +79,35 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:881312176002:android:1da29288cecdb33d45219b",
+        "android_client_info": {
+          "package_name": "it.seac.paghe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "881312176002-mgeve5232ibvm9n2kmaqht7fdahl5i6h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBr0KdGDKP380cNUqQd00V8A7diax4RQJQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "881312176002-mgeve5232ibvm9n2kmaqht7fdahl5i6h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"

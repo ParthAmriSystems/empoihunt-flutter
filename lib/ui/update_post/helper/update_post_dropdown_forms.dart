@@ -24,7 +24,7 @@ class UpdatePostDropDownForms extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CommonTypeAheadFormField(
-            direction: AxisDirection.up,
+            direction: VerticalDirection.up,
             prefixIcon: SvgPicture.asset(AppAssets.qualificationSvg,color: AppColors.colors.blueColors,).paddingSymmetric(vertical: 10.h,horizontal: 10.w),
             controller: managePostJobWatch.educationSearchController,
             hintText: "Bachelor of Engineering(BE)",

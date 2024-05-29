@@ -76,4 +76,5 @@ class DefaultFirebaseOptions {
     androidClientId: '881312176002-bs5laetreq5pshjqmnuoih8o77nh1d33.apps.googleusercontent.com',
     iosBundleId: 'com.amri.emploihunt',
   );
+
 }

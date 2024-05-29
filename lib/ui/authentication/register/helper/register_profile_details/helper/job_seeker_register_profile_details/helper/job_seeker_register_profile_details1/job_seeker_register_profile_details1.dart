@@ -52,7 +52,7 @@ class JobSeekerRegisterProfileDetails1 extends ConsumerWidget {
                     ),
                     CommonTypeAheadFormField(
                       prefixIcon: null,
-                        direction: AxisDirection.up,
+                        direction: VerticalDirection.up,
                         onChanged: (value){
                           // notAllowSpecialChar(registerProfileDetailsWatch.qualificationSearchController, value);
                           registerProfileDetailsWatch.isQualificationEmptyUpdate(value);

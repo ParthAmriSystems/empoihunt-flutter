@@ -32,7 +32,7 @@ class AddJobPreference extends ConsumerWidget {
           child: Column(
             children: [
               CommonTypeAheadFormField(
-                direction: AxisDirection.down,
+                direction: VerticalDirection.down,
                   prefixIcon: SvgPicture.asset(AppAssets.jobTitleSvg,color: AppColors.colors.blueColors,).paddingSymmetric(vertical: 10.h,horizontal: 10.w),
                   controller: jobPreferenceWatch.jobTitleSearchController,
                   hintText: "Android Developer",
@@ -134,7 +134,7 @@ class AddJobPreference extends ConsumerWidget {
 
               ///----------------- City Form Field ------------------///
               CommonTypeAheadFormField(
-                  direction: AxisDirection.up,
+                  direction: VerticalDirection.up,
                   onChanged: (value)=>notAllowSpecialChar(jobPreferenceWatch.cityController, value),
                   controller: jobPreferenceWatch.cityController,
                   hintText: "City",

@@ -55,7 +55,7 @@ class RecruiterRegisterProfileDetails2 extends ConsumerWidget {
                     ),
                     CommonTypeAheadFormField(
                         prefixIcon: null,
-                        direction: AxisDirection.up,
+                        direction: VerticalDirection.up,
                         onChanged: (value){
                           registerProfileDetailsWatch.isDesignationEmptyUpdate(value);
                         },
@@ -89,7 +89,7 @@ class RecruiterRegisterProfileDetails2 extends ConsumerWidget {
                     ),
                     CommonTypeAheadFormField(
                         prefixIcon: null,
-                        direction: AxisDirection.up,
+                        direction: VerticalDirection.up,
                         onChanged: (value){
                           registerProfileDetailsWatch.isJobLocationEmptyUpdate(value);
                         },

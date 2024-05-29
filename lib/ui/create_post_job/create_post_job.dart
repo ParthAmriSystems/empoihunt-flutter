@@ -52,7 +52,7 @@ class _CreatePostJobState extends ConsumerState<CreatePostJob> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CommonTypeAheadFormField(
-                  direction: AxisDirection.down,
+                  direction: VerticalDirection.down,
                   onChanged: (value)=>notAllowSpecialChar_withSpace(createPostJobWatch.jobTitleFieldController, value),
                   controller: createPostJobWatch.jobTitleFieldController,
                   hintText: "Job Title",

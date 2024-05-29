@@ -55,7 +55,7 @@ class JobSeekerRegisterProfileDetails2 extends ConsumerWidget {
                     ),
                     CommonTypeAheadFormField(
                         prefixIcon: null,
-                        direction: AxisDirection.up,
+                        direction: VerticalDirection.up,
                         onChanged: (value){
                           // notAllowSpecialChar(registerProfileDetailsWatch.designationSearchController, value);
                           registerProfileDetailsWatch.isSelectedDesignEmptyUpdate(value);
@@ -90,7 +90,7 @@ class JobSeekerRegisterProfileDetails2 extends ConsumerWidget {
                     ),
                     CommonTypeAheadFormField(
                         prefixIcon: null,
-                        direction: AxisDirection.up,
+                        direction: VerticalDirection.up,
                         onChanged: (value){
                           // notAllowSpecialChar(registerProfileDetailsWatch.jobLocationSearchController, value);
                           registerProfileDetailsWatch.isSelectedJobLocEmptyUpdate(value);

@@ -51,7 +51,7 @@ class RecruiterRegisterProfileDetails1 extends ConsumerWidget {
                     ),
                     CommonTypeAheadFormField(
                         prefixIcon: null,
-                        direction: AxisDirection.up,
+                        direction: VerticalDirection.up,
                         onChanged: (value){
                           registerProfileDetailsWatch.isQualificationEmptyUpdate(value);
                         },

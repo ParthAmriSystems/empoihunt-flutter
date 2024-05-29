@@ -43,7 +43,7 @@ class JobSeekerRegisterProfileDetails3 extends ConsumerWidget {
                 children: [
                   CommonTypeAheadFormField(
                       prefixIcon: null,
-                      direction: AxisDirection.up,
+                      direction: VerticalDirection.up,
                       onChanged: (value){
                         registerProfileDetailsWatch.isSelectedJobTitleEmtUpdate(value);
                       },
@@ -78,7 +78,7 @@ class JobSeekerRegisterProfileDetails3 extends ConsumerWidget {
                   ),
                   CommonTypeAheadFormField(
                       prefixIcon: null,
-                      direction: AxisDirection.up,
+                      direction: VerticalDirection.up,
                       onChanged: (value){
                         registerProfileDetailsWatch.isSelectedPrefCityEmtUpdate(value);
                       },
