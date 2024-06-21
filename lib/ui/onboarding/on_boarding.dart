@@ -43,7 +43,7 @@ class _OnBoardingState extends ConsumerState<OnBoarding> {
             children: [
               Container(
                 alignment:  Alignment.center,
-                height: 620.h,
+                height: size.height * .8,
                 width:  size.width.w,
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -67,8 +67,8 @@ class _OnBoardingState extends ConsumerState<OnBoarding> {
             ],
           ),
           Positioned(
-            bottom: 52.h,
-            left: 143.w,
+            bottom: size.height * 0.03,
+            left: size.width * 0.37,
             child: AvatarGlow(
                 animate: true,
                 repeat: true,

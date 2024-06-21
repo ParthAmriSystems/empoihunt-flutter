@@ -12,5 +12,6 @@ class AppColors{
   final Color blackColors = const Color(0xff000000);
   final Color whiteColors = const Color(0xffffffff);
   final Color greyRegent = const Color(0xff8494A4);
+  final Color lightGRey = const Color(0xffCBC9D4);
   final Color whiteCatskill = const Color(0xffE9F4F4);
 }

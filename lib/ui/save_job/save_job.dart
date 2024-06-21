@@ -1,14 +1,13 @@
 import 'package:emploiflutter/frame_work/controller/setting_controller/save_job/save_job_controller.dart';
-import 'package:emploiflutter/ui/save_job/helper/save_job_list_card.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_appbar.dart';
+import 'package:emploiflutter/ui/utils/common_widget/recruiter_list_tile/recruiter_list_card_shimmer.dart';
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
-import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
-
 import '../../frame_work/controller/job_details_controller/job_details_controller.dart';
+import '../utils/common_widget/recruiter_list_tile/recruiter_list_card.dart';
 import '../job_details/job_details.dart';
 import '../utils/common_widget/common_no_data_found_layout.dart';
 
@@ -57,7 +56,18 @@ class _SaveJobState extends ConsumerState<SaveJob> {
         },
         child: Stack(
           children: [
-            saveJobWatch.isLoading? const Center(child: CircularProgressIndicator(),) :
+            saveJobWatch.isLoading? SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: Padding(
+                padding: EdgeInsets.only(top: 8.h, left: 10.w, right: 10.w),
+                child: Column(
+                    children:
+                    List.generate(5, (index) {
+                      return RecruiterListCardShimmer();
+                    })
+                ) ,
+              ),
+            ):
             saveJobWatch.saveJobList.isEmpty?  const CommonNoDataFoundLayout(img: AppAssets.jobSearch, errorTxt: 'Opps sorry! jobs not availble at moment',):
             SingleChildScrollView(
               controller: _scrollController,
@@ -72,8 +82,8 @@ class _SaveJobState extends ConsumerState<SaveJob> {
                         saveJobWatch.saveJobList.length, (index) {
                       if(index < saveJobWatch.saveJobList.length){
                         final jobList = saveJobWatch.saveJobList[index];
-                        return SaveJobListCard(
-                          saveJobModel: jobList.job!,
+                        return RecruiterListCard(
+                          jobPostModel: jobList.job!,
                           onTap: () async{
                             if(jobList.job!.iIsApplied != 1){
                               ref.watch(jobDetailsController).intAppliedValue();

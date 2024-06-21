@@ -96,7 +96,7 @@ class _CreatePostJobState extends ConsumerState<CreatePostJob> {
                   ):
                   Icon(Icons.cloud_upload,color: AppColors.colors.blueColors,size: 25.sp,),
                   SizedBox(width: 10.w,),
-                  Text(createPostJobWatch.imageName !=""? createPostJobWatch.imageName.toString(): "Select your Organization logo",style: TextStyles.w400.copyWith(fontSize: 14.sp,color: AppColors.colors.blackColors),)
+                  Text(createPostJobWatch.imageName !=""? createPostJobWatch.imageName.toString(): "Select your Organization logo",style: TextStyles.w400.copyWith(fontSize: 14.sp,color: AppColors.colors.blackColors),overflow: TextOverflow.ellipsis,)
                 ],
               ),
             ),

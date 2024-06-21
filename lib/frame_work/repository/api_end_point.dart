@@ -37,6 +37,7 @@ class APIEndPoint{
   static const String  jobPreferenceApi = '/jobPreference/jobPreference';
   static const String  jobPreferenceInsertApi = '/jobPreference/insert_preference';
   static const String  jobPreferenceUpdateApi = '/jobPreference/update_preference';
+  static const String  recommendationApi = '/jobSeeker/recommandation/';
 
 ///------------------------------------- job seeker ------------------------------///
 

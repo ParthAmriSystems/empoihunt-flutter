@@ -1,7 +1,8 @@
 import 'package:emploiflutter/frame_work/controller/home_controller/recruiter_home_controller/recruiter_home_controller.dart';
 import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
+import 'package:emploiflutter/ui/home/helper/recruiter/helper/recommandation_tile.dart';
 import 'package:emploiflutter/ui/home/helper/recruiter/helper/recruiter_appbar.dart';
-import 'package:emploiflutter/ui/home/helper/recruiter/helper/recruiter_list_tile.dart';
+import 'package:emploiflutter/ui/utils/common_widget/job_seeker_list_tile/job_seeker_list_tile.dart';
 import 'package:emploiflutter/ui/messenger_modul/messenger/messanger.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
@@ -97,28 +98,63 @@ class _RecruiterHomeState extends ConsumerState<RecruiterHome> {
             child: Padding(
               padding: EdgeInsets.only(top: 8.h, left: 10.w, right: 10.w),
               child: recruiterHomeWatch.isLoading
-                  ? const Center(child: CircularProgressIndicator(),)
+              ///==============================Shimmer Effect===============================///
+                  ? SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
+                child: Column(
+                  children: [
+                    RecommandationSimmerEffect(),
+                    SizedBox(height: 8.h,),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: 5,
+                      itemBuilder: (context, index) {
+                        return JobSeekerListTileShimmer();
+                      },
+                    ),
+                  ],
+                ),
+              )
+              ///===========================Job seeker not found============================///
                   : recruiterHomeWatch.jobSeekerList.isEmpty ?
              const Center(child:  CommonNoDataFoundLayout(img: AppAssets.jobSearch, errorTxt: 'Opps sorry! jobs not availble at moment',))
                   :
-              ListView.builder(
-                controller: recruiterHomeWatch.jobSeekerList.length >=20? _scrollController:null,
-                physics:recruiterHomeWatch.jobSeekerList.length >=20? const BouncingScrollPhysics():null,
-                itemCount:  recruiterHomeWatch.loadMoreData ?
-                recruiterHomeWatch.jobSeekerList.length + 1
-                    : recruiterHomeWatch.jobSeekerList.length,
-                itemBuilder: (context, index) {
-                if (index < recruiterHomeWatch.jobSeekerList.length) {
-                  final jobSeeker = recruiterHomeWatch.jobSeekerList[index];
-                  return RecruiterListTile(user: jobSeeker).animate().fadeIn(duration: Duration(milliseconds: 400));
-                } else {
-                  return const Center(child: CircularProgressIndicator());
-                }
-              },),
+              SingleChildScrollView(
+                controller: _scrollController,
+                physics: BouncingScrollPhysics(),
+                child: Column(
+                  children: [
+                    // RecommandationTile(),
+                    recruiterHomeWatch.recommendationLoading?
+                    RecommandationSimmerEffect():
+                    recruiterHomeWatch.recommendationList.isNotEmpty? RecommandationTile(recommendationList:recruiterHomeWatch.recommendationList):
+                    SizedBox(),
+                    SizedBox(height: 8.h,),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: recruiterHomeWatch.loadMoreData
+                          ? recruiterHomeWatch.jobSeekerList.length + 1
+                          : recruiterHomeWatch.jobSeekerList.length,
+                      itemBuilder: (context, index) {
+                        if (index < recruiterHomeWatch.jobSeekerList.length) {
+                          final jobSeeker = recruiterHomeWatch.jobSeekerList[index];
+                          return JobSeekerListTile(user: jobSeeker)
+                              .animate()
+                              .fadeIn(duration: Duration(milliseconds: 400));
+                        } else {
+                          return const Center(child: CircularProgressIndicator());
+                        }
+                      },
+                    ),
+                  ],
+                ),
+              ),
             ),
           ),
 
-
+          ///===========Chat icon on the right side======///
           Positioned(
               right: 0,
               top: 35.h,

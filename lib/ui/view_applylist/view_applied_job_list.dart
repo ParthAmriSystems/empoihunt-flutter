@@ -1,17 +1,17 @@
 import 'package:emploiflutter/frame_work/controller/setting_controller/view_apply_list/view_apply_list_controller.dart';
+import 'package:emploiflutter/ui/utils/common_widget/job_seeker_list_tile/job_seeker_list_tile.dart';
+import 'package:emploiflutter/ui/utils/common_widget/recruiter_list_tile/recruiter_list_card.dart';
+import 'package:emploiflutter/ui/utils/common_widget/recruiter_list_tile/recruiter_list_card_shimmer.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-
 import '../../frame_work/controller/job_details_controller/job_details_controller.dart';
 import '../job_details/job_details.dart';
-import '../save_job/helper/save_job_list_card.dart';
 import '../utils/common_widget/common_appbar.dart';
 import '../utils/common_widget/common_no_data_found_layout.dart';
 import '../utils/theme/app_assets.dart';
-import '../utils/theme/text_styles.dart';
 
 class ViewAppliedJobList extends ConsumerStatefulWidget {
   const ViewAppliedJobList({super.key});
@@ -55,7 +55,19 @@ class _ViewAppliedJobListState extends ConsumerState<ViewAppliedJobList> {
         },
         child: Stack(
           children: [
-            applyListWatch.isLoading? const Center(child: CircularProgressIndicator(),) :
+            ///===========================Shimmer============================///
+            applyListWatch.isLoading?   SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: Padding(
+                padding: EdgeInsets.only(top: 8.h, left: 10.w, right: 10.w),
+                child: Column(
+                    children:
+                    List.generate(5, (index) {
+                      return RecruiterListCardShimmer();
+                    })
+                ) ,
+              ),
+            ):
             applyListWatch.appliedJobList.isEmpty? const Center(child: CommonNoDataFoundLayout(img: AppAssets.jobSearch, errorTxt: 'Opps sorry! jobs not availble at moment',)):
             SingleChildScrollView(
               controller: _scrollController,
@@ -70,8 +82,8 @@ class _ViewAppliedJobListState extends ConsumerState<ViewAppliedJobList> {
                         applyListWatch.appliedJobList.length, (index) {
                       if(index < applyListWatch.appliedJobList.length){
                         final jobList = applyListWatch.appliedJobList[index];
-                        return SaveJobListCard(
-                          saveJobModel: jobList.job!,
+                        return RecruiterListCard(
+                          jobPostModel: jobList.job!,
                           onTap: () async{
                             if(jobList.job!.iIsApplied != 1){
                               ref.watch(jobDetailsController).intAppliedValue();

@@ -4,11 +4,12 @@ import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
-class SaveJobListCard extends ConsumerWidget {
-  final JobPostModel saveJobModel;
+class RecruiterListCard extends ConsumerWidget {
+  final JobPostModel jobPostModel;
   final void Function()? onTap;
-  const SaveJobListCard({super.key, required this.saveJobModel, this.onTap});
+  const RecruiterListCard({super.key, required this.jobPostModel, this.onTap});
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
@@ -33,14 +34,20 @@ class SaveJobListCard extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
-                      child: Text(
-                        saveJobModel.vJobTitle ?? "",
-                        style: TextStyles.w500.copyWith(
-                            fontSize: 14.sp, color: AppColors.colors.blackColors),
+                      child: Hero(
+                        tag: jobPostModel.tCompanyLogoUrl!,
+                        child: Material(
+                          color: Colors.transparent,
+                          child: Text(
+                            jobPostModel.vJobTitle ?? "",
+                            style: TextStyles.w500.copyWith(
+                                fontSize: 14.sp, color: AppColors.colors.blackColors),
+                          ),
+                        ),
                       ),
                     ),
                     Text(
-                      "${saveJobModel.vSalaryPackage} LPA+",
+                      "${jobPostModel.vSalaryPackage} LPA+",
                       style: TextStyles.w500.copyWith(
                           fontSize: 14.sp, color: AppColors.colors.blackColors),
                     ),
@@ -59,24 +66,25 @@ class SaveJobListCard extends ConsumerWidget {
                             borderRadius: BorderRadius.circular(4.r),
                             color: AppColors.colors.clayColors),
                         child: Text(
-                          "${saveJobModel.vExperience} Years",
+                          "${jobPostModel.vExperience} Years Ex.",
+                          overflow: TextOverflow.ellipsis,
                           style: TextStyles.w400.copyWith(
                               fontSize: 12.sp, color: AppColors.colors.whiteColors),
                         ),
                       ),
                     ),
-                    Card(
-                      child: Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 6.w, vertical: 4.h),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(4.r),
-                            color: AppColors.colors.clayColors),
-                        child: Text(
-                          saveJobModel.vEducation!,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyles.w400.copyWith(
-                              fontSize: 12.sp, color: AppColors.colors.whiteColors),
+                    Expanded(child: Card(child: Container(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 6.w, vertical: 4.h),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(4.r),
+                              color: AppColors.colors.clayColors),
+                          child: Text(
+                            jobPostModel.vEducation!,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyles.w400.copyWith(
+                                fontSize: 12.sp, color: AppColors.colors.whiteColors),
+                          ),
                         ),
                       ),
                     ),
@@ -89,13 +97,23 @@ class SaveJobListCard extends ConsumerWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      saveJobModel.vCompanyName!,
-                      style: TextStyles.w500.copyWith(
-                          fontSize: 12.sp, color: AppColors.colors.blackColors),
+                    // Text(
+                    //   jobPostModel.vCompanyName!,
+                    //   style: TextStyles.w500.copyWith(
+                    //       fontSize: 12.sp, color: AppColors.colors.blackColors),
+                    // ),
+                    Expanded(
+                      child: Text(
+                        jobPostModel.tTechnicalSkill!,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyles.w500.copyWith(
+                            fontSize: 12.sp, color: AppColors.colors.blackColors),
+                      ),
                     ),
+                    SizedBox(width: 5.w,),
                     Text(
-                      "${saveJobModel.iNumberOfVacancy} Vacancy",
+                      "${jobPostModel.iNumberOfVacancy} Vacancy",
                       style: TextStyles.w500.copyWith(
                           fontSize: 12.sp, color: AppColors.colors.blackColors),
                     ),
@@ -115,7 +133,7 @@ class SaveJobListCard extends ConsumerWidget {
                           decoration: const BoxDecoration(
                             shape: BoxShape.circle
                           ),
-                          child:saveJobModel.tCompanyLogoUrl !=""?
+                          child:jobPostModel.tCompanyLogoUrl !=""?
                           Image.network(
                             loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
                               if (loadingProgress == null) {
@@ -131,19 +149,20 @@ class SaveJobListCard extends ConsumerWidget {
                                 child: Text('Error loading image'),
                               );
                             },
-                            "https://api.emploihunt.com${saveJobModel.tCompanyLogoUrl!}",fit: BoxFit.fill,):
-                          Image.asset(AppAssets.profilePicPng,fit: BoxFit.fill,)
+                            "https://api.emploihunt.com${jobPostModel.tCompanyLogoUrl!}",fit: BoxFit.cover,):
+                          Image.asset(AppAssets.profilePicPng,fit: BoxFit.contain,)
                         ),
                         SizedBox(width: 5.w),
                         Text(
-                          "${saveJobModel.user!.vFirstName} ${saveJobModel.user!.vLastName}",
+                          "${jobPostModel.vCompanyName!}",
+                          // "${jobPostModel.user!.vFirstName} ${jobPostModel.user!.vLastName}",
                           style: TextStyles.w400.copyWith(
-                              fontSize: 11.sp, color: AppColors.colors.blackColors),
+                              fontSize: 12.sp, color: AppColors.colors.blackColors),
                         ),
                       ],
                     ),
                     Text(
-                      saveJobModel.vAddress!,
+                      jobPostModel.vAddress!,
                       style: TextStyles.w400
                           .copyWith(fontSize: 11.sp, color: Colors.grey),
                     ),
@@ -163,7 +182,7 @@ class SaveJobListCard extends ConsumerWidget {
                     children: [
                       Expanded(
                         child: Text(
-                         saveJobModel.tDes!,
+                         jobPostModel.tDes!,
                           maxLines: 1,
                           style: TextStyles.w400
                               .copyWith(fontSize: 10.sp, color: Colors.grey),overflow: TextOverflow.ellipsis,
@@ -171,7 +190,7 @@ class SaveJobListCard extends ConsumerWidget {
                       ),
                       SizedBox(width: 10.w,),
                       Text(
-                        jobSeekerHomeWatch.getTimeAgo(int.parse(saveJobModel.tCreatedAt!)),
+                        jobSeekerHomeWatch.getTimeAgo(int.parse(jobPostModel.tCreatedAt!)),
                         style: TextStyles.w400
                             .copyWith(fontSize: 10.sp, color: Colors.grey),
                       ),
@@ -183,6 +202,6 @@ class SaveJobListCard extends ConsumerWidget {
           ),
         ),
       ),
-    );
+    ).animate().fadeIn(duration: Duration(milliseconds: 600));
   }
 }
