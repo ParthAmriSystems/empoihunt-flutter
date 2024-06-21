@@ -14,7 +14,7 @@ import 'package:emploiflutter/ui/terms_and_condition/terns_and_condition.dart';
 import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:emploiflutter/ui/view_applylist/view_applied_job_list.dart';
-import '../../../ui/utils/app_constant.dart';
+import '../../../ui/utils/constant/app_constant.dart';
 import '../../repository/services/hive_service/box_service.dart';
 import '../dash_board_controller/dash_board_controller.dart';
 

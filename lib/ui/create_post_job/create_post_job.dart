@@ -5,12 +5,12 @@ import 'package:emploiflutter/ui/create_post_job/helper/create_post_job_bottom_b
 import 'package:emploiflutter/ui/create_post_job/helper/create_post_job_dropdown_forms.dart';
 import 'package:emploiflutter/ui/create_post_job/helper/create_post_job_skills_widget.dart';
 import 'package:emploiflutter/ui/create_post_job/helper/create_post_job_working_mode.dart';
-import 'package:emploiflutter/ui/utils/app_string_constant.dart';
+import 'package:emploiflutter/ui/utils/constant/app_string_constant.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_appbar.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_form_field.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_typ_ahead_form_field.dart';
 import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
-import 'package:emploiflutter/ui/utils/form_validation.dart';
+import 'package:emploiflutter/ui/utils/common_service/form_validation.dart';
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
@@ -96,7 +96,7 @@ class _CreatePostJobState extends ConsumerState<CreatePostJob> {
                   ):
                   Icon(Icons.cloud_upload,color: AppColors.colors.blueColors,size: 25.sp,),
                   SizedBox(width: 10.w,),
-                  Text(createPostJobWatch.imageName !=""? createPostJobWatch.imageName.toString(): "Select your Organization logo",style: TextStyles.w400.copyWith(fontSize: 14.sp,color: AppColors.colors.blackColors),)
+                  Text(createPostJobWatch.imageName !=""? createPostJobWatch.imageName.toString(): "Select your Organization logo",style: TextStyles.w400.copyWith(fontSize: 14.sp,color: AppColors.colors.blackColors),overflow: TextOverflow.ellipsis,)
                 ],
               ),
             ),

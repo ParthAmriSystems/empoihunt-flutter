@@ -13,11 +13,15 @@ import 'package:emploiflutter/ui/profile/helper/user_profile_dialogs/user_detail
 import 'package:emploiflutter/ui/profile/helper/user_profile_dialogs/user_profile_image_change_dialogbox.dart';
 import 'package:emploiflutter/ui/profile/helper/user_profile_dialogs/user_qualification_dialogbox.dart';
 import 'package:emploiflutter/ui/profile/helper/user_profile_dialogs/user_resume_dialogbox.dart';
+import 'package:emploiflutter/ui/profile/helper/user_profile_dialogs/user_video_resume_dialogbox.dart';
+import 'package:emploiflutter/ui/utils/common_service/helper.dart';
+import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
-import '../../../ui/utils/app_constant.dart';
+import '../../../ui/utils/constant/app_constant.dart';
 import '../../repository/model/user_model/user_experience_model.dart';
 import '../../repository/services/hive_service/box_service.dart';
 
@@ -32,7 +36,7 @@ class ProfileController extends ChangeNotifier {
 
 
   ///---------------- get user data from hive storage --------------------///
-  ///
+
   // final userModelData = BoxService.boxService.userGetDetailBox.get(userDetailKey)!;
 
 
@@ -183,20 +187,23 @@ class ProfileController extends ChangeNotifier {
 
   /// ------------ for Job Seeker ------------///
   userShowDialogs(UserDetailDataModel userDetailDataModel) {
-    if (dialogValue == 0) {
-      return UserBannerImageDialogBox(userDetailDataModel: userDetailDataModel,);
-    } else if (dialogValue == 1) {
-      return UserProfileImageChangeDialogBox(userDetailDataModel:  userDetailDataModel,);
-    } else if (dialogValue == 2) {
-      return  UserDetailsDialogBox(userDetailDataModel: userDetailDataModel,);
-    } else if (dialogValue == 3) {
-      return  UserAboutDialogBox(userDetailDataModel: userDetailDataModel,);
-    } else if (dialogValue == 4) {
-      return  UserQualificationDialogBox(userDetailDataModel: userDetailDataModel,);
-    }else if(dialogValue == 5){
-      return userDetailDataModel.user.iRole  == 0? const UserExperienceDialogBox() :  UserCurrentPositionDialogBox(userDetailDataModel: userDetailDataModel,);
-    }else if(dialogValue == 6){
-      return  UserResumeDialogBox(userDetailDataModel: userDetailDataModel,);
+    switch(dialogValue){
+      case 0:
+        return UserBannerImageDialogBox(userDetailDataModel: userDetailDataModel,);
+      case 1:
+        return UserProfileImageChangeDialogBox(userDetailDataModel:  userDetailDataModel,);
+      case 2:
+        return UserDetailsDialogBox(userDetailDataModel: userDetailDataModel,);
+      case 3:
+        return UserAboutDialogBox(userDetailDataModel: userDetailDataModel,);
+      case 4:
+        return UserQualificationDialogBox(userDetailDataModel: userDetailDataModel,);
+      case 5:
+        return userDetailDataModel.user.iRole  == 0? const UserExperienceDialogBox() :  UserCurrentPositionDialogBox(userDetailDataModel: userDetailDataModel,);
+      case 6:
+        return UserResumeDialogBox(userDetailDataModel: userDetailDataModel,);
+      case 7:
+        return UserVideoResumeDialogBox(userDetailDataModel:userDetailDataModel);
     }
     notifyListeners();
   }
@@ -214,11 +221,12 @@ class ProfileController extends ChangeNotifier {
   String bannerImgName ="";
 
   Future<void> pickBannerImg() async{
-    isBannerAnimationRun = true;
+
     final result = await FilePicker.platform.pickFiles(
-        type: FileType.image,
+        type: FileType.custom,
         allowedExtensions: ['jpg','png','jpeg']
     );
+    isBannerAnimationRun = true;
     bannerImgUrl = null;
     notifyListeners();
     uploadBannerLottieController.stop();
@@ -341,6 +349,7 @@ class ProfileController extends ChangeNotifier {
 
   String resumeName="";
   String? resumeUrl;
+  bool resumeUploading = false;
   // File? pdfFile;
 
   addResumeNameToDialog(String name){
@@ -366,8 +375,11 @@ class ProfileController extends ChangeNotifier {
     }
   }
 
-  Future resumeApiCall(String resumeName,String resumeUrl,UserDetailDataModel userDetailDataModel)async{
+
+  Future resumeApiCall(String resumeName,String resumeUrl,UserDetailDataModel userDetailDataModel,BuildContext context)async{
     try{
+      resumeUploading = true;
+      notifyListeners();
       Options options = Options(headers: {'Accept': 'application/json','Authorization': 'Bearer ${userDetailDataModel.tAuthToken}',});
       FormData formData = FormData.fromMap({
         "resume": await MultipartFile.fromFile(resumeUrl, filename: resumeName),
@@ -377,18 +389,110 @@ class ProfileController extends ChangeNotifier {
         UserModel user = UserModel.fromJson(response.data["data"]);
         userDetailDataModel.user.tResumeUrl = user.tResumeUrl;
         BoxService.boxService.addUserDetailToHive(userDetailKey, userDetailDataModel);
-        debugPrint("resume url------->${userDetailDataModel.user.tProfileBannerUrl} ");
+        debugPrint("resume url------->${userDetailDataModel.user.tResumeUrl} ");
+        resumeUploading = false;
+        isDialogShow= false;
+        // updateIsDialogShow();
+        if(context.mounted){
+          context.pop();
+        }
         this.resumeUrl = null;
         this.resumeName="";
         notifyListeners();
+      }else{
+        kPrint("Resume Uploading Error");
+        resumeUploading = false;
+        isDialogShow= false;
+        // updateIsDialogShow();
+        if(context.mounted){
+          context.pop();
+        }
+        notifyListeners();
       }
     }catch(e){
+      resumeUploading = false;
+      isDialogShow= false;
+      // updateIsDialogShow();
+      if(context.mounted){
+        context.pop();
+      }
       this.resumeUrl = null;
       this.resumeName="";
       Future.error(e);
     }
     notifyListeners();
   }
+
+  ///Video Resume///
+  String videoResumeName="";
+  String? videoResumeUrl;
+
+  Future<void> startRecording()async{
+    XFile? file = await ImagePicker().pickVideo(source: ImageSource.camera);
+    if (file != null) {
+      resumeLottieController.reset();
+      resumeLottieController.forward();
+      videoResumeUrl = file.path;
+      videoResumeName = file.name;
+      kPrint("============================================");
+      kPrint(file.name);
+      notifyListeners();
+    } else {
+      resumeLottieController.stop();
+    }
+  }
+
+  Future videoResumeApiCall(String resumeName,String resumeUrl,UserDetailDataModel userDetailDataModel,BuildContext context)async{
+    try{
+      resumeUploading = true;
+      notifyListeners();
+      Options options = Options(headers: {'Accept': 'application/json','Authorization': 'Bearer ${userDetailDataModel.tAuthToken}',});
+      FormData formData = FormData.fromMap({
+        "videoResume": await MultipartFile.fromFile(resumeUrl, filename: resumeName),
+      });
+      Response response = await DioClient.client.postDataWithFormWithBearerToken(APIEndPoint.userUpdateVideoResumeApi, formData: formData, options: options);
+      if(response.statusCode == 200){
+        UserModel user = UserModel.fromJson(response.data["data"]);
+        userDetailDataModel.user.tVideoResumeUrl = user.tVideoResumeUrl;
+        BoxService.boxService.addUserDetailToHive(userDetailKey, userDetailDataModel);
+        debugPrint("video resume url------->${userDetailDataModel.user.tVideoResumeUrl} ");
+        resumeUploading = false;
+        isDialogShow= false;
+        // updateIsDialogShow();
+        if(context.mounted){
+          context.pop();
+        }
+        this.videoResumeUrl = null;
+        this.videoResumeName="";
+        notifyListeners();
+      }else{
+        kPrint("Video Resume Uploading Error");
+        resumeUploading = false;
+        isDialogShow= false;
+        // updateIsDialogShow();
+        if(context.mounted){
+          context.pop();
+        }
+        notifyListeners();
+      }
+    }catch(e){
+      resumeUploading = false;
+      isDialogShow= false;
+      // updateIsDialogShow();
+      if(context.mounted){
+        context.pop();
+      }
+      notifyListeners();
+      this.videoResumeUrl = null;
+      this.videoResumeName="";
+      Future.error(e);
+    }
+    notifyListeners();
+  }
+
+
+  ///Video Resume///
+
   /// ------ resume Edit ----////
 
 
@@ -794,7 +898,9 @@ class ProfileController extends ChangeNotifier {
 
   Future urlToFilePdf(String pdfUrl)async{
     try{
+      pdfFile=null;
       isFetchingPdf = true;
+      notifyListeners();
       final response = await DioClient.dio.get("https://api.emploihunt.com$pdfUrl", options: Options(responseType: ResponseType.bytes));
       if(response.statusCode == 200){
         final Uint8List bytes = Uint8List.fromList(response.data);
@@ -809,6 +915,7 @@ class ProfileController extends ChangeNotifier {
         notifyListeners();
       }
     }catch(e){
+      pdfFile=null;
       isFetchingPdf = false;
       Future.error("fetch pdf error-----> $e");
     }

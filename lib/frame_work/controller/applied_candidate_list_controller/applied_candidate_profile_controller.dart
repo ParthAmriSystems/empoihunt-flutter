@@ -9,7 +9,7 @@ import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
-import '../../../ui/utils/app_constant.dart';
+import '../../../ui/utils/constant/app_constant.dart';
 import '../../repository/services/hive_service/box_service.dart';
 
 final appliedCandidateProfileController = ChangeNotifierProvider((ref) => AppliedCandidateProfileController());

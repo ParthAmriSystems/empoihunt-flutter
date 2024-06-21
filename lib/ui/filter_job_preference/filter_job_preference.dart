@@ -4,7 +4,7 @@ import 'package:emploiflutter/ui/filter_job_preference/helper/domain_filter/doma
 import 'package:emploiflutter/ui/filter_job_preference/helper/location_filter/location_filter.dart';
 import 'package:emploiflutter/ui/filter_job_preference/helper/mode_filter/mode_filter.dart';
 import 'package:emploiflutter/ui/filter_job_preference/helper/package_filter/package_filter.dart';
-import 'package:emploiflutter/ui/utils/app_constant.dart';
+import 'package:emploiflutter/ui/utils/constant/app_constant.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_appbar.dart';
 import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';

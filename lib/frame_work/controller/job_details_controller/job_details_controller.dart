@@ -4,7 +4,7 @@ import 'package:emploiflutter/frame_work/repository/dio_client.dart';
 import 'package:emploiflutter/ui/job_details/helper/job_details_bottom_sheet.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
-import '../../../ui/utils/app_constant.dart';
+import '../../../ui/utils/constant/app_constant.dart';
 import '../../repository/services/hive_service/box_service.dart';
 
 final jobDetailsController = ChangeNotifierProvider((ref) => JobDetailsController());

@@ -3,7 +3,7 @@ import 'package:emploiflutter/frame_work/repository/services/hive_service/box_se
 import 'package:emploiflutter/ui/messenger_modul/make_new_chat/helper/make_new_chat_appbar.dart';
 import 'package:emploiflutter/ui/messenger_modul/make_new_chat/helper/make_new_chat_card.dart';
 import 'package:emploiflutter/ui/messenger_modul/personal_chat/personal_chat.dart';
-import 'package:emploiflutter/ui/utils/app_constant.dart';
+import 'package:emploiflutter/ui/utils/constant/app_constant.dart';
 import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter/scheduler.dart';

@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:emploiflutter/frame_work/repository/model/job_preference_model/job_preference_model.dart';
-import 'package:emploiflutter/ui/utils/app_constant.dart';
-import 'package:emploiflutter/ui/utils/app_string_constant.dart';
+import 'package:emploiflutter/ui/utils/constant/app_constant.dart';
+import 'package:emploiflutter/ui/utils/constant/app_string_constant.dart';
 import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 

@@ -9,6 +9,7 @@ class UserWithDeviceTokenModel {
   final String? tProfileUrl;
   final String? tProfileBannerUrl;
   final String? tResumeUrl;
+  final String? tVideoResumeUrl;
   final String? vCity;
   final String? tBio;
   final String? vCurrentCompany;
@@ -39,6 +40,7 @@ class UserWithDeviceTokenModel {
     this.tProfileUrl,
     this.tProfileBannerUrl,
     this.tResumeUrl,
+    this.tVideoResumeUrl,
     this.vCity,
     this.tBio,
     this.vCurrentCompany,
@@ -70,6 +72,7 @@ class UserWithDeviceTokenModel {
       tProfileUrl: json['tProfileUrl'] as String?,
       tProfileBannerUrl: json['tProfileBannerUrl'] as String?,
       tResumeUrl: json['tResumeUrl'] as String?,
+      tVideoResumeUrl: json['tVideoResumeUrl'] as String?,
       vCity: json['vCity'] as String?,
       tBio: json['tBio'] as String?,
       vCurrentCompany: json['vCurrentCompany'] as String?,
@@ -104,6 +107,7 @@ class UserWithDeviceTokenModel {
       'tProfileUrl': tProfileUrl,
       'tProfileBannerUrl': tProfileBannerUrl,
       'tResumeUrl': tResumeUrl,
+      'tVideoResumeUrl': tVideoResumeUrl,
       'vCity': vCity,
       'tBio': tBio,
       'vCurrentCompany': vCurrentCompany,

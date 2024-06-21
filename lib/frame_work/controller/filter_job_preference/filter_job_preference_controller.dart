@@ -3,7 +3,7 @@ import 'package:emploiflutter/frame_work/controller/home_controller/job_seeker_h
 import 'package:emploiflutter/frame_work/controller/home_controller/recruiter_home_controller/recruiter_home_controller.dart';
 import 'package:emploiflutter/frame_work/repository/api_end_point.dart';
 import 'package:emploiflutter/frame_work/repository/dio_client.dart';
-import 'package:emploiflutter/ui/utils/app_constant.dart';
+import 'package:emploiflutter/ui/utils/constant/app_constant.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
 import '../../repository/model/job_seeker_model/job_post_model/job_post_model.dart';

@@ -8,7 +8,7 @@ import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:page_transition/page_transition.dart';
 import '../../frame_work/repository/services/hive_service/box_service.dart';
-import '../utils/app_constant.dart';
+import '../utils/constant/app_constant.dart';
 import '../utils/theme/app_assets.dart';
 import '../utils/theme/text_styles.dart';
 import '../utils/theme/theme.dart';

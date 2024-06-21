@@ -45,6 +45,8 @@ dependencies:
   easy_localization:
   country_picker:
   file_picker:
+  video_player: ^2.9.1
+  appinio_video_player:
   image_picker: ^1.0.5
   flutter_typeahead: ^5.2.0
   path:
@@ -85,6 +87,7 @@ dependencies:
   popover:
   dio:
   flutter_animate: ^4.3.0
+  shimmer: ^3.0.0
 
   just_the_tooltip: ^0.0.12
   geolocator: ^10.1.0
@@ -105,6 +108,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_launcher_icons: "^0.13.1"
+  build_runner: ^2.1.7
+  hive_generator: ^1.1.0
 
 flutter_launcher_icons:
   android: true

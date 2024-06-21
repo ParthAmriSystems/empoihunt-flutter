@@ -1,10 +1,9 @@
 import 'package:emploiflutter/ui/messenger_modul/messenger/messanger.dart';
-import 'package:emploiflutter/ui/utils/app_constant.dart';
+import 'package:emploiflutter/ui/utils/constant/app_constant.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:emploiflutter/frame_work/controller/home_controller/job_seeker_home_controller/job_seeker_home_controller.dart';
 import 'package:emploiflutter/frame_work/controller/job_details_controller/job_details_controller.dart';
 import 'package:emploiflutter/ui/home/helper/job_seeker/helper/job_seeker_appbar.dart';
-import 'package:emploiflutter/ui/home/helper/job_seeker/helper/job_seeker_list_card.dart';
 import 'package:emploiflutter/ui/job_details/job_details.dart';
 import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
@@ -17,6 +16,8 @@ import 'package:emploiflutter/ui/utils/common_widget/common_no_data_found_layout
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 
+import '../../../utils/common_widget/recruiter_list_tile/recruiter_list_card.dart';
+import '../../../utils/common_widget/recruiter_list_tile/recruiter_list_card_shimmer.dart';
 import 'helper/ads_dialog_campus.dart';
 
 
@@ -121,6 +122,7 @@ class _JobSeekerHomeState extends ConsumerState<JobSeekerHome> {
               padding: EdgeInsets.only(top: 8.h, left: 10.w, right: 10.w),
               child: Column(
                 children: [
+                  ///================================= Preference Menu tile ==================///
                   jobSeekerHomeWatch.jobPreferenceList.isNotEmpty?
                   PopupMenuButton(
                     onSelected: (value){
@@ -157,9 +159,19 @@ class _JobSeekerHomeState extends ConsumerState<JobSeekerHome> {
                         );
                       });
                     },).paddingOnly(left: 3.w,right: 3.w):const SizedBox(),
+
+                  ///=================================== main body ==========================///
                   Expanded(
+                    ///================Shimmer effect=====================///
                     child: jobSeekerHomeWatch.isLoading
-                        ? const Center(child: CircularProgressIndicator(),)
+                        ?  ListView.builder(
+                      physics:  const BouncingScrollPhysics(),
+                      itemCount:  4,
+                      itemBuilder: (context, index) {
+                        return RecruiterListCardShimmer();
+                      },)
+
+                    ///===================Data not found==================///
                         : jobSeekerHomeWatch.jobPostList.isEmpty ?
                     const Center(child:  CommonNoDataFoundLayout(img: AppAssets.jobSearch, errorTxt: 'Opps sorry! jobs not availble at moment',))
                         :
@@ -172,7 +184,7 @@ class _JobSeekerHomeState extends ConsumerState<JobSeekerHome> {
                       itemBuilder: (context, index) {
                         if (index < jobSeekerHomeWatch.jobPostList.length) {
                           final jobList = jobSeekerHomeWatch.jobPostList[index];
-                          return JobSeekerListCard(
+                          return RecruiterListCard(
                             jobPostModel: jobList,
                             onTap: () async{
                               if(jobList.iIsApplied != 1){

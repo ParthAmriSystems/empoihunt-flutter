@@ -38,6 +38,7 @@ class AppAssets {
   static const String jobTitleSvg = 'assets/svg/job_title.svg';
   static const String baselinePlaylistAddCheckCircleSvg = 'assets/svg/baseline_playlist_add_check_circle.svg';
   static const String pdfViewIconSvg = 'assets/svg/pdf_view_icon.svg';
+  static const String linkedInSvg = 'assets/svg/linkedin-svg.svg';
 
 
 

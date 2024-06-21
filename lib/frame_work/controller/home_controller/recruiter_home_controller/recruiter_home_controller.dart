@@ -1,10 +1,11 @@
 import 'package:dio/dio.dart';
+import 'package:emploiflutter/frame_work/repository/model/recommendation_model/recommendatio_model.dart';
 import 'package:emploiflutter/frame_work/repository/model/user_model/user_detail_data_model.dart';
 import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
-import '../../../../ui/utils/app_constant.dart';
+import '../../../../ui/utils/constant/app_constant.dart';
 import '../../../repository/api_end_point.dart';
 import '../../../repository/dio_client.dart';
 import '../../../repository/model/user_model/user_with_device_token_model.dart';
@@ -55,6 +56,7 @@ class RecruiterHomeController extends ChangeNotifier{
             UserWithDeviceTokenModel jobSeeker = UserWithDeviceTokenModel.fromJson(i);
             jobSeekerList.add(jobSeeker);
           }
+          fetchRecommendationData();
           notifyListeners();
           print("List Data $jobSeekerList");
         }
@@ -217,5 +219,45 @@ loadFilterData(List<UserWithDeviceTokenModel> userModel){
     }
     notifyListeners();
 }
+
+///=============================== Recommendation ===============================///
+  List<RecommendationModel> recommendationList = [];
+  bool recommendationLoading = false;
+  Future<void> fetchRecommendationData() async{
+    recommendationLoading = true;
+    notifyListeners();
+    try{
+      final user = BoxService.boxService.userGetDetailBox.get(userDetailKey);
+      if(user !=null){
+        Options options = Options(
+            headers: {
+              'Accept': 'application/json',
+              'Authorization': 'Bearer ${user.tAuthToken}',
+            }
+        );
+        final Response response = await DioClient.client.getDataWithBearerToken("${APIEndPoint.recommendationApi}?skills=developer&quantity=10",options);
+        if(response.statusCode == 200){
+          recommendationLoading = false;
+          final data = response.data;
+          // print(data);
+          for(var i in data){
+            recommendationList.add(RecommendationModel.fromMap(i));
+          }
+          debugPrint("Length of the recommendation ====> ${recommendationList.length}");
+        }else{
+          recommendationLoading = false;
+          notifyListeners();
+        }
+      }
+      notifyListeners();
+    }on DioException catch(e){
+      recommendationLoading = false;
+      notifyListeners();
+      Future.error("Recommendation error====> $e");
+    }
+    notifyListeners();
+  }
+
+///=============================== Recommendation ===============================///
 
 }

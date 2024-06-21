@@ -4,7 +4,7 @@ import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
-import '../../utils/app_string_constant.dart';
+import '../../utils/constant/app_string_constant.dart';
 
 class ProfileQualificationTile extends ConsumerWidget {
   final UserModel user;

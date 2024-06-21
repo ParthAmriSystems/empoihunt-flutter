@@ -14,7 +14,7 @@ import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../utils/form_validation.dart';
+import '../utils/common_service/form_validation.dart';
 import '../utils/theme/app_assets.dart';
 import '../utils/theme/text_styles.dart';
 

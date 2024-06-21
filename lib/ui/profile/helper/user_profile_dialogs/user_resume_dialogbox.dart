@@ -1,4 +1,5 @@
 import 'package:emploiflutter/frame_work/controller/profile_controller/profile_controller.dart';
+import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
 import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
@@ -7,6 +8,7 @@ import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../../../frame_work/repository/model/user_model/user_detail_data_model.dart';
+import '../../../utils/common_service/helper.dart';
 
 class UserResumeDialogBox extends ConsumerStatefulWidget {
   final UserDetailDataModel userDetailDataModel;
@@ -63,7 +65,9 @@ class _UserResumeDialogBoxState extends ConsumerState<UserResumeDialogBox> with 
               ).paddingOnly(left: 60.w),
             ),
             profileWatch.resumeName !="" ?
-            Text(profileWatch.resumeName,style: TextStyles.w600.copyWith(fontSize: 20.sp,color: AppColors.colors.blueColors),softWrap: true,):const SizedBox(),
+            Text(profileWatch.resumeName,style: TextStyles.w600.copyWith(fontSize: 20.sp,color: AppColors.colors.blueColors),softWrap: true,overflow: TextOverflow.ellipsis,):const SizedBox(),
+            profileWatch.resumeUploading?
+            Text("Wait your video is uploading...",style: TextStyles.w600.copyWith(fontSize: 14.sp,color: AppColors.colors.blueColors)).paddingVertical(8.h):
             Row(
               children: [
                 const Spacer(),
@@ -72,8 +76,13 @@ class _UserResumeDialogBoxState extends ConsumerState<UserResumeDialogBox> with 
                 }, child: Text("CANCEL",style: TextStyles.w500.copyWith(fontSize: 14.sp,color: AppColors.colors.blueColors),)),
                 SizedBox(width: 10.w,),
                 TextButton(onPressed: (){
-                  profileWatch.updateIsDialogShow();
-                  profileWatch.resumeName != ""? profileWatch.resumeApiCall(profileWatch.resumeName, profileWatch.resumeUrl!,widget.userDetailDataModel):null;
+                  if(profileWatch.resumeName != "" && profileWatch.resumeUrl != null){
+                    if(!profileWatch.resumeUploading){kPrint(profileWatch.resumeName);
+                      profileWatch.resumeApiCall(profileWatch.resumeName, profileWatch.resumeUrl!,widget.userDetailDataModel,context);
+                    }
+                  }else{
+                    profileWatch.updateIsDialogShow();
+                  }
                 }, child: Text("Done",style: TextStyles.w500.copyWith(fontSize: 14.sp,color: AppColors.colors.blueColors),)),
               ],
             ).paddingOnly(top: 10.h,)

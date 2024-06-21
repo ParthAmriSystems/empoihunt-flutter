@@ -7,7 +7,7 @@ import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
 import '../../../frame_work/repository/services/shared_pref_services.dart';
-import '../../utils/app_constant.dart';
+import '../../utils/constant/app_constant.dart';
 
 class ProfileUserDetailTile extends ConsumerWidget {
   final UserModel user;

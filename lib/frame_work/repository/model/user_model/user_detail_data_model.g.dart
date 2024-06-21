@@ -63,35 +63,36 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
       vFirstName: fields[0] as String,
       vJobLocation: fields[1] as String?,
       tResumeUrl: fields[2] as String?,
-      vLastName: fields[3] as String,
-      vDuration: fields[4] as String?,
-      vWorkingMode: fields[5] as String?,
-      vMobile: fields[6] as String,
-      vPreferCity: fields[7] as String?,
-      tTagLine: fields[8] as String?,
-      vEmail: fields[9] as String,
-      vPreferJobTitle: fields[10] as String?,
-      isBlock: fields[11] as int,
-      id: fields[12] as int,
-      vCity: fields[13] as String,
-      vQualification: fields[14] as String?,
-      isLogin: fields[15] as int,
-      vFirebaseId: fields[16] as String,
-      tBio: fields[17] as String?,
-      tProfileUrl: fields[18] as String?,
-      tCreatedAt: fields[19] as String,
-      iRole: fields[20] as int,
-      vCurrentCompany: fields[21] as String?,
-      tProfileBannerUrl: fields[22] as String?,
-      tUpadatedAt: fields[23] as String?,
-      vDesignation: fields[24] as String?,
+      tVideoResumeUrl: fields[3] as String?,
+      vLastName: fields[4] as String,
+      vDuration: fields[5] as String?,
+      vWorkingMode: fields[6] as String?,
+      vMobile: fields[7] as String,
+      vPreferCity: fields[8] as String?,
+      tTagLine: fields[9] as String?,
+      vEmail: fields[10] as String,
+      vPreferJobTitle: fields[11] as String?,
+      isBlock: fields[12] as int,
+      id: fields[13] as int,
+      vCity: fields[14] as String,
+      vQualification: fields[15] as String?,
+      isLogin: fields[16] as int,
+      vFirebaseId: fields[17] as String,
+      tBio: fields[18] as String?,
+      tProfileUrl: fields[19] as String?,
+      tCreatedAt: fields[20] as String,
+      iRole: fields[21] as int,
+      vCurrentCompany: fields[22] as String?,
+      tProfileBannerUrl: fields[23] as String?,
+      tUpadatedAt: fields[24] as String?,
+      vDesignation: fields[25] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, UserModel obj) {
     writer
-      ..writeByte(25)
+      ..writeByte(26)
       ..writeByte(0)
       ..write(obj.vFirstName)
       ..writeByte(1)
@@ -99,48 +100,50 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
       ..writeByte(2)
       ..write(obj.tResumeUrl)
       ..writeByte(3)
-      ..write(obj.vLastName)
+      ..write(obj.tVideoResumeUrl)
       ..writeByte(4)
-      ..write(obj.vDuration)
+      ..write(obj.vLastName)
       ..writeByte(5)
-      ..write(obj.vWorkingMode)
+      ..write(obj.vDuration)
       ..writeByte(6)
-      ..write(obj.vMobile)
+      ..write(obj.vWorkingMode)
       ..writeByte(7)
-      ..write(obj.vPreferCity)
+      ..write(obj.vMobile)
       ..writeByte(8)
-      ..write(obj.tTagLine)
+      ..write(obj.vPreferCity)
       ..writeByte(9)
-      ..write(obj.vEmail)
+      ..write(obj.tTagLine)
       ..writeByte(10)
-      ..write(obj.vPreferJobTitle)
+      ..write(obj.vEmail)
       ..writeByte(11)
-      ..write(obj.isBlock)
+      ..write(obj.vPreferJobTitle)
       ..writeByte(12)
-      ..write(obj.id)
+      ..write(obj.isBlock)
       ..writeByte(13)
-      ..write(obj.vCity)
+      ..write(obj.id)
       ..writeByte(14)
-      ..write(obj.vQualification)
+      ..write(obj.vCity)
       ..writeByte(15)
-      ..write(obj.isLogin)
+      ..write(obj.vQualification)
       ..writeByte(16)
-      ..write(obj.vFirebaseId)
+      ..write(obj.isLogin)
       ..writeByte(17)
-      ..write(obj.tBio)
+      ..write(obj.vFirebaseId)
       ..writeByte(18)
-      ..write(obj.tProfileUrl)
+      ..write(obj.tBio)
       ..writeByte(19)
-      ..write(obj.tCreatedAt)
+      ..write(obj.tProfileUrl)
       ..writeByte(20)
-      ..write(obj.iRole)
+      ..write(obj.tCreatedAt)
       ..writeByte(21)
-      ..write(obj.vCurrentCompany)
+      ..write(obj.iRole)
       ..writeByte(22)
-      ..write(obj.tProfileBannerUrl)
+      ..write(obj.vCurrentCompany)
       ..writeByte(23)
-      ..write(obj.tUpadatedAt)
+      ..write(obj.tProfileBannerUrl)
       ..writeByte(24)
+      ..write(obj.tUpadatedAt)
+      ..writeByte(25)
       ..write(obj.vDesignation);
   }
 

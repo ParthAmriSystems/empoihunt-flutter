@@ -1,7 +1,7 @@
 import 'package:emploiflutter/ui/authentication/register/helper/choose_register_type/choose_register_type.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_button.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_form_field.dart';
-import 'package:emploiflutter/ui/utils/form_validation.dart';
+import 'package:emploiflutter/ui/utils/common_service/form_validation.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:flutter/services.dart';
 import 'package:page_transition/page_transition.dart';

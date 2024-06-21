@@ -24,7 +24,7 @@ const CommonTypeAheadFormField({super.key, required this.controller, required th
      builder: (context, controller, focusNode) {
        return TextField(
            onChanged: onChanged,
-           controller: controller,
+           controller: this.controller,
            decoration:InputDecoration(
                errorStyle: TextStyles.w400.copyWith(fontSize: 10.sp,color: Colors.red.shade400),
                hintText: hintText,

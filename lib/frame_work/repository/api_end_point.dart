@@ -3,7 +3,7 @@ class APIEndPoint{
   APIEndPoint._();
 
   static const String baseUrl= 'https://api.emploihunt.com/api';
-  // static const String baseUrl= 'http://191.232.33.124:5000/api';
+  // static const String baseUrl= 'http://192.168.1.5:5000/api';
 
   static const String privacyPolicy = "/terms-privacy-policy/get_terms_policy_by_id?id=1";
   static const String  termsAndCondition = '/terms-privacy-policy/get_terms_policy_by_id?id=2';
@@ -15,7 +15,6 @@ class APIEndPoint{
   static const String  registerUserApi = '/signin/register_user';
   static const String  signOutApi = '/signin/signout';
   static const String  deleteAccountApi = '/user/delete';
-
 
   ///------------------------------------- job seeker ------------------------------///
 
@@ -37,6 +36,7 @@ class APIEndPoint{
   static const String  jobPreferenceApi = '/jobPreference/jobPreference';
   static const String  jobPreferenceInsertApi = '/jobPreference/insert_preference';
   static const String  jobPreferenceUpdateApi = '/jobPreference/update_preference';
+  static const String  recommendationApi = '/jobSeeker/recommandation/';
 
 ///------------------------------------- job seeker ------------------------------///
 
@@ -49,6 +49,7 @@ class APIEndPoint{
     static const String userUpdateBannerPicApi = '/user/update_banner_pic';
     static const String userUpdateProfilePicApi = '/user/update_profile_pic';
     static const String userUpdateResumeApi = '/user/update_resume';
+    static const String userUpdateVideoResumeApi = '/user/update_video_resume';
 
     static const String getRecruiterApi = '/recruiter/get_recruiter';
 ///------------------------------------- Profile --------------------------------///

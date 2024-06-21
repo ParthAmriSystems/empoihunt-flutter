@@ -4,7 +4,7 @@ import 'package:emploiflutter/frame_work/controller/setting_controller/job_prefe
 import 'package:emploiflutter/ui/utils/common_widget/common_appbar.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_button.dart';
 import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
-import 'package:emploiflutter/ui/utils/form_validation.dart';
+import 'package:emploiflutter/ui/utils/common_service/form_validation.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/svg.dart';

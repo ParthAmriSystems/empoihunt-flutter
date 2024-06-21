@@ -3,7 +3,7 @@ import 'package:emploiflutter/frame_work/repository/services/hive_service/box_se
 import 'package:emploiflutter/ui/profile/profile_profile_pic.dart';
 import 'package:emploiflutter/ui/profile/profile_user_details.dart';
 import 'package:emploiflutter/ui/profile/helper/common_show_dialog_layout.dart';
-import 'package:emploiflutter/ui/utils/app_constant.dart';
+import 'package:emploiflutter/ui/utils/constant/app_constant.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter/scheduler.dart';
@@ -35,7 +35,6 @@ class _ProfileState extends ConsumerState<Profile> {
     return PopScope(
       canPop: true,
       onPopInvoked: (value){
-
         profileWatch.isDialogShow = false;
         profileWatch.userProfileDetailUpdateApi();
       },

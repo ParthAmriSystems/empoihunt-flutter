@@ -4,7 +4,7 @@ import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
-import '../../../../ui/utils/app_constant.dart';
+import '../../../../ui/utils/constant/app_constant.dart';
 import '../../../repository/api_end_point.dart';
 import '../../../repository/dio_client.dart';
 import '../../../repository/model/job_seeker_model/job_post_model/job_post_model.dart';

@@ -15,7 +15,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:page_transition/page_transition.dart';
 import '../../../ui/authentication/auth_intro.dart';
 import '../../../ui/onboarding/on_boarding.dart';
-import '../../../ui/utils/app_constant.dart';
+import '../../../ui/utils/constant/app_constant.dart';
 import '../../repository/api_end_point.dart';
 import '../../repository/dio_client.dart';
 import '../../repository/services/shared_pref_services.dart';

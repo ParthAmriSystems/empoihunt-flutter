@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
-import '../../../../ui/utils/app_constant.dart';
+import '../../../../ui/utils/constant/app_constant.dart';
 import '../../../repository/api_end_point.dart';
 import '../../../repository/dio_client.dart';
 import '../../../repository/model/applied_candidate_list_model/applied_list_model.dart';

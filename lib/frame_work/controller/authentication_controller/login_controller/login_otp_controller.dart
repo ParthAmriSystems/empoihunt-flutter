@@ -1,4 +1,4 @@
-import 'dart:async';
+ import 'dart:async';
 import 'package:country_picker/country_picker.dart';
 import 'package:dio/dio.dart';
 import 'package:emploiflutter/frame_work/repository/api_end_point.dart';
@@ -8,7 +8,7 @@ import 'package:emploiflutter/frame_work/repository/services/fire_base/firebase_
 import 'package:emploiflutter/frame_work/repository/services/fire_base/firebase_singleton.dart';
 import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
 import 'package:emploiflutter/ui/dash_board/dash_board.dart';
-import 'package:emploiflutter/ui/utils/app_constant.dart';
+import 'package:emploiflutter/ui/utils/constant/app_constant.dart';
 import 'package:emploiflutter/ui/utils/common_widget/helper.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';

@@ -1,5 +1,5 @@
 import 'package:emploiflutter/frame_work/repository/services/hive_service/box_service.dart';
-import 'package:emploiflutter/ui/utils/app_constant.dart';
+import 'package:emploiflutter/ui/utils/constant/app_constant.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../frame_work/controller/dash_board_controller/dash_board_controller.dart';

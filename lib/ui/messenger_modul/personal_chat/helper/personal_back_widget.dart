@@ -2,7 +2,7 @@ import 'package:emploiflutter/frame_work/controller/messenger_modul_controller/P
 import 'package:emploiflutter/frame_work/repository/model/messenger_model/message_data_model.dart';
 import 'package:emploiflutter/ui/messenger_modul/personal_chat/helper/chat_bottom_sheet.dart';
 import 'package:emploiflutter/ui/messenger_modul/personal_chat/helper/pesonal_chat_search_dialog.dart';
-import 'package:emploiflutter/ui/utils/app_constant.dart';
+import 'package:emploiflutter/ui/utils/constant/app_constant.dart';
 import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:firebase_database/firebase_database.dart';

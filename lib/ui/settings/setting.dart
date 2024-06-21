@@ -2,7 +2,7 @@
 import 'package:emploiflutter/frame_work/repository/services/hive_service/box_service.dart';
 import 'package:emploiflutter/ui/profile/profile.dart';
 import 'package:emploiflutter/ui/settings/helper/setting_log_out_bottom_sheet.dart';
-import 'package:emploiflutter/ui/utils/app_constant.dart';
+import 'package:emploiflutter/ui/utils/constant/app_constant.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_appbar.dart';
 import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
@@ -72,8 +72,9 @@ class _SettingState extends ConsumerState<Setting> {
                     height: 56.h,
                     width: 56.w,
                     clipBehavior: Clip.hardEdge,
-                    decoration: const BoxDecoration(
-                        shape: BoxShape.circle
+                    decoration:  BoxDecoration(
+                        shape: BoxShape.circle,
+                      color: AppColors.colors.whiteColors
                     ),
                     child: userData.tProfileUrl != null?
                     CachedNetworkImage(imageUrl: "https://api.emploihunt.com${userData.tProfileUrl}",

@@ -1,6 +1,6 @@
 import 'package:emploiflutter/frame_work/controller/splash_controller/splash_controller.dart';
 import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
-import 'package:emploiflutter/ui/utils/app_constant.dart';
+import 'package:emploiflutter/ui/utils/constant/app_constant.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter/scheduler.dart';
 import '../utils/theme/app_assets.dart';

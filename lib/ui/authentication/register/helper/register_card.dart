@@ -3,7 +3,7 @@ import 'package:emploiflutter/ui/terms_and_condition/terns_and_condition.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_button.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_form_field.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_typ_ahead_form_field.dart';
-import 'package:emploiflutter/ui/utils/form_validation.dart';
+import 'package:emploiflutter/ui/utils/common_service/form_validation.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:flutter/services.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
@@ -179,8 +179,10 @@ class RegisterCard extends ConsumerWidget {
                       controller: registerWatch.cityController,
                       hintText: "City",
                       labelText: "City",
-                      suggestionsCallback: (pattern) =>
-                          registerWatch.checkCity(pattern),
+                      suggestionsCallback: (pattern) {
+                      print("suggestionsCallback called =======================>");
+                      return registerWatch.checkCity(registerWatch.cityController.text);
+                      },
                       onSuggestionSelected: (value) =>
                           registerWatch.cityController.text = value),
                   SizedBox(

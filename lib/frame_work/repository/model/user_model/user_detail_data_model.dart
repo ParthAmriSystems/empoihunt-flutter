@@ -56,97 +56,101 @@ class UserModel extends HiveObject {
   String? tResumeUrl;
 
   @HiveField(3)
-  String vLastName;
+  String? tVideoResumeUrl; // New field added
 
   @HiveField(4)
-  String? vDuration;
+  String vLastName;
 
   @HiveField(5)
-  String? vWorkingMode;
+  String? vDuration;
 
   @HiveField(6)
-  String vMobile;
+  String? vWorkingMode;
 
   @HiveField(7)
-  String? vPreferCity;
+  String vMobile;
 
   @HiveField(8)
-  String? tTagLine;
+  String? vPreferCity;
 
   @HiveField(9)
-  String vEmail;
+  String? tTagLine;
 
   @HiveField(10)
-  String? vPreferJobTitle;
+  String vEmail;
 
   @HiveField(11)
-  int isBlock;
+  String? vPreferJobTitle;
 
   @HiveField(12)
-  int id;
+  int isBlock;
 
   @HiveField(13)
-  String vCity;
+  int id;
 
   @HiveField(14)
-  String? vQualification;
+  String vCity;
 
   @HiveField(15)
-  int isLogin;
+  String? vQualification;
 
   @HiveField(16)
-  String vFirebaseId;
+  int isLogin;
 
   @HiveField(17)
-  String? tBio;
+  String vFirebaseId;
 
   @HiveField(18)
-  String? tProfileUrl;
+  String? tBio;
 
   @HiveField(19)
-  String tCreatedAt;
+  String? tProfileUrl;
 
   @HiveField(20)
-  int iRole;
+  String tCreatedAt;
 
   @HiveField(21)
-  String? vCurrentCompany;
+  int iRole;
 
   @HiveField(22)
-  String? tProfileBannerUrl;
+  String? vCurrentCompany;
 
   @HiveField(23)
-  String? tUpadatedAt;
+  String? tProfileBannerUrl;
 
   @HiveField(24)
+  String? tUpadatedAt;
+
+  @HiveField(25)
   String? vDesignation;
 
   UserModel({
     required this.vFirstName,
-     this.vJobLocation,
-     this.tResumeUrl,
+    this.vJobLocation,
+    this.tResumeUrl,
+    this.tVideoResumeUrl, // Added to constructor
     required this.vLastName,
-     this.vDuration,
-     this.vWorkingMode,
+    this.vDuration,
+    this.vWorkingMode,
     required this.vMobile,
-     this.vPreferCity,
-     this.tTagLine,
+    this.vPreferCity,
+    this.tTagLine,
     required this.vEmail,
-     this.vPreferJobTitle,
+    this.vPreferJobTitle,
     required this.isBlock,
     required this.id,
     required this.vCity,
-     this.vQualification,
+    this.vQualification,
     required this.isLogin,
     required this.vFirebaseId,
-     this.tBio,
-     this.tProfileUrl,
+    this.tBio,
+    this.tProfileUrl,
     required this.tCreatedAt,
     required this.iRole,
-     this.vCurrentCompany,
-     this.tProfileBannerUrl,
-     this.tUpadatedAt,
-     this.vDesignation,
+    this.vCurrentCompany,
+    this.tProfileBannerUrl,
+    this.tUpadatedAt,
+    this.vDesignation,
   });
 
   // Factory method to create a User from JSON
@@ -155,6 +159,7 @@ class UserModel extends HiveObject {
       vFirstName: json['vFirstName'],
       vJobLocation: json['vJobLocation'],
       tResumeUrl: json['tResumeUrl'],
+      tVideoResumeUrl: json['tVideoResumeUrl'], // Added to fromJson
       vLastName: json['vLastName'],
       vDuration: json['vDuration'],
       vWorkingMode: json['vWorkingMode'],
@@ -186,6 +191,7 @@ class UserModel extends HiveObject {
       'vFirstName': vFirstName,
       'vJobLocation': vJobLocation,
       'tResumeUrl': tResumeUrl,
+      'tVideoResumeUrl': tVideoResumeUrl, // Added to toJson
       'vLastName': vLastName,
       'vDuration': vDuration,
       'vWorkingMode': vWorkingMode,
