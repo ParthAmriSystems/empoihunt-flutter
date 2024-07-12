@@ -1,11 +1,12 @@
 import 'package:emploiflutter/frame_work/controller/authentication_controller/register_controller/job_seeker_register_profile_details_controller.dart';
+import 'package:emploiflutter/ui/authentication/register/helper/register_profile_details/helper/job_seeker_register_profile_details/helper/job_seeker_register_profile_details5/job_seeker_register_profile_details5.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'job_seeker_register_profile_details1/job_seeker_register_profile_details1.dart';
 import 'job_seeker_register_profile_details2/job_seeker_register_profile_details2.dart';
 import 'job_seeker_register_profile_details3/job_seeker_register_profile_details3.dart';
 import 'job_seeker_register_profile_details4/job_seeker_register_profile_details4.dart';
-import 'job_seeker_register_profile_details5/job_seeker_register_profile_details5.dart';
+import 'job_seeker_register_profile_details6/job_seeker_register_profile_details6.dart';
 
 class JobSeekerRegisterProfileDetailsCardView extends ConsumerWidget {
   const JobSeekerRegisterProfileDetailsCardView({super.key});
@@ -43,12 +44,14 @@ class JobSeekerRegisterProfileDetailsCardView extends ConsumerWidget {
                   const JobSeekerRegisterProfileDetails3(),
                   const JobSeekerRegisterProfileDetails4(),
                   const JobSeekerRegisterProfileDetails5(),
+                  const JobSeekerRegisterProfileDetails6(),
                 ]:
                 [
                   const JobSeekerRegisterProfileDetails1(),
                   const JobSeekerRegisterProfileDetails3(),
                   const JobSeekerRegisterProfileDetails4(),
                   const JobSeekerRegisterProfileDetails5(),
+                  const JobSeekerRegisterProfileDetails6(),
                 ],
               )),
               Padding(
@@ -76,7 +79,7 @@ class JobSeekerRegisterProfileDetailsCardView extends ConsumerWidget {
 ///-----------------------------------------------------------------------------------------------------------------------------------------///
 
                    ///------------------ if user select Experience --------------------///
-                   registerProfileDetailWatch.index == 4 && registerProfileDetailWatch.profilePic  != null?
+                   registerProfileDetailWatch.index == 5 && registerProfileDetailWatch.profilePic  != null?
                    IconButton(
                        style: ElevatedButton.styleFrom(
                            shape: RoundedRectangleBorder(
@@ -95,7 +98,7 @@ class JobSeekerRegisterProfileDetailsCardView extends ConsumerWidget {
                            backgroundColor: AppColors.colors.blueColors,
                            fixedSize: Size(60.w, 50.h)),
                        onPressed: () {
-                         registerProfileDetailWatch.index == 4?  registerProfileDetailWatch.experienceRegisterSubmitButton(context):
+                         registerProfileDetailWatch.index == 5?  registerProfileDetailWatch.experienceRegisterSubmitButton(context):
                          registerProfileDetailWatch.forwardBtn(context);
                        },
                        icon: Icon(Icons.arrow_forward_rounded,
@@ -106,7 +109,7 @@ class JobSeekerRegisterProfileDetailsCardView extends ConsumerWidget {
 ///-----------------------------------------------------------------------------------------------------------------------------------------///
 
                    ///------------------ if user select Fresher --------------------///
-                    registerProfileDetailWatch.index == 3 && registerProfileDetailWatch.profilePic  != null?
+                    registerProfileDetailWatch.index == 4 && registerProfileDetailWatch.profilePic  != null?
                    IconButton(
                        style: ElevatedButton.styleFrom(
                            shape: RoundedRectangleBorder(
@@ -128,7 +131,7 @@ class JobSeekerRegisterProfileDetailsCardView extends ConsumerWidget {
                             fixedSize: Size(60.w, 50.h)),
                         onPressed: () {
                           print("fresher 2 button pressed");
-                          registerProfileDetailWatch.index == 3? registerProfileDetailWatch.freshersRegisterSubmitButton(context): registerProfileDetailWatch.forwardBtn(context);
+                          registerProfileDetailWatch.index == 4? registerProfileDetailWatch.freshersRegisterSubmitButton(context): registerProfileDetailWatch.forwardBtn(context);
                         },
                         icon: Icon(Icons.arrow_forward_rounded,
                             color: AppColors.colors.whiteColors)),

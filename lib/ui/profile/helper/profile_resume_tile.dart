@@ -93,7 +93,7 @@ class ProfileResumeTile extends ConsumerWidget {
                 child: Row(
                   children: [
                     Text(
-                      user.tResumeUrl !=""? "${user.vFirstName}'s Video Resume" :"",
+                      user.tVideoResumeUrl !=null || user.tVideoResumeUrl != ""? "${user.vFirstName}'s Video Resume" :"",
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyles.w500.copyWith(

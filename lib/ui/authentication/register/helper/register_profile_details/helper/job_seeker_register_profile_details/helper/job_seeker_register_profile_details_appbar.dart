@@ -13,7 +13,7 @@ class JobSeekerRegisterProfileDetailsAppBar extends ConsumerWidget implements Pr
         backgroundColor: AppColors.colors.clayColors,
         elevation: 0.0,
           title: Row(
-            children: List.generate(5, (index) {
+            children: List.generate(6, (index) {
               if(registerProfileDetailWatch.index >= index){
                 return Container(
                   height: 40.h,

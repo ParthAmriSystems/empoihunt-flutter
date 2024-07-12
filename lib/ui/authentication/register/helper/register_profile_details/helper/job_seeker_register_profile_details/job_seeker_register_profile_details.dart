@@ -27,6 +27,7 @@ class _RegisterProfileDetailsState extends ConsumerState<JobSeekerRegisterProfil
   void deactivate() {
     super.deactivate();
     ref.read(jobSeekerRegisterProfileDetailsController).resumeLottieController.dispose();
+    ref.read(jobSeekerRegisterProfileDetailsController).videoResumeLottieController.dispose();
     ref.read(jobSeekerRegisterProfileDetailsController).uploadImgLottieController.dispose();
   }
   @override

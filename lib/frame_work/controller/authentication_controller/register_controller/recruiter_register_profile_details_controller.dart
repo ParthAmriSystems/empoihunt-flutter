@@ -313,6 +313,7 @@ class RecruiterRegisterProfileDetailsController extends ChangeNotifier {
         "profilePic":
             await MultipartFile.fromFile(imgUrl!, filename: profilePicName),
         "resume": "",
+        "videoResume": "",
       });
       int userDeletedValue = ref.read(registerController).userDeleted;
       Response response = await DioClient.client.postDataWithForm(

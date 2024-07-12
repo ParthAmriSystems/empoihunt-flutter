@@ -3,11 +3,13 @@ import 'package:dio/dio.dart';
 import 'package:emploiflutter/frame_work/controller/authentication_controller/register_controller/register_controller.dart';
 import 'package:emploiflutter/frame_work/repository/services/fire_base/firebase_singleton.dart';
 import 'package:emploiflutter/ui/dash_board/dash_board.dart';
+import 'package:emploiflutter/ui/utils/common_service/helper.dart';
 import 'package:emploiflutter/ui/utils/constant/app_string_constant.dart';
 import 'package:emploiflutter/ui/utils/common_widget/helper.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -32,8 +34,8 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
 
   forwardBtn(BuildContext context){
     if(isExperienced){
-      if(index <= 4) {
-        if(index< 4){
+      if(index <= 5) {
+        if(index< 5){
           index++;
         }
         pageController.animateToPage(index,duration: const Duration(milliseconds: 400), curve:
@@ -42,10 +44,10 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
         // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>const DashBoard()), (route) => false);
       }
     }else if(isFresher){
-      if(index <= 3) {
+      if(index <= 4) {
         // print(index);
         // print("final");
-        if(index<3){
+        if(index<4){
           index++;
         }
         pageController.animateToPage(index,duration: const Duration(milliseconds: 400), curve:
@@ -67,10 +69,12 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
   }
   ///---Lottie Controller ---///
   late AnimationController resumeLottieController;
+  late AnimationController videoResumeLottieController;
   late AnimationController uploadImgLottieController;
 
   initializeLottie(TickerProvider vsync1,TickerProvider vsync2)async{
     resumeLottieController = AnimationController(vsync: vsync1,duration: const Duration(seconds: 2));
+    videoResumeLottieController = AnimationController(vsync: vsync1,duration: const Duration(seconds: 2));
     uploadImgLottieController = AnimationController(vsync: vsync2,duration: const Duration(seconds: 2));
   }
   ///---Lottie Controller ---///
@@ -306,6 +310,25 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
       resumeLottieController.stop();
     }
     notifyListeners();
+  }
+
+  String? videoResumeUrl;
+  String? videoResumeName;
+
+  Future<void> pickVideoFile()async{
+    XFile? file = await ImagePicker().pickVideo(source: ImageSource.camera);
+    videoResumeLottieController.stop();
+    if (file != null) {
+      videoResumeLottieController.reset();
+      videoResumeLottieController.forward();
+      videoResumeUrl = file.path;
+      videoResumeName = file.name;
+      kPrint("============================================");
+      kPrint(file.name);
+      notifyListeners();
+    } else {
+      videoResumeLottieController.stop();
+    }
   }
 
   ///-----------------Profile4--------------///
@@ -548,6 +571,7 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
       FormData formData = FormData.fromMap({
         "profilePic": await MultipartFile.fromFile(imgUrl!, filename: profilePicName),
         "resume":await MultipartFile.fromFile(pdfUrl!, filename: pdfName),
+        "videoResumeUrl": videoResumeUrl != null ? await MultipartFile.fromFile(videoResumeUrl!, filename: videoResumeName):null,
       });
       int userDeletedValue  = ref.read(registerController).userDeleted;
       Response response = await DioClient.client.postDataWithForm(
