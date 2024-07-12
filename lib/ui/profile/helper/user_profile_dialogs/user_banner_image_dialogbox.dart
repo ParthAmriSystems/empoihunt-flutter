@@ -64,11 +64,11 @@ class _UserBannerImageDialogBoxState extends ConsumerState<UserBannerImageDialog
                     child:
                     profileWatch.isBannerAnimationRun?
                      Center(child: Lottie.asset(AppAssets.bannerLoadingLottie),) :
-                   profileWatch.bannerImg != null? Image.file(profileWatch.bannerImg!,fit: BoxFit.fill,): widget.userDetailDataModel.user.tProfileBannerUrl !=""?
+                   profileWatch.bannerImg != null? Image.file(profileWatch.bannerImg!,fit: BoxFit.fitWidth,): widget.userDetailDataModel.user.tProfileBannerUrl !=""?
                    CachedNetworkImage(imageUrl: "https://api.emploihunt.com${widget.userDetailDataModel.user.tProfileBannerUrl}",
                        placeholder: (context, url) => const CircularProgressIndicator(),
-                       errorWidget: (context, url, error) => const Icon(Icons.error),fit: BoxFit.fill)
-                        : Image.asset(AppAssets.defaultBannerImage,fit: BoxFit.contain,),
+                       errorWidget: (context, url, error) => Image.asset(AppAssets.defaultBannerImage,fit: BoxFit.fitWidth,),fit: BoxFit.fitWidth)
+                        : Image.asset(AppAssets.defaultBannerImage,fit: BoxFit.fitWidth,),
                   ),
                   ///---------- Image Picker Icon --------///
                   profileWatch.isBannerAnimationRun? SizedBox():Positioned(
