@@ -4,11 +4,14 @@ import 'package:emploiflutter/frame_work/repository/services/shared_pref_service
 import 'package:emploiflutter/ui/utils/constant/app_constant.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_dropdown_form_field.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_form_field.dart';
+import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
 import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
 import 'package:emploiflutter/ui/utils/common_service/form_validation.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
+
+import '../../../utils/common_widget/common_typ_ahead_form_field.dart';
 
 class UserCurrentPositionDialogBox extends ConsumerWidget {
   final UserDetailDataModel userDetailDataModel;
@@ -52,7 +55,22 @@ class UserCurrentPositionDialogBox extends ConsumerWidget {
                         validator: (val)=>requiredFieldValidator(input: val , errorMgs: "Please provide company name"),
                         hintText: "Company name",labelText: "Company name",prefixIcon: Icon(Icons.leave_bags_at_home_sharp,color: AppColors.colors.blueColors,),),
                       SizedBox(height: 20.h,),
-                      CommonDropDownFormField(
+                      CommonTypeAheadFormField(
+                          initialSelection: profileWatch.userCurrentPosSelectedJobLocation,
+                          width: context.screenWidth * 0.85,
+                          controller: profileWatch.userCurrentPosSearchJobLocationController,
+                          hintText: "Residential City",
+                          labelText: "Residential City",
+                          dropdownMenuEntries: SharedPrefServices.services.getList(locationListKey)!
+                              .map((element) => DropdownMenuEntry(
+                              value: element,
+                              label: element))
+                              .toList(),
+                          onSelected: (value)  {
+                            profileWatch.updateUserCurrentPosSearchJobLocationController(value);
+                            profileWatch.userCurrentPosSelectedJobLocation = value?? profileWatch.userCurrentPosSearchJobLocationController.text;
+                          }),
+                      /*CommonDropDownFormField(
                         items: SharedPrefServices.services.getList(locationListKey)??["No data"],
                         searchController: profileWatch.userCurrentPosSearchJobLocationController,
                         onChanged: (value) {
@@ -61,7 +79,7 @@ class UserCurrentPositionDialogBox extends ConsumerWidget {
                         hintTextForDropdown: "Job Location",
                         hintTextForField: "Job Location",
                         selectedValue: profileWatch.userCurrentPosSelectedJobLocation,
-                      ),
+                      ),*/
                       profileWatch.isUserCurrentPosJobSelected?Text("Please select job location",style: TextStyles.w400.copyWith(fontSize: 10.sp,color: Colors.red.shade400,),).paddingVertical(5.h):const SizedBox(),
                       SizedBox(height: 20.h,),
                       Column(

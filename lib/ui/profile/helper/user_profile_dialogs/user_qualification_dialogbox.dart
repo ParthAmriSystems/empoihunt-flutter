@@ -1,6 +1,8 @@
 import 'package:emploiflutter/frame_work/controller/profile_controller/profile_controller.dart';
 import 'package:emploiflutter/frame_work/repository/model/user_model/user_detail_data_model.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_dropdown_form_field.dart';
+import 'package:emploiflutter/ui/utils/common_widget/common_typ_ahead_form_field.dart';
+import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
 import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/constant/app_string_constant.dart';
@@ -31,13 +33,28 @@ class UserQualificationDialogBox extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text("Edit Qualification",style: TextStyles.w600.copyWith(fontSize: 22.sp,color: AppColors.colors.blueColors),).paddingVertical(10.h),
-                 CommonDropDownFormField(
+                CommonTypeAheadFormField(
+                    initialSelection: profileWatch.selectedQualification,
+                    width: context.screenWidth * 0.85,
+                    controller: profileWatch.qualificationSearchController,
+                    hintText: "Qualification",
+                    labelText: "Qualification",
+                    dropdownMenuEntries: qualificationsList
+                        .map((element) => DropdownMenuEntry(
+                        value: element,
+                        label: element))
+                        .toList(),
+                    onSelected: (value)  {
+                      profileWatch.updateSelectedQualification(value);
+                      profileWatch.selectedQualification = value?? profileWatch.qualificationSearchController.text;
+                    }),
+                /*CommonDropDownFormField(
                      items: qualificationsList,
                      searchController: profileWatch.qualificationSearchController,
                      selectedValue: profileWatch.selectedQualification,
                      onChanged: (value){
                    profileWatch.updateSelectedQualification(value);
-                 }, hintTextForDropdown: "Qualification", hintTextForField: "Qualification"),
+                 }, hintTextForDropdown: "Qualification", hintTextForField: "Qualification"),*/
                 profileWatch.isQualificationSelected?Text("Please select qualification",style: TextStyles.w400.copyWith(fontSize: 10.sp,color: Colors.red.shade400,),).paddingVertical(5.h):const SizedBox(),
                 SizedBox(height: 10.h,),
                 Row(

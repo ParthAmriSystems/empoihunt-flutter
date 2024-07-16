@@ -1,8 +1,10 @@
 import 'package:emploiflutter/frame_work/controller/profile_controller/profile_controller.dart';
 import 'package:emploiflutter/frame_work/repository/model/user_model/user_experience_model.dart';
 import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
+import 'package:emploiflutter/ui/utils/common_widget/common_typ_ahead_form_field.dart';
 import 'package:emploiflutter/ui/utils/constant/app_constant.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_dropdown_form_field.dart';
+import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
 import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
 import 'package:emploiflutter/ui/utils/common_service/form_validation.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
@@ -39,7 +41,22 @@ class UserExperienceDialogBoxUpdateFrom extends ConsumerWidget {
               validator: (val)=>requiredFieldValidator(input: val, errorMgs: "Please provide company name"),
               hintText: "Company name",labelText: "Company name",prefixIcon: Icon(Icons.person,color: AppColors.colors.blueColors,),),
             SizedBox(height: 15.h,),
-            CommonDropDownFormField(
+            CommonTypeAheadFormField(
+                initialSelection: profileWatch.userExperienceUpdateSelectedJobLocation,
+                width: context.screenWidth * 0.80,
+                controller: profileWatch.userExperienceUpdateSearchJobLocationFieldController,
+                hintText: "Job Location",
+                labelText: "Job Location",
+                dropdownMenuEntries: SharedPrefServices.services.getList(locationListKey)!
+                    .map((element) => DropdownMenuEntry(
+                    value: element,
+                    label: element))
+                    .toList(),
+                onSelected: (value)  {
+                  profileWatch.updateUserExperienceUpdateSelectedJobLocation(value);
+                  profileWatch.userExperienceUpdateSelectedJobLocation = value?? profileWatch.userExperienceUpdateSearchJobLocationFieldController.text;
+                }),
+            /*CommonDropDownFormField(
               items: SharedPrefServices.services.getList(locationListKey)??["No data"],
               searchController: profileWatch.userExperienceUpdateSearchJobLocationFieldController,
               onChanged: (value) {
@@ -48,7 +65,7 @@ class UserExperienceDialogBoxUpdateFrom extends ConsumerWidget {
               hintTextForDropdown: "Job Location",
               hintTextForField: "Job Location",
               selectedValue: profileWatch.userExperienceUpdateSelectedJobLocation,
-            ),
+            ),*/
             Row(
               children: [
                 Checkbox(value: profileWatch.checkBoxValUpdateForm, onChanged: (val){

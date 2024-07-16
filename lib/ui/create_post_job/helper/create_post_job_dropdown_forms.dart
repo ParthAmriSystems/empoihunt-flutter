@@ -5,12 +5,15 @@ import 'package:emploiflutter/frame_work/repository/services/shared_pref_service
 import 'package:emploiflutter/ui/utils/constant/app_constant.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_dropdown_form_field.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_typ_ahead_form_field.dart';
+import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
 import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import '../../utils/constant/app_string_constant.dart';
 
 class CreatePostJobDropDownForms extends ConsumerWidget {
   const CreatePostJobDropDownForms({super.key});
@@ -23,23 +26,52 @@ class CreatePostJobDropDownForms extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CommonTypeAheadFormField(
+          leadingIcon: SvgPicture.asset(AppAssets.qualificationSvg,color: AppColors.colors.blueColors,).paddingSymmetric(vertical: 10.h,horizontal: 10.w),
+            width: context.screenWidth * 0.93,
+            controller: createPostJobWatch.jobTitleFieldController,
+            hintText: "Bachelor of Engineering(BE)",
+            labelText: "Required Education",
+            dropdownMenuEntries: qualificationsList
+                .map((element) => DropdownMenuEntry(
+                value: element,
+                label: element))
+                .toList(),
+            onSelected: (value)  {
+              createPostJobWatch.educationSearchController.text = value?? createPostJobWatch.educationSearchController.text;
+            }),
+       /* CommonTypeAheadFormField(
           direction: VerticalDirection.up,
           prefixIcon: SvgPicture.asset(AppAssets.qualificationSvg,color: AppColors.colors.blueColors,).paddingSymmetric(vertical: 10.h,horizontal: 10.w),
           controller: createPostJobWatch.educationSearchController,
             hintText: "Bachelor of Engineering(BE)",
             labelText: "Required Education",
-            onSuggestionSelected: (value) {
+            onSelected: (value) {
               createPostJobWatch.educationSearchController.text = value;
             },
-            suggestionsCallback: (pattern){
-          return createPostJobWatch.checkEducation(pattern);
-        }),
+            suggestionsCallback: (pattern)async{
+          return await createPostJobWatch.checkEducation(pattern);
+        }),*/
         createPostJobWatch.isEducationSelected?Text("Education is required",style: TextStyles.w400.copyWith(fontSize: 10.sp,color: Colors.red.shade400,),):const SizedBox(),
 
         SizedBox(
           height: 10.h,
         ),
-        CommonDropDownFormField(
+        CommonTypeAheadFormField(
+            initialSelection:  createPostJobWatch.selectedJobLocation,
+            width: context.screenWidth * 0.93  ,
+            controller: createPostJobWatch.jobLocationSearchController,
+            hintText: "Job Location",
+            labelText: "Job Location",
+            dropdownMenuEntries: SharedPrefServices.services.getList(locationListKey)!
+                .map((element) => DropdownMenuEntry(
+                value: element,
+                label: element))
+                .toList(),
+            onSelected: (value)  {
+              createPostJobWatch.updateSelectedJobLocation(value);
+              createPostJobWatch.selectedJobLocation = value?? createPostJobWatch.jobLocationSearchController.text;
+            }),
+       /* CommonDropDownFormField(
           items: SharedPrefServices.services.getList(locationListKey)??["No data"],
           searchController: createPostJobWatch.jobLocationSearchController,
           onChanged: (value) {
@@ -48,7 +80,7 @@ class CreatePostJobDropDownForms extends ConsumerWidget {
           hintTextForDropdown: "Job Location",
           hintTextForField: "Job Location",
           selectedValue: createPostJobWatch.selectedJobLocation,
-        ),
+        ),*/
         createPostJobWatch.isJobLocationSelect?Text("Job Location is required",style: TextStyles.w400.copyWith(fontSize: 10.sp,color: Colors.red.shade400,),):const SizedBox(),
 
       ],

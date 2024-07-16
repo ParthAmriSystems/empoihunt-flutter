@@ -605,15 +605,15 @@ class ProfileController extends ChangeNotifier {
     notifyListeners();
   }
 
-  userExperienceAddButton() {
+  userExperienceAddButton() async{
     // print(" add Button $userExperienceAddSelectedJobLocation");
     // print(" add designation $userExperienceAddDesignFieldController");
     // print(" add company name $userExperienceAddCompanyNameFieldController");
     if(experienceAddFormKey.currentState!.validate()){
       if(userExperienceAddSelectedJobLocation != null){
         isUserExperienceAddJobSelected = false;
-        insertExperienceApi();
-        getUserExperienceApi();
+        await insertExperienceApi();
+        await getUserExperienceApi();
         /// Clear after adding ////
         userExperienceAddDesignFieldController.clear();
         userExperienceAddSearchJobLocationFieldController.clear();

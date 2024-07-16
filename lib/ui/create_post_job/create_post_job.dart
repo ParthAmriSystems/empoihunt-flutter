@@ -39,6 +39,7 @@ class _CreatePostJobState extends ConsumerState<CreatePostJob> {
   }
   @override
   Widget build(BuildContext context,) {
+    final size = MediaQuery.of(context).size;
     final createPostJobWatch = ref.watch(createPostJobController);
     return  Scaffold(
       appBar: const CommonAppBar(title: "Create Job Post",),
@@ -51,16 +52,38 @@ class _CreatePostJobState extends ConsumerState<CreatePostJob> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+
               CommonTypeAheadFormField(
+                  leadingIcon: SvgPicture.asset(AppAssets.jobTitleSvg,color: AppColors.colors.blueColors,).paddingSymmetric(vertical: 10.h,horizontal: 10.w),
+                  focusNode: createPostJobWatch.jobTitleFocusNode,
+                  width: size.width * 0.93,
+                  controller: createPostJobWatch.jobTitleFieldController,
+                  hintText: "Job title",
+                  labelText: "Job Title",
+                  dropdownMenuEntries: designationList
+                      .map((element) => DropdownMenuEntry(
+                      value: element,
+                      label: element))
+                      .toList(),
+                  onSelected: (value)  {
+                    createPostJobWatch.jobTitleFieldController.text = value?? createPostJobWatch.jobTitleFieldController.text;
+                  }),
+              /*CommonTypeAheadFormField(
                   direction: VerticalDirection.down,
                   onChanged: (value)=>notAllowSpecialChar_withSpace(createPostJobWatch.jobTitleFieldController, value),
                   controller: createPostJobWatch.jobTitleFieldController,
                   hintText: "Job Title",
                   labelText: "Job Title",
-                  suggestionsCallback: (pattern) =>
-                      createPostJobWatch.checkJobTitle(pattern),
-                  onSuggestionSelected: (value) =>
-                  createPostJobWatch.jobTitleFieldController.text = value),
+                  suggestionsCallback: (pattern)async{
+                    print("========================================>$pattern");
+                    if (pattern.isEmpty) return ["fdk","fdg"];
+                    final suggestions = await createPostJobWatch.checkJobTitle(pattern);
+                    return suggestions;
+                   return await createPostJobWatch.checkJobTitle(pattern);
+
+                  },
+                  onSelected: (value) =>
+                  createPostJobWatch.jobTitleFieldController.text = value),*/
               createPostJobWatch.isJobTitleEmpty?Text("Please fill the job title",style: TextStyles.w400.copyWith(fontSize: 10.sp,color: Colors.red.shade400,),).paddingVertical(4):const SizedBox(),
               SizedBox(height: 10.h,),
               CommonFormField(

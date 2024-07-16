@@ -1,8 +1,12 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:emploiflutter/frame_work/controller/setting_controller/job_preference/job_preference_controller.dart';
+import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_appbar.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_button.dart';
+import 'package:emploiflutter/ui/utils/constant/app_constant.dart';
+import 'package:emploiflutter/ui/utils/constant/app_string_constant.dart';
+import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
 import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
 import 'package:emploiflutter/ui/utils/common_service/form_validation.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
@@ -32,17 +36,31 @@ class AddJobPreference extends ConsumerWidget {
           child: Column(
             children: [
               CommonTypeAheadFormField(
+                leadingIcon: SvgPicture.asset(AppAssets.jobTitleSvg,color: AppColors.colors.blueColors,).paddingSymmetric(vertical: 10.h,horizontal: 10.w),
+                  width: context.screenWidth * 0.93,
+                  controller: jobPreferenceWatch.jobTitleSearchController,
+                  hintText: "Android Developer",
+                  labelText: "Job Title",
+                  dropdownMenuEntries: designationList
+                      .map((element) => DropdownMenuEntry(
+                      value: element,
+                      label: element))
+                      .toList(),
+                  onSelected: (value)  {
+                    jobPreferenceWatch.jobTitleSearchController.text = value??jobPreferenceWatch.jobTitleSearchController.text;
+                  }),
+             /* CommonTypeAheadFormField(
                 direction: VerticalDirection.down,
                   prefixIcon: SvgPicture.asset(AppAssets.jobTitleSvg,color: AppColors.colors.blueColors,).paddingSymmetric(vertical: 10.h,horizontal: 10.w),
                   controller: jobPreferenceWatch.jobTitleSearchController,
                   hintText: "Android Developer",
                   labelText: "Job Title",
-                  onSuggestionSelected: (value) {
+                  onSelected: (value) {
                     jobPreferenceWatch.jobTitleSearchController.text = value;
                   },
-                  suggestionsCallback: (pattern){
-                    return jobPreferenceWatch.checkJobTitle(pattern);
-                  }),
+                  suggestionsCallback: (pattern) async{
+                    return await jobPreferenceWatch.checkJobTitle(pattern);
+                  }),*/
 
               ///--------------- working mode ---------///
               Container(
@@ -134,15 +152,29 @@ class AddJobPreference extends ConsumerWidget {
 
               ///----------------- City Form Field ------------------///
               CommonTypeAheadFormField(
+                  width: context.screenWidth * 0.93,
+                  controller: jobPreferenceWatch.cityController,
+                  hintText: "City",
+                  labelText: "City",
+                  dropdownMenuEntries: SharedPrefServices.services.getList(locationListKey)!
+                      .map((element) => DropdownMenuEntry(
+                      value: element,
+                      label: element))
+                      .toList(),
+                  onSelected: (value)  {
+                    jobPreferenceWatch.cityController.text = value??jobPreferenceWatch.cityController.text;
+                  }),
+             /* CommonTypeAheadFormField(
                   direction: VerticalDirection.up,
                   onChanged: (value)=>notAllowSpecialChar(jobPreferenceWatch.cityController, value),
                   controller: jobPreferenceWatch.cityController,
                   hintText: "City",
                   labelText: "City",
-                  suggestionsCallback: (pattern) =>
-                      jobPreferenceWatch.checkCity(pattern),
-                  onSuggestionSelected: (value) =>
-                  jobPreferenceWatch.cityController.text = value),
+                  suggestionsCallback: (pattern) async {
+                    return await jobPreferenceWatch.checkCity(pattern);
+                  },
+                  onSelected: (value) =>
+                  jobPreferenceWatch.cityController.text = value),*/
                SizedBox(height: 10.h,),
               CommonButton(
                 backgroundColor: AppColors.colors.blueColors,

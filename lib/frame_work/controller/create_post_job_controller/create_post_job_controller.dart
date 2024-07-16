@@ -43,7 +43,8 @@ class CreatePostJobController extends ChangeNotifier{
      }
    }
 
-  List<String> checkJobTitle(String query){
+  Future<List<String>> checkJobTitle(String query) async{
+    await Future.delayed(const Duration(milliseconds: 500)); // Simulate delay
     query = query.toUpperCase().trim();
     return designationList.where((jobTitle) => jobTitle.toUpperCase().trim().contains(query)).toList();
   }
@@ -131,10 +132,10 @@ class CreatePostJobController extends ChangeNotifier{
     }
   }
 
-  List<String> checkEducation(String query){
+ /* List<String> checkEducation(String query){
     query = query.toUpperCase().trim();
     return qualificationsList.where((education) => education.toUpperCase().trim().contains(query)).toList();
-  }
+  }*/
 ///----------------- DropDown Filed -----------------///
 
 /// ------------------ Bottom Buttons -----------------///

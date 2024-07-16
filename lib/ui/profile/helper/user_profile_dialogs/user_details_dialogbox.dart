@@ -1,9 +1,11 @@
 import 'package:emploiflutter/frame_work/controller/profile_controller/profile_controller.dart';
 import 'package:emploiflutter/frame_work/repository/model/user_model/user_detail_data_model.dart';
 import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
+import 'package:emploiflutter/ui/utils/common_widget/common_typ_ahead_form_field.dart';
 import 'package:emploiflutter/ui/utils/constant/app_constant.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_dropdown_form_field.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_form_field.dart';
+import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
 import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
 import 'package:emploiflutter/ui/utils/common_service/form_validation.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
@@ -102,7 +104,22 @@ class UserDetailsDialogBox extends ConsumerWidget {
                       ),
                       profileWatch.isExpertiseAdded?Text("Please add expertise",style: TextStyles.w400.copyWith(fontSize: 10.sp,color: Colors.red.shade400,),).paddingVertical(5.h):const SizedBox(),
 
-                      CommonDropDownFormField(
+                      CommonTypeAheadFormField(
+                        initialSelection: profileWatch.userDetailSelectedJobLocation,
+                          width: context.screenWidth * 0.85,
+                          controller: profileWatch.jobLocationSearchController,
+                          hintText: "Residential City",
+                          labelText: "Residential City",
+                          dropdownMenuEntries: SharedPrefServices.services.getList(locationListKey)!
+                              .map((element) => DropdownMenuEntry(
+                              value: element,
+                              label: element))
+                              .toList(),
+                          onSelected: (value)  {
+                            profileWatch.updateSelectedJobLocation(value);
+                            profileWatch.userDetailSelectedJobLocation = value?? profileWatch.jobLocationSearchController.text;
+                          }),
+                      /*CommonDropDownFormField(
                         items: SharedPrefServices.services.getList(locationListKey)!,
                         searchController: profileWatch.jobLocationSearchController,
                         onChanged: (value) {
@@ -111,7 +128,7 @@ class UserDetailsDialogBox extends ConsumerWidget {
                         hintTextForDropdown: "Residential City",
                         hintTextForField: "Residential City",
                         selectedValue: profileWatch.userDetailSelectedJobLocation,
-                      ).paddingOnly(top: 10.h),
+                      ).paddingOnly(top: 10.h),*/
                       profileWatch.isUserDetailsJobSelect?Text("Please select job location",style: TextStyles.w400.copyWith(fontSize: 10.sp,color: Colors.red.shade400,),).paddingOnly(bottom: 5.h):const SizedBox(),
 
                       CommonFormField(

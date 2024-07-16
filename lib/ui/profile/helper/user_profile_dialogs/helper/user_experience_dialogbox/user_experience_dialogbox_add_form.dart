@@ -1,9 +1,11 @@
 import 'package:emploiflutter/frame_work/controller/profile_controller/profile_controller.dart';
 import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
+import 'package:emploiflutter/ui/utils/common_widget/common_typ_ahead_form_field.dart';
 import 'package:emploiflutter/ui/utils/constant/app_constant.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_button.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_dropdown_form_field.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_form_field.dart';
+import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
 import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
 import 'package:emploiflutter/ui/utils/common_service/form_validation.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
@@ -47,7 +49,22 @@ class _UserExperienceDialogBoxAddFormState extends ConsumerState<UserExperienceD
               validator: (val)=>requiredFieldValidator(input: val, errorMgs: "Please provide company name"),
               hintText: "Company name",labelText: "Company name",prefixIcon: Icon(Icons.person,color: AppColors.colors.blueColors,),),
             SizedBox(height: 20.h,),
-            CommonDropDownFormField(
+            CommonTypeAheadFormField(
+                initialSelection: profileWatch.userExperienceAddSelectedJobLocation,
+                width: context.screenWidth * 0.80,
+                controller: profileWatch.userExperienceAddSearchJobLocationFieldController,
+                hintText: "Job Location",
+                labelText: "Job Location",
+                dropdownMenuEntries: SharedPrefServices.services.getList(locationListKey)!
+                    .map((element) => DropdownMenuEntry(
+                    value: element,
+                    label: element))
+                    .toList(),
+                onSelected: (value)  {
+                  profileWatch.updateUserExperienceAddSelectedJobLocation(value);
+                  profileWatch.userExperienceAddSelectedJobLocation = value?? profileWatch.userExperienceAddSearchJobLocationFieldController.text;
+                }),
+            /*CommonDropDownFormField(
               items: SharedPrefServices.services.getList(locationListKey)??["No data"],
               searchController: profileWatch.userExperienceAddSearchJobLocationFieldController,
               onChanged: (value) {
@@ -56,7 +73,7 @@ class _UserExperienceDialogBoxAddFormState extends ConsumerState<UserExperienceD
               hintTextForDropdown: "Job Location",
               hintTextForField: "Job Location",
               selectedValue: profileWatch.userExperienceAddSelectedJobLocation,
-            ),
+            ),*/
             profileWatch.isUserExperienceAddJobSelected?Text("Please select job location",style: TextStyles.w400.copyWith(fontSize: 10.sp,color: Colors.red.shade400,),).paddingVertical(5.h):const SizedBox(),
             Row(
               children: [

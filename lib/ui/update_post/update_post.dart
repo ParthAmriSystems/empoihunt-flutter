@@ -8,6 +8,9 @@ import 'package:emploiflutter/ui/update_post/helper/update_post_skills_widget.da
 import 'package:emploiflutter/ui/update_post/helper/update_post_working_mode.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_appbar.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_form_field.dart';
+import 'package:emploiflutter/ui/utils/common_widget/common_typ_ahead_form_field.dart';
+import 'package:emploiflutter/ui/utils/constant/app_string_constant.dart';
+import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
 import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
@@ -50,14 +53,29 @@ class _UpdatePostState extends ConsumerState<UpdatePost> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CommonFormField(
+              CommonTypeAheadFormField(
+                leadingIcon: SvgPicture.asset(AppAssets.jobTitleSvg,color: AppColors.colors.blueColors,).paddingSymmetric(vertical: 10.h,horizontal: 10.w),
+                  focusNode: manageJobPost.jobTitleFocusNode,
+                  width: context.screenWidth * 0.93,
+                  controller: manageJobPost.jobTitleFieldController,
+                  hintText: "Job title",
+                  labelText: "Job Title",
+                  dropdownMenuEntries: designationList
+                      .map((element) => DropdownMenuEntry(
+                      value: element,
+                      label: element))
+                      .toList(),
+                  onSelected: (value)  {
+                    manageJobPost.jobTitleFieldController.text = value?? manageJobPost.jobTitleFieldController.text;
+                  }),
+/*              CommonFormField(
                 focusNode: manageJobPost.jobTitleFocusNode,
                 controller: manageJobPost.jobTitleFieldController,
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.name,
                 autoValidateMode: AutovalidateMode.onUserInteraction,
                 validator: (value)=>requiredFieldValidator(input: value, errorMgs: "Please enter job title"),
-                hintText: "Android Developer",labelText: "job Title",prefixIcon: SvgPicture.asset(AppAssets.jobTitleSvg,color: AppColors.colors.blueColors,).paddingSymmetric(vertical: 10.h,horizontal: 10.w),),
+                hintText: "Android Developer",labelText: "job Title",prefixIcon: SvgPicture.asset(AppAssets.jobTitleSvg,color: AppColors.colors.blueColors,).paddingSymmetric(vertical: 10.h,horizontal: 10.w),),*/
               SizedBox(height: 10.h,),
               CommonFormField(
                 controller: manageJobPost.companyNameFieldController,

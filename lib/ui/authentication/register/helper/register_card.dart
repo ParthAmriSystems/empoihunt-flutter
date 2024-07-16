@@ -4,11 +4,15 @@ import 'package:emploiflutter/ui/utils/common_widget/common_button.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_form_field.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_typ_ahead_form_field.dart';
 import 'package:emploiflutter/ui/utils/common_service/form_validation.dart';
+import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:flutter/services.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:page_transition/page_transition.dart';
+
+import '../../../../frame_work/repository/services/shared_pref_services.dart';
+import '../../../utils/constant/app_constant.dart';
 
 class RegisterCard extends ConsumerWidget {
   const RegisterCard({super.key});
@@ -173,18 +177,32 @@ class RegisterCard extends ConsumerWidget {
                     height: 10.h,
                   ),
                   CommonTypeAheadFormField(
+                      leadingIcon: Icon(Icons.location_city_outlined,size: 18.sp,color: AppColors.colors.blueColors,),
+                      width: context.screenWidth * 0.82,
+                      controller: registerWatch.cityController,
+                      hintText: "City",
+                      labelText: "City",
+                      dropdownMenuEntries: SharedPrefServices.services.getList(locationListKey)!
+                          .map((element) => DropdownMenuEntry(
+                          value: element,
+                          label: element))
+                          .toList(),
+                      onSelected: (value)  {
+                        registerWatch.cityController.text = value?? registerWatch.cityController.text;
+                      }),
+                  /*CommonTypeAheadFormField(
                     prefixIcon: Icon(Icons.location_city_outlined,size: 18.sp,color: AppColors.colors.blueColors,),
                       direction: VerticalDirection.up,
                     onChanged: (value)=>notAllowSpecialChar(registerWatch.cityController, value),
                       controller: registerWatch.cityController,
                       hintText: "City",
                       labelText: "City",
-                      suggestionsCallback: (pattern) {
+                      suggestionsCallback: (pattern) async {
                       print("suggestionsCallback called =======================>");
-                      return registerWatch.checkCity(registerWatch.cityController.text);
+                      return await registerWatch.checkCity(registerWatch.cityController.text);
                       },
-                      onSuggestionSelected: (value) =>
-                          registerWatch.cityController.text = value),
+                      onSelected: (value) =>
+                          registerWatch.cityController.text = value),*/
                   SizedBox(
                     height: 10.h,
                   ),

@@ -40,8 +40,8 @@ class UserExperienceDialogBoxTile extends ConsumerWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(experience.vJobLocation??"",style: TextStyles.w300.copyWith(fontSize: 14.sp,color: AppColors.colors.greyRegent),),
-                              Text(experience.vDuration ?? "Present",style: TextStyles.w300.copyWith(fontSize: 14.sp,color: AppColors.colors.clayColors),),
+                              Text(experience.vJobLocation??"",style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.greyRegent),),
+                              Text(experience.vDuration != "0" ? experience.vDuration! :"Present",style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.clayColors),),
                             ],
                           )
                         ],
