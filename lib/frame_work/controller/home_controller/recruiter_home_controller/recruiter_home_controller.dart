@@ -51,14 +51,15 @@ class RecruiterHomeController extends ChangeNotifier{
           currentPage += 1;
           List responseData = response.data["data"];
           totalPages = response.data["total_pages"];
-          print(responseData);
+          // print(responseData);
           for(dynamic i in responseData){
             UserWithDeviceTokenModel jobSeeker = UserWithDeviceTokenModel.fromJson(i);
             jobSeekerList.add(jobSeeker);
           }
-          fetchRecommendationData();
+          ///Temporary stop fetching data
+          // fetchRecommendationData();
           notifyListeners();
-          print("List Data $jobSeekerList");
+          // print("List Data $jobSeekerList");
         }
       }
     }catch(e) {

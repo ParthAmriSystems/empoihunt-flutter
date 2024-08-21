@@ -240,7 +240,7 @@ class _JobSeekerHomeState extends ConsumerState<JobSeekerHome> {
                     ) : Column(
                       children: [
                         Expanded(child: Lottie.asset(AppAssets.chatLottie,height: 130.h,width: 120.w)),
-                        Text("Chat with your friends",style: TextStyles.w500.copyWith(fontSize: 14.sp,color: AppColors.colors.blueColors),)
+                        Text("Chat",style: TextStyles.w500.copyWith(fontSize: 14.sp,color: AppColors.colors.blueColors),)
                       ],
                     ),
                   ):

@@ -114,11 +114,15 @@ class CreatePostJobController extends ChangeNotifier{
 
 ///----------------- DropDown Filed -----------------///
   final jobLocationSearchController = TextEditingController();
-  String? selectedJobLocation;
+  // String? selectedJobLocation;
   bool isJobLocationSelect = false;
   updateSelectedJobLocation(String? value) {
-    selectedJobLocation = value;
-    isJobLocationSelect = false;
+    // selectedJobLocation = value;
+    if(value !=""){
+      isJobLocationSelect = false;
+    }else{
+      isJobLocationSelect = true;
+    }
     notifyListeners();
   }
 
@@ -151,7 +155,7 @@ class CreatePostJobController extends ChangeNotifier{
               isSoftSkillEmpty = false;
               if(educationSearchController.text != ""){
                 isEducationSelected = false;
-                if(selectedJobLocation !=null){
+                if(jobLocationSearchController.text != ""){
                   isJobLocationSelect = false;
                   if(selectedWorkingModeValue !=""){
                     isSelectRemoteValue = false;
@@ -276,7 +280,7 @@ class CreatePostJobController extends ChangeNotifier{
               "tTechnicalSkill":techSkillTagline,
               "tSoftSkill":softSkillTagline,
               "vEducation":educationSearchController.text,
-              "vAddress":selectedJobLocation,
+              "vAddress":jobLocationSearchController.text,
               "vSalaryPackage":salaryFieldController.text,
               "vWrokingMode":selectedWorkingModeValue,
               "tCompanyPic":await MultipartFile.fromFile(imgUrl!, filename: imageName),

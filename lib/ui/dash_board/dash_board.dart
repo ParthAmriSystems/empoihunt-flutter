@@ -69,10 +69,11 @@ class _DashBoardState extends ConsumerState<DashBoard> {
                 icon: Icon(Icons.location_city_outlined ),
                 label: "Campus"
             ),
-            BottomNavigationBarItem(
+            ///Temporary stop fetching data
+            /*BottomNavigationBarItem(
                 icon: Icon(Icons.rocket ),
                 label: "AI"
-            ),
+            ),*/
             const BottomNavigationBarItem(
                 icon: Icon(Icons.settings),
                 label: "Setting"

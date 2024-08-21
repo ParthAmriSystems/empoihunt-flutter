@@ -103,7 +103,8 @@ class _RecruiterHomeState extends ConsumerState<RecruiterHome> {
                 physics: BouncingScrollPhysics(),
                 child: Column(
                   children: [
-                    RecommandationSimmerEffect(),
+                    ///Temporary stop fetching data
+                 /*   RecommandationSimmerEffect(),*/
                     SizedBox(height: 8.h,),
                     ListView.builder(
                       shrinkWrap: true,
@@ -125,11 +126,11 @@ class _RecruiterHomeState extends ConsumerState<RecruiterHome> {
                 physics: BouncingScrollPhysics(),
                 child: Column(
                   children: [
-                    // RecommandationTile(),
-                    recruiterHomeWatch.recommendationLoading?
+                    ///Temporary stop fetching data
+                   /* recruiterHomeWatch.recommendationLoading?
                     RecommandationSimmerEffect():
                     recruiterHomeWatch.recommendationList.isNotEmpty? RecommandationTile(recommendationList:recruiterHomeWatch.recommendationList):
-                    SizedBox(),
+                    SizedBox(),*/
                     SizedBox(height: 8.h,),
                     ListView.builder(
                       shrinkWrap: true,
@@ -189,7 +190,7 @@ class _RecruiterHomeState extends ConsumerState<RecruiterHome> {
                   ) : Column(
                     children: [
                       Expanded(child: Lottie.asset(AppAssets.chatLottie,height: 130.h,width: 120.w)),
-                      Text("Chat with your friends",style: TextStyles.w500.copyWith(fontSize: 14.sp,color: AppColors.colors.blueColors),)
+                      Text("Chat",style: TextStyles.w500.copyWith(fontSize: 14.sp,color: AppColors.colors.blueColors),)
                     ],
                   ),
                 ):
