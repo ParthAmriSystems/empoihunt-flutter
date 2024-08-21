@@ -66,12 +66,7 @@ class SplashController extends ChangeNotifier{
               print(data.isBlock);
               if(Platform.isIOS){
                 if(int.parse(currentAppVersion.buildNumber) < updatedVersionForIos ){
-                  showModalBottomSheet(
-                    enableDrag: false,
-                    isDismissible: false,
-                    context: context, builder: (context) {
-                    return  SplashUpdateAppBottomSheet(data.tMessage);
-                  },);
+
                 }else{
                   Future.delayed(const Duration(seconds: 2),() {
                     userAuthenticatedOrNot(context);

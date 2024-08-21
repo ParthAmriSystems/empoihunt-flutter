@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:emploiflutter/ui/utils/constant/app_constant.dart';
 import 'package:emploiflutter/ui/utils/common_widget/helper.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';

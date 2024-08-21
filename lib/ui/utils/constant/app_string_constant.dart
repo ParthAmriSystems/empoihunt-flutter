@@ -212,26 +212,6 @@ List<String> domainList = [
 ];
 
 /// ------ Qualification List -------///
-List<String> qualificationList1 = [
-  'Arts',
-  'Science',
-  'Commerce',
-  'Engineering',
-  'Technology',
-  'Business Administration',
-  'Computer Applications',
-  'Architecture',
-  'Fine Arts',
-  'Design',
-  'Hotel Management',
-  'Nursing',
-  'Pharmacy',
-  'Physiotherapy',
-  'Education',
-  'Social Work',
-  'Economics',
-  'Agriculture',
-];
 
 List<String> qualificationsList = [
   '10th',
@@ -277,6 +257,23 @@ List<String> qualificationsList = [
   'Master of Physiotherapy (MPT)',
   'Master of Journalism and Mass Communication (MJMC)',
   'Master of Library and Information Science (MLIS)',
+  'Post graduate Diploma in management (PGDM)',
+  "Company Secretary (CS)",
+  "Cost and Management Accountant (CMA)",
+  "Chartered Financial Analyst (CFA)",
+  "Certified Management Accountant (CMA - USA)",
+  "Master of Finance and Control (MFC)",
+  "Master in International Business (MIB)",
+  "Master of Business Law (MBL)",
+  "Certified Financial Planner (CFP)",
+  "Post Graduate Diploma in Business Management (PGDBM)",
+  "Bachelor of Law (LLB)",
+  "Master of Marketing Management (MMM)",
+  "Master of Human Resource Management (MHRM)",
+  "Master of Banking & Insurance (MBI)",
+  "Diploma in Taxation",
+  "Diploma in Financial Planning",
+  "Diploma in Digital Marketing"
   'Others'
 ];
 

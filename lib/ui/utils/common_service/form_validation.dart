@@ -69,6 +69,16 @@ notAllowSpecialChar(TextEditingController controller,String value){
     );}
 }
 
+notAllowSpecialCharSal(TextEditingController controller,String value){
+  final filteredValue = value.replaceAll(RegExp(r'\s|[!@#%^&$*(),?":{}|<>+/;`~=-]'), '');
+  if(value != filteredValue){
+    final cursorPosition = controller.selection.baseOffset -1;
+    controller.value = TextEditingValue(
+      text: filteredValue,
+      selection: TextSelection.collapsed(offset: cursorPosition),
+    );}
+}
+
 notAllowSpecialChar_withSpace(TextEditingController controller,String value){
   final filteredValue = value.replaceAll(RegExp(r'[!@#%^&$*(),.?":{}|<>+/;`~=-]'), '');
   if(value != filteredValue){

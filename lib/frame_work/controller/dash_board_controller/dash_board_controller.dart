@@ -22,7 +22,8 @@ class DashBoardController extends ChangeNotifier{
   List<Widget> jobSeekerPages = [
     const JobSeekerHome(),
     const Campus(),
-    const AIForJobSeeker(),
+    ///Temporary stop fetching data
+    /*const AIForJobSeeker(),*/
     const Setting()
   ];
 

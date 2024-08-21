@@ -28,7 +28,7 @@ class CreatePostJobDropDownForms extends ConsumerWidget {
         CommonTypeAheadFormField(
           leadingIcon: SvgPicture.asset(AppAssets.qualificationSvg,color: AppColors.colors.blueColors,).paddingSymmetric(vertical: 10.h,horizontal: 10.w),
             width: context.screenWidth * 0.93,
-            controller: createPostJobWatch.jobTitleFieldController,
+            controller: createPostJobWatch.educationSearchController,
             hintText: "Bachelor of Engineering(BE)",
             labelText: "Required Education",
             dropdownMenuEntries: qualificationsList
@@ -52,12 +52,10 @@ class CreatePostJobDropDownForms extends ConsumerWidget {
           return await createPostJobWatch.checkEducation(pattern);
         }),*/
         createPostJobWatch.isEducationSelected?Text("Education is required",style: TextStyles.w400.copyWith(fontSize: 10.sp,color: Colors.red.shade400,),):const SizedBox(),
-
         SizedBox(
           height: 10.h,
         ),
         CommonTypeAheadFormField(
-            initialSelection:  createPostJobWatch.selectedJobLocation,
             width: context.screenWidth * 0.93  ,
             controller: createPostJobWatch.jobLocationSearchController,
             hintText: "Job Location",
@@ -68,8 +66,8 @@ class CreatePostJobDropDownForms extends ConsumerWidget {
                 label: element))
                 .toList(),
             onSelected: (value)  {
-              createPostJobWatch.updateSelectedJobLocation(value);
-              createPostJobWatch.selectedJobLocation = value?? createPostJobWatch.jobLocationSearchController.text;
+              // createPostJobWatch.updateSelectedJobLocation(value);
+              createPostJobWatch.jobLocationSearchController.text = value?? createPostJobWatch.jobLocationSearchController.text;
             }),
        /* CommonDropDownFormField(
           items: SharedPrefServices.services.getList(locationListKey)??["No data"],

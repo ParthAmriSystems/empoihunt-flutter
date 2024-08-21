@@ -16,8 +16,6 @@ import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
-import '../utils/common_widget/common_dropdown_form_field.dart';
 import '../utils/theme/text_styles.dart';
 
 class CreatePostJob extends ConsumerStatefulWidget {
@@ -119,7 +117,7 @@ class _CreatePostJobState extends ConsumerState<CreatePostJob> {
                   ):
                   Icon(Icons.cloud_upload,color: AppColors.colors.blueColors,size: 25.sp,),
                   SizedBox(width: 10.w,),
-                  Text(createPostJobWatch.imageName !=""? createPostJobWatch.imageName.toString(): "Select your Organization logo",style: TextStyles.w400.copyWith(fontSize: 14.sp,color: AppColors.colors.blackColors),overflow: TextOverflow.ellipsis,)
+                  Expanded(child: Text(createPostJobWatch.imageName !=""? createPostJobWatch.imageName.toString(): "Select your Organization logo",style: TextStyles.w400.copyWith(fontSize: 14.sp,color: AppColors.colors.blackColors),overflow: TextOverflow.ellipsis,))
                 ],
               ),
             ),
@@ -161,7 +159,7 @@ class _CreatePostJobState extends ConsumerState<CreatePostJob> {
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.phone,
                 autoValidateMode: AutovalidateMode.onUserInteraction,
-                onChanged: (value){notAllowSpecialChar(createPostJobWatch.salaryFieldController, value);},
+                onChanged: (value){notAllowSpecialCharSal(createPostJobWatch.salaryFieldController, value);},
                 validator:(val) =>requiredFieldValidator(input: val, errorMgs: "Please enter salary in LPA"),
                 hintText: "12 LPA",labelText: "Salary Package",prefixIcon: Icon(Icons.currency_rupee,color: AppColors.colors.blueColors,),),
 
