@@ -82,6 +82,6 @@ class CreatePostJobDropDownForms extends ConsumerWidget {
         createPostJobWatch.isJobLocationSelect?Text("Job Location is required",style: TextStyles.w400.copyWith(fontSize: 10.sp,color: Colors.red.shade400,),):const SizedBox(),
 
       ],
-    );
+    ).paddingOnly(top: 8.h);
   }
 }

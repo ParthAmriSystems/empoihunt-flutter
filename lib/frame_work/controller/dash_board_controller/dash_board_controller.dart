@@ -23,7 +23,7 @@ class DashBoardController extends ChangeNotifier{
     const JobSeekerHome(),
     const Campus(),
     ///Temporary stop fetching data
-    /*const AIForJobSeeker(),*/
+    const AIForJobSeeker(),
     const Setting()
   ];
 

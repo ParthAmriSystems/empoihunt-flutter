@@ -277,6 +277,7 @@ List<String> qualificationsList = [
   'Others'
 ];
 
+List<String> jobDescription=[];
 /// ------ DesignationList List ---///
 List<String> designationList = [
   'Manager',

@@ -70,10 +70,10 @@ class _DashBoardState extends ConsumerState<DashBoard> {
                 label: "Campus"
             ),
             ///Temporary stop fetching data
-            /*BottomNavigationBarItem(
+            BottomNavigationBarItem(
                 icon: Icon(Icons.rocket ),
                 label: "AI"
-            ),*/
+            ),
             const BottomNavigationBarItem(
                 icon: Icon(Icons.settings),
                 label: "Setting"

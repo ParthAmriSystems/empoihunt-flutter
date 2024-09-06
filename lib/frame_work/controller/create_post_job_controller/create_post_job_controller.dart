@@ -1,9 +1,11 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:emploiflutter/frame_work/controller/dash_board_controller/dash_board_controller.dart';
 import 'package:emploiflutter/frame_work/repository/api_end_point.dart';
 import 'package:emploiflutter/frame_work/repository/dio_client.dart';
+import 'package:emploiflutter/ui/utils/common_service/helper.dart';
 import 'package:emploiflutter/ui/utils/constant/app_string_constant.dart';
 import 'package:emploiflutter/ui/utils/common_widget/helper.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
@@ -30,6 +32,7 @@ class CreatePostJobController extends ChangeNotifier{
   final experienceFieldController = TextEditingController();
   final salaryFieldController = TextEditingController();
   final numberOfEmpFieldController = TextEditingController();
+
 
 
 
@@ -69,6 +72,7 @@ class CreatePostJobController extends ChangeNotifier{
 
   List<String> technicalSkillsList = [];
   List<String> softSkillsList = [];
+
   bool isTechnicalSkillEmpty = false;
   bool isSoftSkillEmpty = false;
 
@@ -116,7 +120,8 @@ class CreatePostJobController extends ChangeNotifier{
   final jobLocationSearchController = TextEditingController();
   // String? selectedJobLocation;
   bool isJobLocationSelect = false;
-  updateSelectedJobLocation(String? value) {
+  ///Temp comment
+ /* updateSelectedJobLocation(String? value) {
     // selectedJobLocation = value;
     if(value !=""){
       isJobLocationSelect = false;
@@ -124,17 +129,18 @@ class CreatePostJobController extends ChangeNotifier{
       isJobLocationSelect = true;
     }
     notifyListeners();
-  }
+  }*/
 
   final educationSearchController = TextEditingController();
   bool isEducationSelected = false;
-  updateIsQualificationSelected(String value){
+  ///Temp comment
+ /* updateIsQualificationSelected(String value){
     if(value != ""){
       isEducationSelected = false;
     }else{
       isEducationSelected = true;
     }
-  }
+  }*/
 
  /* List<String> checkEducation(String query){
     query = query.toUpperCase().trim();
@@ -308,7 +314,36 @@ class CreatePostJobController extends ChangeNotifier{
     notifyListeners();
     }
 
+///---------------------- auto description api ------------------///
 
+  String autoDescriptionTxt = "";
+  
+  addAutoDescriptionTxtToField(){
+    jobDescriptionFieldController.text = autoDescriptionTxt.replaceAll("Description:- ", "");
+    autoDescriptionTxt = "";
+    notifyListeners();
+
+  }
+  Future<void> autoDescriptionApi() async{
+    print(technicalSkillsList.join(","));
+    if(jobTitleFieldController.text != "" && experienceFieldController.text != "" && technicalSkillsList.isNotEmpty){
+      try{
+        final Response response = await DioClient.client.postDataWithJson(APIEndPoint.jobAutoDescription,{
+          "job_title": jobTitleFieldController.text,
+          "work_experience_required": experienceFieldController.text,
+          "skillset_required": technicalSkillsList.join(",")
+        });
+        if(response.statusCode == 200){
+          kPrint(response.data);
+          final text = response.data["job_description"];
+          autoDescriptionTxt = text;
+          notifyListeners();
+        }
+      }on DioException catch(e){
+        Future.error(e.toString());
+      }
+    }
+  }
 }
 
 class RadioButtonModel{

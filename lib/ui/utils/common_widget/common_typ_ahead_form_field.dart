@@ -1,7 +1,6 @@
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
 
 
 class CommonTypeAheadFormField extends StatelessWidget {

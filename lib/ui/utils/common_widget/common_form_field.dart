@@ -10,7 +10,7 @@ class CommonFormField extends StatelessWidget {
         this.obscureText =false,
         this.suffixIcon,
         this.validator,
-        this.initialValue, this.controller, this.textInputAction, this.keyboardType, this.inputFormatters, this.labelText, this.prefixIcon, this.maxLength, this.hintStyle, this.labelStyle, this.maxLine = 1, this.contentPadding, this.autoValidateMode, this.border, this.buildCounter, this.fillColor, this.onChanged, this.onFieldSubmitted, this.onTap, this.focusNode});
+        this.initialValue, this.controller, this.textInputAction, this.keyboardType, this.inputFormatters, this.labelText, this.prefixIcon, this.maxLength, this.hintStyle, this.labelStyle, this.maxLine = 1, this.contentPadding, this.autoValidateMode, this.border, this.buildCounter, this.fillColor, this.onChanged, this.onFieldSubmitted, this.onTap, this.focusNode, this.onEditingComplete});
 
   final String hintText;
   final String? labelText;
@@ -33,6 +33,7 @@ class CommonFormField extends StatelessWidget {
   final InputBorder? border;
   final Color? fillColor;
   final void Function(String)? onChanged;
+  final void Function()? onEditingComplete;
   final void Function()? onTap;
   final FocusNode? focusNode;
   final Widget? Function(BuildContext, {required int currentLength, required bool isFocused, required int? maxLength})? buildCounter;
@@ -41,6 +42,7 @@ class CommonFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onEditingComplete: onEditingComplete,
       focusNode: focusNode,
       onTap: onTap,
       onFieldSubmitted: onFieldSubmitted,

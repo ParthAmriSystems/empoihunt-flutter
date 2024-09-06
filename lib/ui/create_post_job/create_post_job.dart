@@ -9,6 +9,7 @@ import 'package:emploiflutter/ui/utils/constant/app_string_constant.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_appbar.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_form_field.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_typ_ahead_form_field.dart';
+import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
 import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
 import 'package:emploiflutter/ui/utils/common_service/form_validation.dart';
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
@@ -124,13 +125,44 @@ class _CreatePostJobState extends ConsumerState<CreatePostJob> {
           ).paddingVertical(10.h),
               createPostJobWatch.isFileSelected?Text("Please Select organization logo",style: TextStyles.w400.copyWith(fontSize: 10.sp,color: Colors.red.shade400,),):const SizedBox(),
 
+              /// Job Skills Forms ///
+              const CreatePostJobSkillsWidget(),
+
+              CommonFormField(
+                onEditingComplete: () {
+                  createPostJobWatch.autoDescriptionApi();
+                },
+                controller: createPostJobWatch.experienceFieldController,
+                textInputAction: TextInputAction.next,
+                keyboardType: TextInputType.phone,
+                autoValidateMode: AutovalidateMode.onUserInteraction,
+                onChanged: (value)=>{
+                    notAllowSpecialChar(createPostJobWatch.experienceFieldController, value),createPostJobWatch.autoDescriptionApi()},
+                validator: (value)=>requiredFieldValidator(input:value , errorMgs: "Please enter experience in year"),
+                hintText: "2 years",labelText: "Required Experience",prefixIcon: Icon(Icons.star,color: AppColors.colors.blueColors,),).paddingOnly(top: 10.h),
+
+              /// Job DropDown Forms ///
+              const CreatePostJobDropDownForms(),
+
+
+              createPostJobWatch.autoDescriptionTxt!=""?TextButton(onPressed: (){
+              createPostJobWatch.addAutoDescriptionTxtToField();
+              }, child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("Tap to Select Suggestion Description",style: TextStyle(decoration: TextDecoration.underline),),
+                  Text(createPostJobWatch.autoDescriptionTxt,style: TextStyle(color: Colors.black54),maxLines: 2,),
+                ],
+              )):SizedBox(),
               CommonFormField(
                 controller: createPostJobWatch.jobDescriptionFieldController,
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.text,
                 autoValidateMode: AutovalidateMode.onUserInteraction,
-                validator: (value)=>requiredFieldValidator(input:value , errorMgs: "Please enter job description"),
+                validator: (value)=>
+                    requiredFieldValidator(input:value , errorMgs: "Please enter job description"),
                 hintText: "Job Description Here", prefixIcon: SvgPicture.asset(AppAssets.bioGraphSvg,color: AppColors.colors.blueColors,).paddingSymmetric(vertical: 10.h,horizontal: 10.w), maxLine: 4, contentPadding: EdgeInsets.symmetric(vertical: 30, horizontal: 10.w),).paddingVertical(10.h),
+
               CommonFormField(
                 controller: createPostJobWatch.jobRoleRespFieldController,
                 textInputAction: TextInputAction.next,
@@ -138,20 +170,7 @@ class _CreatePostJobState extends ConsumerState<CreatePostJob> {
                 autoValidateMode: AutovalidateMode.onUserInteraction,
                 validator: (value)=>requiredFieldValidator(input:value , errorMgs: "Please enter job role & Responsibility"),
                 hintText: "Job Role & Responsibility", prefixIcon: SvgPicture.asset(AppAssets.baselinePlaylistAddCheckCircleSvg,color: AppColors.colors.blueColors,).paddingSymmetric(vertical: 10.h,horizontal: 10.w), maxLine: 4, contentPadding: EdgeInsets.symmetric(vertical: 30, horizontal: 10.w),),
-              CommonFormField(
-                controller: createPostJobWatch.experienceFieldController,
-                textInputAction: TextInputAction.next,
-                keyboardType: TextInputType.phone,
-                autoValidateMode: AutovalidateMode.onUserInteraction,
-                onChanged: (value)=>notAllowSpecialChar(createPostJobWatch.experienceFieldController, value),
-                validator: (value)=>requiredFieldValidator(input:value , errorMgs: "Please enter experience in year"),
-                hintText: "2 years",labelText: "Required Experience",prefixIcon: Icon(Icons.star,color: AppColors.colors.blueColors,),).paddingOnly(top: 10.h),
 
-              /// Job Skills Forms ///
-              const CreatePostJobSkillsWidget(),
-
-              /// Job DropDown Forms ///
-              const CreatePostJobDropDownForms(),
 
               SizedBox(height: 10.h,),
               CommonFormField(
@@ -177,7 +196,6 @@ class _CreatePostJobState extends ConsumerState<CreatePostJob> {
                SizedBox(height: 10.h,),
               /// Bottom Button ///
               const CreatePostJobBottomButton()
-
             ],
           ),
         ),
