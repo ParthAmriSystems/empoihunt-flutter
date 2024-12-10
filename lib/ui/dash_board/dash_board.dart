@@ -33,6 +33,12 @@ class _DashBoardState extends ConsumerState<DashBoard> {
     print(user.user.tProfileUrl);
     print(user.tAuthToken);
   }
+  //
+  // @override
+  // void dispose() {
+  //   super.dispose();
+  // }
+
   @override
   Widget build(BuildContext context) {
     final dashBoardWatch  = ref.watch(dashBoardController);

@@ -43,6 +43,7 @@ class _FilterJobPreferenceState extends ConsumerState<FilterJobPreference> with 
       }, icon: Icon(Icons.check,color: AppColors.colors.blackColors,))],),
       body: DefaultTabController(
         length:userData.iRole ==0? 4 : 3,
+        animationDuration: Duration(milliseconds: 300),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -66,31 +67,27 @@ class _FilterJobPreferenceState extends ConsumerState<FilterJobPreference> with 
                 }),
               ),
             ) :const SizedBox(),
-            Row(
-            children: [
-              SizedBox(
-                height: 40.h,
-                width: MediaQuery.of(context).size.width,
-                child:  TabBar(
-                  isScrollable: true,
-                  indicatorColor: AppColors.colors.clayColors,
-                  labelColor: AppColors.colors.clayColors,
-                  unselectedLabelColor: AppColors.colors.blackColors,
-                  tabs:  userData.iRole  ==0?
-                  [Tab(child: Container(padding: EdgeInsets.symmetric(horizontal: 6.w),child: const Text("Domain"))),
-                    Tab(child: Container(padding: EdgeInsets.symmetric(horizontal: 6.w),child: const Text("Location"))),
-                    Tab(child: Container(padding: EdgeInsets.symmetric(horizontal: 6.w),child: const Text("Mode"))),
-                    Tab(child: Container(padding: EdgeInsets.symmetric(horizontal: 6.w),child: const Text("Package"))),]
-                      :
-                  [Tab(child: Container(padding: EdgeInsets.symmetric(horizontal: 22.w),child: const Text("Domain"))),
-                    Tab(child: Container(padding: EdgeInsets.symmetric(horizontal: 22.w),child: const Text("Location"))),
-                    Tab(child: Container(padding: EdgeInsets.symmetric(horizontal: 22.w),child: const Text("Mode"))),]
-                  ,
-                ),
+            SizedBox(
+              height: 45.h,
+              width: MediaQuery.of(context).size.width,
+              child:  TabBar(
+                isScrollable: true,indicatorSize: TabBarIndicatorSize.label,
+                indicatorColor: AppColors.colors.clayColors,
+                labelColor: AppColors.colors.clayColors,
+                tabAlignment: TabAlignment.start, padding: EdgeInsets.zero,
+                unselectedLabelColor: AppColors.colors.blackColors,
+                tabs:  userData.iRole  ==0?
+                [Tab(child: Container(padding: EdgeInsets.symmetric(horizontal: 6.w),child: const Text("Domain"))),
+                  Tab(child: Container(padding: EdgeInsets.symmetric(horizontal: 6.w),child: const Text("Location"))),
+                  Tab(child: Container(padding: EdgeInsets.symmetric(horizontal: 6.w),child: const Text("Mode"))),
+                  Tab(child: Container(padding: EdgeInsets.symmetric(horizontal: 6.w),child: const Text("Package"))),]
+                    :
+                [Tab(child: Container(padding: EdgeInsets.symmetric(horizontal: 22.w),child: const Text("Domain"))),
+                  Tab(child: Container(padding: EdgeInsets.symmetric(horizontal: 22.w),child: const Text("Location"))),
+                  Tab(child: Container(padding: EdgeInsets.symmetric(horizontal: 22.w),child: const Text("Mode"))),]
+                ,
               ),
-              const Spacer()
-            ],
-          ),
+            ),
               Expanded(
               child: SizedBox(
                 child: TabBarView(

@@ -45,6 +45,9 @@ class RecruiterHomeController extends ChangeNotifier{
               'Authorization': 'Bearer ${user.tAuthToken}',
             }
         );
+
+
+        // print("BBBBBB===================>${user.tAuthToken}");
         Response response =await DioClient.client.getDataWithBearerToken("${APIEndPoint.getJobSeekerApi}?tag=""&current_page=$currentPage", options);
         if(response.statusCode == 200){
           isLoading = false;

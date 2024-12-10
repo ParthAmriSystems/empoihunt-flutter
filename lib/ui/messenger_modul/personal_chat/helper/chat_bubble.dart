@@ -30,7 +30,8 @@ class _ChatBubbleState extends ConsumerState<ChatBubble> {
       children: [
         ///------ chat bubble ------///
        widget.chat.message != ""?
-       widget.chat.msgType == 2?const SizedBox(): Row(
+       widget.chat.msgType == 2?const SizedBox():
+       Row(
           mainAxisAlignment:
           widget.chat.fromId ==  currentUserId ? MainAxisAlignment.end : MainAxisAlignment.start,
           children: [

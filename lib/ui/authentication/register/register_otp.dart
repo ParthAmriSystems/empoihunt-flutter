@@ -24,6 +24,7 @@ class _RegisterOTPState extends ConsumerState<RegisterOTP> {
     // TODO: implement initState
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) async{
+      print("Phone number ${widget.phoneNumber}");
       await ref.read(registerOtpController).verifyPhoneNumber(phoneNumber: widget.phoneNumber, context: context, selectedUserType: ref.read(chooseUserRoleController).userRole,childCurrent: widget);
     });
   }

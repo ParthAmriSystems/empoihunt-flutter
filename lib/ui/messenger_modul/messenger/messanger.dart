@@ -28,19 +28,9 @@ class _MessengerState extends ConsumerState<Messenger> {
   void initState() {
     super.initState();
 
-
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) async{
-      final data = FirebaseDatabase.instance.ref('Messenger').child("LatestMessage").child(ref.read(messengerController).currentUser.user.vFirebaseId);
-      ref.read(messengerController).makeListOfPersonEmpty();
-      data.onChildChanged.listen((event) {
-        // print(event.snapshot.key);
-        ref.read(messengerController).updateChatPersonValue(event);
-      });
+     ref.read(messengerController).getInitialUserChats();
 
-      data.onChildAdded.listen((event) {
-        Map<dynamic,dynamic> database = event.snapshot.value as Map<dynamic,dynamic>;
-        ref.read(messengerController).getUserByFirebaseId(firebaseId: event.snapshot.key.toString(), recentText: database["message"], dateStamp: database["dateStamp"], timeStamp: database["timeStamp"],);
-      });
     });
 
   }
@@ -56,9 +46,11 @@ class _MessengerState extends ConsumerState<Messenger> {
           padding: EdgeInsets.all(20.sp)
         ),
         onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (_)=>const MakeNewChat()));
+          Navigator.push(context, MaterialPageRoute(builder: (_)=>const MakeNewChat())).then((value) {
+            messengerWatch.getInitialUserChats();
+          },);
         },icon: Icon(Icons.people,color: AppColors.colors.whiteColors,size: 22,),),
-      body: messengerWatch.isLoading ? const Center(child: CircularProgressIndicator(),):
+      body: messengerWatch.isLoading ? const Center(child: CircularProgressIndicator()):
           messengerWatch.testList.isEmpty ? const CommonNoDataFoundLayout(img: AppAssets.jobSearch, errorTxt: "Chat with your frd"):
         ListView.builder(
           itemCount: messengerWatch.testList.length,
@@ -69,7 +61,13 @@ class _MessengerState extends ConsumerState<Messenger> {
             elevation: 6,
             child: GestureDetector(
               onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (_)=> PersonalChat(profileUrl: chatPerson.userChat.tProfileUrl!, personName: '${chatPerson.userChat.vFirstName} ${chatPerson.userChat.vLastName}', chatPersonFId: chatPerson.userChat.vFirebaseId!, chatPersonDeviceToken: chatPerson.userChat.tDeviceToken!, phone: chatPerson.userChat.vMobile??"",)));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (_)=> 
+                        PersonalChat(profileUrl: chatPerson.userChat.tProfileUrl!, personName: '${chatPerson.userChat.vFirstName} ${chatPerson.userChat.vLastName}', chatPersonFId: chatPerson.userChat.vFirebaseId!, chatPersonDeviceToken: chatPerson.userChat.tDeviceToken!, phone: chatPerson.userChat.vMobile??"",)
+                    )
+                ).then((value) {
+                  messengerWatch.getInitialUserChats();
+                },);
               },
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 6.h,horizontal: 10.w),

@@ -26,6 +26,28 @@ class MessengerController extends ChangeNotifier{
 
 
 
+
+  ///============================= Firebase get user Chats =====================///
+
+  Future<void> getInitialUserChats()async{
+    final data = FirebaseDatabase.instance.ref('Messenger').child("LatestMessage").child(currentUser.user.vFirebaseId);
+    makeListOfPersonEmpty();
+    final snapShot = await  data.get();
+    if(snapShot.exists){
+      data.onChildChanged.listen((event) {
+      updateChatPersonValue(event);
+      });
+      data.onChildAdded.listen((event) {
+        Map<dynamic,dynamic> database = event.snapshot.value as Map<dynamic,dynamic>;
+        getUserByFirebaseId(firebaseId: event.snapshot.key.toString(), recentText: database["message"], dateStamp: database["dateStamp"], timeStamp: database["timeStamp"],);
+      });
+    }else{
+      isLoading = false;
+      notifyListeners();
+    }
+  }
+  ///============================= Firebase get user Chats =====================///
+
   List<ChatAllModel> testList = [];
  Future<void> getUserByFirebaseId(
      {required String firebaseId,
@@ -53,6 +75,7 @@ class MessengerController extends ChangeNotifier{
       }
     }catch(e){
       isLoading= false;
+      notifyListeners();
       Future.error("get recent user error------->$e");
     }
     notifyListeners();
