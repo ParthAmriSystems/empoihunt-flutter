@@ -317,7 +317,7 @@ class RecruiterRegisterProfileDetailsController extends ChangeNotifier {
       });
       int userDeletedValue = ref.read(registerController).userDeleted;
       Response response = await DioClient.client.postDataWithForm(
-          "${APIEndPoint.registerUserApi}?iRole=1&vFirebaseId=$uid&vMobile=%2B$phoneNumber&vDeviceId=${deviceData.deviceId}&vDeviceType=${deviceData.deviceType}&vOSVersion=${deviceData.deviceVersion}&tDeviceToken=$fcmTokenKey&tDeviceName=${deviceData.deviceName}&vFirstName=$firstName&vLastName=$lastName&vEmail=$email&tBio=${bioController.text}&vCity=$city&vCurrentCompany=${companyNameController.text}&vDesignation=${designationSearchController.text}&vJobLocation=${jobLocationSearchController.text}&vDuration="
+          "${APIEndPoint.registerUserApi}?iRole=1&vFirebaseId=$uid&vMobile=%2B$phoneNumber&vDeviceId=${deviceData.deviceId}&vDeviceType=${deviceData.deviceType}&vOSVersion=${deviceData.deviceVersion}&tDeviceToken=${SharedPrefServices.services.getString(fcmTokenKey)}&tDeviceName=${deviceData.deviceName}&vFirstName=$firstName&vLastName=$lastName&vEmail=$email&tBio=${bioController.text}&vCity=$city&vCurrentCompany=${companyNameController.text}&vDesignation=${designationSearchController.text}&vJobLocation=${jobLocationSearchController.text}&vDuration="
           "&vPreferCity="
           "&vPreferJobTitle="
           "&vQualification=${qualificationSearchController.text}&vWorkingMode=$selectedWorkingModeText&tTagLine="

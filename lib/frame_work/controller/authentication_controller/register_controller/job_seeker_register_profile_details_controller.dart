@@ -563,6 +563,11 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
     final deviceData =
     BoxService.boxService.nativeDeviceBox.get(deviceDetailKey)!;
     print("FCM Token------->${SharedPrefServices.services.getString(fcmTokenKey)}");
+
+
+    if(Platform.isAndroid){
+
+    }
     notifyListeners();
     print(uid);
     expertiseToTagline();
@@ -575,8 +580,9 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
       });
       int userDeletedValue  = ref.read(registerController).userDeleted;
       Response response = await DioClient.client.postDataWithForm(
-          "${APIEndPoint.registerUserApi}?iRole=0&vFirebaseId=$uid&vMobile=%2B$phoneNumber&vDeviceId=${deviceData.deviceId}&vDeviceType=${deviceData.deviceType}&vOSVersion=${deviceData.deviceVersion}&tDeviceToken=$fcmTokenKey&tDeviceName=${deviceData.deviceName}&vFirstName=$firstName&vLastName=$lastName&vEmail=$email&tBio=${bioController.text}&vCity=$city&vCurrentCompany=${companyNameController.text}&vDesignation=${designationSearchController.text}&vJobLocation=${jobLocationSearchController.text}&vDuration=""&vPreferCity=${preferCitySearchController.text}&vPreferJobTitle=${jobSearchController.text}&vQualification=${qualificationSearchController.text}&vWorkingMode=${isFresher? selectedWorkingText :""}&tTagLine=${expertiseTagline??""}&tLatitude=${latitude}&tLongitude=${longitude}&tAppVersion=0&isDeleted=$userDeletedValue",
+          "${APIEndPoint.registerUserApi}?iRole=0&vFirebaseId=$uid&vMobile=%2B$phoneNumber&vDeviceId=${deviceData.deviceId}&vDeviceType=${deviceData.deviceType}&vOSVersion=${deviceData.deviceVersion}&tDeviceToken=${SharedPrefServices.services.getString(fcmTokenKey)}&tDeviceName=${deviceData.deviceName}&vFirstName=$firstName&vLastName=$lastName&vEmail=$email&tBio=${bioController.text}&vCity=$city&vCurrentCompany=${companyNameController.text}&vDesignation=${designationSearchController.text}&vJobLocation=${jobLocationSearchController.text}&vDuration=""&vPreferCity=${preferCitySearchController.text}&vPreferJobTitle=${jobSearchController.text}&vQualification=${qualificationSearchController.text}&vWorkingMode=$selectedWorkingText&tTagLine=${expertiseTagline??""}&tLatitude=${latitude}&tLongitude=${longitude}&tAppVersion=0&isDeleted=$userDeletedValue",
           formData: formData);
+      print("Statu codeee================================> ${response.statusCode}");
       if (response.statusCode == 200) {
         isLoading = false;
         UserDetailDataModel user = UserDetailDataModel.fromJson(response.data["data"]);
@@ -603,7 +609,6 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
     companyNameController.clear();
     jobSearchController.clear();
     preferCitySearchController.clear();
-    designationSearchController.clear();
     qualificationSearchController.clear();
     jobLocationSearchController.clear();
     qualificationSearchController.clear();

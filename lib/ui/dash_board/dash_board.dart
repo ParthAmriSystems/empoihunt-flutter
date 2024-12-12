@@ -22,7 +22,6 @@ class _DashBoardState extends ConsumerState<DashBoard> {
     super.initState();
     final user = BoxService.boxService.userGetDetailBox.get(userDetailKey)!;
     ZeGoCloudService.service.onUserLogin(user);
-
     print("-------------------------------------------Dash Board User Details-----------------------------------------------");
     print(user.user.vFirebaseId.toString());
     print(user.user.tUpadatedAt);
@@ -31,9 +30,9 @@ class _DashBoardState extends ConsumerState<DashBoard> {
     print(user.user.vFirstName);
     print(user.user.vLastName);
     print(user.user.tProfileUrl);
+    print(user.tDeviceToken);
     print(user.tAuthToken);
   }
-  //
   // @override
   // void dispose() {
   //   super.dispose();

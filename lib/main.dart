@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:emploiflutter/frame_work/repository/model/splash/native_device_model/native_device_model.dart';
 import 'package:emploiflutter/frame_work/repository/model/user_model/user_detail_data_model.dart';
 import 'package:emploiflutter/frame_work/repository/model/user_model/user_experience_model.dart';
@@ -15,6 +17,7 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 import 'package:zego_uikit_signaling_plugin/zego_uikit_signaling_plugin.dart';
 import 'firebase_options.dart';
+import 'frame_work/repository/services/fire_base/notification_service.dart';
 import 'frame_work/repository/services/hive_service/hive_adapter.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey();
@@ -69,14 +72,23 @@ Future<void> appInitialize()async{
 
   ///---------------FCM Token ------------///
   await FirebaseMessaging.instance.setAutoInitEnabled(true);
+  await NotService.service.init();
+
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
   await SharedPrefServices.services.init();
+
   String? fcmToken;
   try {
-    fcmToken = await FirebaseMessaging.instance.getToken();
+    if(Platform.isAndroid){
+      fcmToken = await NotService.service.getFCMId();
+    }else if(Platform.isIOS){
+      NotService.service.getFCMId().then((value) async{
+        fcmToken = await NotService.service.getFCMId();
+      },);
+    }
   } catch (e) {
     FirebaseCrashlytics.instance
         .recordError(e, null, reason: "FCM Token found");

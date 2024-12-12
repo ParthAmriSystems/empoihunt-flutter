@@ -56,7 +56,7 @@ class JobSeekerRegisterProfileDetails2 extends ConsumerWidget {
                     ),
                     CommonTypeAheadFormField(
                         width: context.screenWidth * 0.87,
-                        controller: registerProfileDetailsWatch.qualificationSearchController,
+                        controller: registerProfileDetailsWatch.designationSearchController,
                         hintText: "Designation",
                         labelText: "Designation",
                         dropdownMenuEntries: designationList
@@ -66,7 +66,7 @@ class JobSeekerRegisterProfileDetails2 extends ConsumerWidget {
                             .toList(),
                         onSelected: (value)  {
                           registerProfileDetailsWatch.isSelectedDesignEmptyUpdate(value);
-                          registerProfileDetailsWatch.qualificationSearchController.text = value??registerProfileDetailsWatch.qualificationSearchController.text;
+                          registerProfileDetailsWatch.designationSearchController.text = value??registerProfileDetailsWatch.designationSearchController.text;
                         }),
                     /*CommonTypeAheadFormField(
                         prefixIcon: null,

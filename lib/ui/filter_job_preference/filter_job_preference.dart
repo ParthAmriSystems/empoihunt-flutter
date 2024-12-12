@@ -84,8 +84,7 @@ class _FilterJobPreferenceState extends ConsumerState<FilterJobPreference> with 
                     :
                 [Tab(child: Container(padding: EdgeInsets.symmetric(horizontal: 22.w),child: const Text("Domain"))),
                   Tab(child: Container(padding: EdgeInsets.symmetric(horizontal: 22.w),child: const Text("Location"))),
-                  Tab(child: Container(padding: EdgeInsets.symmetric(horizontal: 22.w),child: const Text("Mode"))),]
-                ,
+                  Tab(child: Container(padding: EdgeInsets.symmetric(horizontal: 22.w),child: const Text("Mode"))),],
               ),
             ),
               Expanded(

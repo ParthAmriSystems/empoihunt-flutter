@@ -190,7 +190,7 @@ class LoginOtpController extends ChangeNotifier{
              "vMobile": number,
              "vDeviceId": data.deviceId,
              "vOSVersion": data.deviceVersion,
-             "tDeviceToken": "string",
+             "tDeviceToken": SharedPrefServices.services.getString(fcmTokenKey),
              "tDeviceName": data.deviceName,
              "vFirebaseId": uid
            });
