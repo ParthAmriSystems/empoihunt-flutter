@@ -2,6 +2,12 @@
 ///------------ Shared Preference Keys ----------///
 
   const String onBoardingKey = "onBoardingKey";
+
+  /// ============= Show case keys ===============///
+  const String registerShowCaseRecruiter = "registerShowCaseRecruiter";
+  const String registerShowCaseJobSeeker = "registerShowCaseJobSeeker";
+  /// ============= Show case keys ===============///
+
   const String locationListKey = "locationKey";
   const String fcmTokenKey = "fcmTokenKey";
   const String privacyPolicyStringKey = "privacyPolicyStringKey";

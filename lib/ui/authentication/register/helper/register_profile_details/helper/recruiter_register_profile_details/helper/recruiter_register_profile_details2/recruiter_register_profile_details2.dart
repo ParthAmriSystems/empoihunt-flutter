@@ -1,14 +1,13 @@
 import 'package:emploiflutter/frame_work/controller/authentication_controller/register_controller/recruiter_register_profile_details_controller.dart';
 import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
 import 'package:emploiflutter/ui/utils/constant/app_constant.dart';
-import 'package:emploiflutter/ui/utils/common_widget/common_dropdown_form_field.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_form_field.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_typ_ahead_form_field.dart';
 import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
-import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/constant/app_string_constant.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
+import 'package:showcaseview/showcaseview.dart';
 
 class RecruiterRegisterProfileDetails2 extends ConsumerWidget {
   const RecruiterRegisterProfileDetails2({super.key});
@@ -37,98 +36,93 @@ class RecruiterRegisterProfileDetails2 extends ConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                     CommonFormField(
-                         maxLength: 50,
-                         buildCounter: (p0, {required currentLength, required isFocused, maxLength}) =>const SizedBox(),
-                       controller: registerProfileDetailsWatch.companyNameController,
-                         keyboardType: TextInputType.name,
-                         onChanged: (value){
-                           registerProfileDetailsWatch.updateIsCompanyEmpty(value);
-                         },
-                        hintText: "Company name",
-                        prefixIcon: const Icon(
-                          Icons.location_city_sharp,
-                        ),
-                        labelText: "Company name"),
+                     Showcase(
+                       key: registerProfileDetailsWatch.globalKeyCompanyName,
+                       title: 'Company',
+                       description: 'Enter the name of the company you are currently working for',
+                       targetBorderRadius:  BorderRadius.circular(8.r),
+                       targetPadding: EdgeInsets.only(top: 10.h,left: 8.w,right: 8.w),
+                       child: CommonFormField(
+                           maxLength: 50,
+                           buildCounter: (p0, {required currentLength, required isFocused, maxLength}) =>const SizedBox(),
+                         controller: registerProfileDetailsWatch.companyNameController,
+                           keyboardType: TextInputType.name,
+                           onChanged: (value){
+                             registerProfileDetailsWatch.updateIsCompanyEmpty(value);
+                           },
+                          hintText: "Company name",
+                          prefixIcon: const Icon(
+                            Icons.location_city_sharp,
+                          ),
+                          labelText: "Company name"),
+                     ),
                     registerProfileDetailsWatch.isCompanyEmpty?Text("please enter the company name",style: TextStyles.w300.copyWith(fontSize: 12.sp,color: Colors.red),):const SizedBox(),
                     SizedBox(
                       height: 15.h,
                     ),
-                    CommonTypeAheadFormField(
-                        width: context.screenWidth * 0.87,
-                        controller: registerProfileDetailsWatch.designationSearchController,
-                        hintText: "Designation",
-                        labelText: "Designation",
-                        dropdownMenuEntries: designationList
-                            .map((element) => DropdownMenuEntry(
-                            value: element,
-                            label: element))
-                            .toList(),
-                        onSelected: (value)  {
-                          registerProfileDetailsWatch.isDesignationEmptyUpdate(value);
-                          registerProfileDetailsWatch.designationSearchController.text = value??registerProfileDetailsWatch.designationSearchController.text;
-                        }),
-                   /* CommonTypeAheadFormField(
-                        prefixIcon: null,
-                        direction: VerticalDirection.up,
-                        onChanged: (value){
-                          registerProfileDetailsWatch.isDesignationEmptyUpdate(value);
-                        },
-                        controller: registerProfileDetailsWatch.designationSearchController,
-                        hintText: "Designation",
-                        labelText: "Designation",
-                        suggestionsCallback: (pattern)async {
-                          return await registerProfileDetailsWatch.checkDesignation(pattern);
-                        },
-                        onSelected: (value) {
-                          registerProfileDetailsWatch.designationSearchController.text = value;
-                          registerProfileDetailsWatch.isDesignationEmptyUpdate(value);
-                        }
-                    ),*/
+                    Showcase(
+                      key: registerProfileDetailsWatch.globalKeyDesignation,
+                      title: 'Designation',
+                      description: 'Enter your current role or title in the company',
+                      targetBorderRadius:  BorderRadius.circular(8.r),
+                      targetPadding: EdgeInsets.only(top: 8.h,left: 8.w,right: 8.w,bottom: 8.h),
+                      child: CommonTypeAheadFormField(
+                          width: context.screenWidth * 0.87,
+                          controller: registerProfileDetailsWatch.designationSearchController,
+                          hintText: "Designation",
+                          labelText: "Designation",
+                          dropdownMenuEntries: designationList
+                              .map((element) => DropdownMenuEntry(
+                              value: element,
+                              label: element))
+                              .toList(),
+                          onSelected: (value)  {
+                            registerProfileDetailsWatch.isDesignationEmptyUpdate(value);
+                            registerProfileDetailsWatch.designationSearchController.text = value??registerProfileDetailsWatch.designationSearchController.text;
+                          }),
+                    ),
                     registerProfileDetailsWatch.isDesignationEmpty?Text("please Select the above Designation",style: TextStyles.w300.copyWith(fontSize: 12.sp,color: Colors.red),):const SizedBox(),
                     SizedBox(
                       height: 20.h,
                     ),
-                    CommonTypeAheadFormField(
-                        width: context.screenWidth * 0.87,
-                        controller: registerProfileDetailsWatch.jobLocationSearchController,
-                        hintText: "Prefer City",
-                        labelText: "Prefer City",
-                        dropdownMenuEntries: SharedPrefServices.services.getList(locationListKey)!
-                            .map((element) => DropdownMenuEntry(
-                            value: element,
-                            label: element))
-                            .toList(),
-                        onSelected: (value)  {
-                          registerProfileDetailsWatch.isJobLocationEmptyUpdate(value);
-                          registerProfileDetailsWatch.jobLocationSearchController.text = value??registerProfileDetailsWatch.jobLocationSearchController.text;
-                        }),
-                   /* CommonTypeAheadFormField(
-                        prefixIcon: null,
-                        direction: VerticalDirection.up,
-                        onChanged: (value){
-                          registerProfileDetailsWatch.isJobLocationEmptyUpdate(value);
-                        },
-                        controller: registerProfileDetailsWatch.jobLocationSearchController,
-                        hintText: "Prefer City",
-                        labelText: "Prefer City",
-                        suggestionsCallback: (pattern) async  {
-                          return await registerProfileDetailsWatch.checkJobLocation(pattern);
-                        },
-                        onSelected: (value) {
-                          registerProfileDetailsWatch.jobLocationSearchController.text = value;
-                          registerProfileDetailsWatch.isJobLocationEmptyUpdate(value);
-                        }
-                    ),*/
+                    Showcase(
+                      key: registerProfileDetailsWatch.globalKeyPreferCity,
+                      title: 'Location',
+                      description: 'Enter the city where your company is located',
+                      targetBorderRadius:  BorderRadius.circular(8.r),
+                      targetPadding: EdgeInsets.only(top: 8.h,left: 8.w,right: 8.w,bottom: 8.h),
+                      child: CommonTypeAheadFormField(
+                          width: context.screenWidth * 0.87,
+                          controller: registerProfileDetailsWatch.jobLocationSearchController,
+                          hintText: "Prefer City",
+                          labelText: "Prefer City",
+                          dropdownMenuEntries: SharedPrefServices.services.getList(locationListKey)!
+                              .map((element) => DropdownMenuEntry(
+                              value: element,
+                              label: element))
+                              .toList(),
+                          onSelected: (value)  {
+                            registerProfileDetailsWatch.isJobLocationEmptyUpdate(value);
+                            registerProfileDetailsWatch.jobLocationSearchController.text = value??registerProfileDetailsWatch.jobLocationSearchController.text;
+                          }),
+                    ),
+
                     registerProfileDetailsWatch.isJobLocationEmpty? Text("please Select the Job Location",style: TextStyles.w300.copyWith(fontSize: 12.sp,color: Colors.red),):const SizedBox(),
                     SizedBox(height: 5.h,),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          "Select your prefer working mode",
-                          style: TextStyles.w400.copyWith(
-                              fontSize: 12.sp, color: AppColors.colors.blueColors),
+                        Showcase(
+                          key: registerProfileDetailsWatch.globalKeyWorkingMode,
+                          title: 'Working mode',
+                          description: 'Select your current working mode, such as remote, onsite, or hybrid',
+                          targetBorderRadius:  BorderRadius.circular(8.r),
+                          targetPadding: EdgeInsets.only(top: 5.h,left: 8.w,right: 8.w,bottom: 5.h),
+                          child: Text(
+                            "Select your prefer working mode",
+                            style: TextStyles.w400.copyWith(
+                                fontSize: 12.sp, color: AppColors.colors.blueColors),
+                          ),
                         ),
                         SizedBox(
                           height: 5.h,

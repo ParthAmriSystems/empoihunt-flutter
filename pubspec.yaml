@@ -55,7 +55,7 @@ dependencies:
   pinput:
   dropdown_button2: ^2.3.9
   lottie: ^2.7.0
-  showcaseview: ^2.0.3
+  showcaseview: ^4.0.0
   fluttertoast: ^8.2.4
   avatar_glow: ^2.0.2
   speech_to_text: ^6.4.1

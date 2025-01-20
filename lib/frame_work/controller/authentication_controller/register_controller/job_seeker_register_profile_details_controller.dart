@@ -19,6 +19,7 @@ import 'package:emploiflutter/frame_work/repository/dio_client.dart';
 import 'package:emploiflutter/frame_work/repository/model/user_model/user_detail_data_model.dart';
 import 'package:emploiflutter/frame_work/repository/services/hive_service/box_service.dart';
 import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
+import 'package:showcaseview/showcaseview.dart';
 
 final jobSeekerRegisterProfileDetailsController = ChangeNotifierProvider((ref) => JobSeekerRegisterProfileDetailsController(ref));
 
@@ -30,7 +31,27 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
 
   PageController pageController = PageController();
 
+  GlobalKey globalKeyBio = GlobalKey();
+  GlobalKey globalKeyQualification = GlobalKey();
+  GlobalKey globalKeyIsExperience = GlobalKey();
+
+  GlobalKey globalKeyCompanyName = GlobalKey();
+  GlobalKey globalKeyDesignation = GlobalKey();
+  GlobalKey globalKeyCLocation = GlobalKey();
+
+  GlobalKey globalKeyJobTitle = GlobalKey();
+  GlobalKey globalKeyPreferCity = GlobalKey();
+  GlobalKey globalKeyWorkingMode = GlobalKey();
+  GlobalKey globalKeyExpertise = GlobalKey();
+
+  GlobalKey globalKeyResume = GlobalKey();
+  GlobalKey globalKeyVideoResume = GlobalKey();
+  GlobalKey globalKeyProfile = GlobalKey();
+
   int index= 0;
+  int showCaseFresherIndex = 1;
+  int showCaseExperienceIndex = 1;
+
 
   forwardBtn(BuildContext context){
     if(isExperienced){
@@ -38,10 +59,13 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
         if(index< 5){
           index++;
         }
-        pageController.animateToPage(index,duration: const Duration(milliseconds: 400), curve:
-        Curves.easeIn);
-      }else{
-        // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>const DashBoard()), (route) => false);
+        pageController.animateToPage(index,duration: const Duration(milliseconds: 400), curve: Curves.easeIn).then((value) {
+          /// showcase only show for the first time and if use back button then wont increment
+          if((showCaseExperienceIndex == index) &&  !SharedPrefServices.services.getBool(registerShowCaseJobSeeker)){
+            Future.delayed(Duration(milliseconds: 300),() =>showCase(index,context,isFresher: false));
+            showCaseExperienceIndex +=1;
+          }
+        },);
       }
     }else if(isFresher){
       if(index <= 4) {
@@ -51,12 +75,56 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
           index++;
         }
         pageController.animateToPage(index,duration: const Duration(milliseconds: 400), curve:
-        Curves.easeIn);
-      }else{
-        // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>const DashBoard()), (route) => false);
+        Curves.easeIn).then((value) {
+          /// showcase only show for the first time and if use back button then wont increment
+          if((showCaseFresherIndex == index) &&  !SharedPrefServices.services.getBool(registerShowCaseJobSeeker)){
+            Future.delayed(Duration(milliseconds: 300),() =>showCase(index,context,isFresher: true));
+            showCaseFresherIndex +=1;
+          }
+        },);
       }
     }
     notifyListeners();
+  }
+
+
+  showCase(int index,BuildContext context, {required bool isFresher}){
+    if(isFresher){
+      switch(index){
+        case 1:
+          ShowCaseWidget.of(context).startShowCase([globalKeyJobTitle,globalKeyPreferCity,globalKeyWorkingMode,globalKeyExpertise]);
+          break;
+        case 2:
+          ShowCaseWidget.of(context).startShowCase([globalKeyResume]);
+          break;
+        case 3:
+          ShowCaseWidget.of(context).startShowCase([globalKeyVideoResume]);
+          break;
+        case 4:
+          ShowCaseWidget.of(context).startShowCase([globalKeyProfile]);
+          break;
+      }
+    }
+    else if(!isFresher){
+      switch(index){
+        case 1:
+          ShowCaseWidget.of(context).startShowCase([globalKeyCompanyName,globalKeyDesignation,globalKeyCLocation]);
+          break;
+        case 2:
+          ShowCaseWidget.of(context).startShowCase([globalKeyJobTitle,globalKeyPreferCity,globalKeyWorkingMode,globalKeyExpertise]);
+          break;
+        case 3:
+          ShowCaseWidget.of(context).startShowCase([globalKeyResume]);
+          break;
+        case 4:
+          ShowCaseWidget.of(context).startShowCase([globalKeyVideoResume]);
+          break;
+        case 5:
+          ShowCaseWidget.of(context).startShowCase([globalKeyProfile]);
+          break;
+      }
+    }
+
   }
 
   backwardBtn(){
@@ -391,6 +459,7 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
                       isExpertiseEmpty = false;
                     if(pdfName !=null){
                       if(profilePic !=null){
+                        SharedPrefServices.services.setBool(registerShowCaseJobSeeker, true);
                         await registerApiCall(context);
                       }else{
                         showSnackBar(context: context, error: "Please Select the image");
@@ -466,6 +535,7 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
               isExpertiseEmpty = false;
               if(pdfName !=null){
                 if(profilePic !=null){
+                  SharedPrefServices.services.setBool(registerShowCaseJobSeeker, true);
                   await registerApiCall(context);
                 }else{
                   showSnackBar(context: context, error: "Please Select the image");

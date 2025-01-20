@@ -13,6 +13,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:showcaseview/showcaseview.dart';
 import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 import 'package:zego_uikit_signaling_plugin/zego_uikit_signaling_plugin.dart';
 import 'firebase_options.dart';
@@ -29,9 +30,11 @@ Future main() async {
       [ZegoUIKitSignalingPlugin()],
     );
     runApp(ProviderScope(
-        child: MyApp(
-          navigatorKey: navigatorKey,
-        )));
+        child:  ShowCaseWidget(
+          builder: (context) =>  MyApp(
+            navigatorKey: navigatorKey,
+          ),
+        ),));
 
   });
 }

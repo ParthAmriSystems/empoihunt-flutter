@@ -5,6 +5,7 @@ import 'package:emploiflutter/ui/utils/common_widget/common_loading.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter/services.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
+import 'package:showcaseview/showcaseview.dart';
 
 class JobSeekerRegisterProfileDetails extends ConsumerStatefulWidget {
   const JobSeekerRegisterProfileDetails({super.key});
@@ -21,6 +22,12 @@ class _RegisterProfileDetailsState extends ConsumerState<JobSeekerRegisterProfil
     final vsync2 = this;
     ref.read(jobSeekerRegisterProfileDetailsController).initializeLottie(vsync1,vsync2);
     super.initState();
+    /// For the First show case ///
+    WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((timeStamp) {
+      final jobSeekerRead = ref.read(jobSeekerRegisterProfileDetailsController);
+      Future.delayed(Duration(milliseconds: 300),
+              () => ShowCaseWidget.of(context).startShowCase([jobSeekerRead.globalKeyBio,jobSeekerRead.globalKeyQualification,jobSeekerRead.globalKeyIsExperience]));
+    },);
   }
 
   @override

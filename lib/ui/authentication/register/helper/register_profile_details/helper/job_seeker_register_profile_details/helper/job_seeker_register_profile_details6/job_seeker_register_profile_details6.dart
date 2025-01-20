@@ -1,9 +1,9 @@
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
-import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:lottie/lottie.dart';
 import 'package:emploiflutter/frame_work/controller/authentication_controller/register_controller/job_seeker_register_profile_details_controller.dart';
+import 'package:showcaseview/showcaseview.dart';
 
 class JobSeekerRegisterProfileDetails6 extends ConsumerWidget {
   const JobSeekerRegisterProfileDetails6({super.key});
@@ -41,26 +41,33 @@ class JobSeekerRegisterProfileDetails6 extends ConsumerWidget {
                          AppAssets.imgLoadingLottie,
                          controller: registerProfileDetailsWatch.uploadImgLottieController,
                        ):
-                       Container(
-                         height: 200.h,
-                         width: 220.h,
-                         clipBehavior: Clip.hardEdge,
-                         decoration:  BoxDecoration(
-                           color: Colors.white,
-                           shape: BoxShape.circle,
-                           boxShadow: [
-                             BoxShadow(
-                               color: Colors.grey.withOpacity(0.5), // shadow color
-                               spreadRadius: 3, // spread radius
-                               blurRadius: 6, // blur radius
-                               offset: Offset(0, 2), // changes position of shadow
-                             ),
-                           ],
-                         ),
-                         child: FittedBox(
-                           fit: BoxFit.cover,
+                       Showcase(
+                         key: registerProfileDetailsWatch.globalKeyProfile,
+                         title: 'Profile picture',
+                         description: 'Provide a clear and recent photo for your profile',
+                         targetBorderRadius:  BorderRadius.circular(30.r),
+                         targetPadding: EdgeInsets.only(top: 10.h,bottom: 10.h),
+                         child: Container(
+                           height: 200.h,
+                           width: 220.h,
                            clipBehavior: Clip.hardEdge,
-                           child: registerProfileDetailsWatch.profilePic !=null ? Card(child: Image.file(registerProfileDetailsWatch.profilePic!)): Image.asset(AppAssets.profilePicPng),
+                           decoration:  BoxDecoration(
+                             color: Colors.white,
+                             shape: BoxShape.circle,
+                             boxShadow: [
+                               BoxShadow(
+                                 color: Colors.grey.withOpacity(0.5), // shadow color
+                                 spreadRadius: 3, // spread radius
+                                 blurRadius: 6, // blur radius
+                                 offset: Offset(0, 2), // changes position of shadow
+                               ),
+                             ],
+                           ),
+                           child: FittedBox(
+                             fit: BoxFit.cover,
+                             clipBehavior: Clip.hardEdge,
+                             child: registerProfileDetailsWatch.profilePic !=null ? Card(child: Image.file(registerProfileDetailsWatch.profilePic!)): Image.asset(AppAssets.profilePicPng),
+                           ),
                          ),
                        ),
                        Positioned(

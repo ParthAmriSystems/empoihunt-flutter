@@ -190,19 +190,6 @@ class RegisterCard extends ConsumerWidget {
                       onSelected: (value)  {
                         registerWatch.cityController.text = value?? registerWatch.cityController.text;
                       }),
-                  /*CommonTypeAheadFormField(
-                    prefixIcon: Icon(Icons.location_city_outlined,size: 18.sp,color: AppColors.colors.blueColors,),
-                      direction: VerticalDirection.up,
-                    onChanged: (value)=>notAllowSpecialChar(registerWatch.cityController, value),
-                      controller: registerWatch.cityController,
-                      hintText: "City",
-                      labelText: "City",
-                      suggestionsCallback: (pattern) async {
-                      print("suggestionsCallback called =======================>");
-                      return await registerWatch.checkCity(registerWatch.cityController.text);
-                      },
-                      onSelected: (value) =>
-                          registerWatch.cityController.text = value),*/
                   SizedBox(
                     height: 10.h,
                   ),

@@ -4,6 +4,7 @@ import 'package:emploiflutter/ui/utils/common_widget/common_loading.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter/services.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
+import 'package:showcaseview/showcaseview.dart';
 
 import 'helper/recruiter_register_profile_details_backrgound.dart';
 
@@ -20,6 +21,12 @@ class _RegisterProfileDetailsState extends ConsumerState<RecruiterRegisterProfil
   void initState() {
     ref.read(recruiterRegisterProfileDetailsController).uploadImgLottieController = AnimationController(vsync: this,duration: const Duration(seconds: 2));
     super.initState();
+    /// For the First show case ///
+    WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((timeStamp) {
+      final recruiterRead = ref.read(recruiterRegisterProfileDetailsController);
+      Future.delayed(Duration(milliseconds: 300),
+              () => ShowCaseWidget.of(context).startShowCase([recruiterRead.globalKeyBio,recruiterRead.globalKeyQualification]));
+    },);
   }
 
   @override

@@ -1,16 +1,15 @@
 import 'package:emploiflutter/frame_work/controller/authentication_controller/register_controller/job_seeker_register_profile_details_controller.dart';
 import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
 import 'package:emploiflutter/ui/utils/constant/app_constant.dart';
-import 'package:emploiflutter/ui/utils/common_widget/common_dropdown_form_field.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_form_field.dart';
 import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
 import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
-import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/constant/app_string_constant.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:showcaseview/showcaseview.dart';
 
 import '../../../../../../../../utils/common_widget/common_typ_ahead_form_field.dart';
 
@@ -42,73 +41,53 @@ class JobSeekerRegisterProfileDetails3 extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CommonTypeAheadFormField(
-                      width: context.screenWidth * 0.85,
-                      controller: registerProfileDetailsWatch.jobSearchController,
-                      hintText: "Job Title",
-                      labelText: "Job Title",
-                      dropdownMenuEntries: designationList
-                          .map((element) => DropdownMenuEntry(
-                          value: element,
-                          label: element))
-                          .toList(),
-                      onSelected: (value)  {
-                        registerProfileDetailsWatch.isSelectedJobTitleEmtUpdate(value);
-                        registerProfileDetailsWatch.jobSearchController.text = value??registerProfileDetailsWatch.jobSearchController.text;
-                      }),
-                 /* CommonTypeAheadFormField(
-                      prefixIcon: null,
-                      direction: VerticalDirection.up,
-                      onChanged: (value){
-                        registerProfileDetailsWatch.isSelectedJobTitleEmtUpdate(value);
-                      },
-                      controller: registerProfileDetailsWatch.jobSearchController,
-                      hintText: "Job Title",
-                      labelText: "Job Title",
-                      suggestionsCallback: (pattern) async{
-                        return await registerProfileDetailsWatch.checkJobSearch(pattern);
-                      },
-                      onSelected: (value) {
-                        registerProfileDetailsWatch.jobSearchController.text = value;
-                        registerProfileDetailsWatch.isSelectedJobTitleEmtUpdate(value);
-                      }
-                  ),*/
+                  Showcase(
+                    key: registerProfileDetailsWatch.globalKeyJobTitle,
+                    title: 'Job Title',
+                    description: 'Enter the role or job title you aspire to work in',
+                    targetBorderRadius:  BorderRadius.circular(8.r),
+                    targetPadding: EdgeInsets.only(top: 8.h,left: 8.w,right: 8.w,bottom: 8.h),
+                    child: CommonTypeAheadFormField(
+                        width: context.screenWidth * 0.85,
+                        controller: registerProfileDetailsWatch.jobSearchController,
+                        hintText: "Job Title",
+                        labelText: "Job Title",
+                        dropdownMenuEntries: designationList
+                            .map((element) => DropdownMenuEntry(
+                            value: element,
+                            label: element))
+                            .toList(),
+                        onSelected: (value)  {
+                          registerProfileDetailsWatch.isSelectedJobTitleEmtUpdate(value);
+                          registerProfileDetailsWatch.jobSearchController.text = value??registerProfileDetailsWatch.jobSearchController.text;
+                        }),
+                  ),
                   registerProfileDetailsWatch.isSelectedJobTitleEmt?Text("Please select Job title",style: TextStyles.w300.copyWith(fontSize: 12.sp,color: Colors.red),):const SizedBox(),
         
                   SizedBox(
                     height: 20.h,
                   ),
-                  CommonTypeAheadFormField(
-                      width: context.screenWidth * 0.85,
-                      controller: registerProfileDetailsWatch.preferCitySearchController,
-                      hintText: "Prefer City",
-                      labelText: "Prefer City",
-                      dropdownMenuEntries: SharedPrefServices.services.getList(locationListKey)!
-                          .map((element) => DropdownMenuEntry(
-                          value: element,
-                          label: element))
-                          .toList(),
-                      onSelected: (value)  {
-                        registerProfileDetailsWatch.isSelectedPrefCityEmtUpdate(value);
-                        registerProfileDetailsWatch.preferCitySearchController.text = value??registerProfileDetailsWatch.preferCitySearchController.text;
-                      }),
-                  /*CommonTypeAheadFormField(
-                      prefixIcon: null,
-                      direction: VerticalDirection.up,
-                      onChanged: (value){
-                        registerProfileDetailsWatch.isSelectedPrefCityEmtUpdate(value);
-                      },
-                      controller: registerProfileDetailsWatch.preferCitySearchController,
-                      hintText: "Prefer City",
-                      labelText: "Prefer City",
-                      suggestionsCallback: (pattern) async {
-                        return await registerProfileDetailsWatch.checkJobLocation(pattern);
-                      },
-                      onSelected: (value) {
-                        registerProfileDetailsWatch.preferCitySearchController.text = value;
-                        registerProfileDetailsWatch.isSelectedPrefCityEmtUpdate(value);
-                      }
-                  ),*/
+                  Showcase(
+                    key: registerProfileDetailsWatch.globalKeyPreferCity,
+                    title: 'Prefer City',
+                    description: 'Enter the city where you would prefer to work',
+                    targetBorderRadius:  BorderRadius.circular(8.r),
+                    targetPadding: EdgeInsets.only(top: 8.h,left: 8.w,right: 8.w,bottom: 8.h),
+                    child: CommonTypeAheadFormField(
+                        width: context.screenWidth * 0.85,
+                        controller: registerProfileDetailsWatch.preferCitySearchController,
+                        hintText: "Prefer City",
+                        labelText: "Prefer City",
+                        dropdownMenuEntries: SharedPrefServices.services.getList(locationListKey)!
+                            .map((element) => DropdownMenuEntry(
+                            value: element,
+                            label: element))
+                            .toList(),
+                        onSelected: (value)  {
+                          registerProfileDetailsWatch.isSelectedPrefCityEmtUpdate(value);
+                          registerProfileDetailsWatch.preferCitySearchController.text = value??registerProfileDetailsWatch.preferCitySearchController.text;
+                        }),
+                  ),
                   registerProfileDetailsWatch.isSelectedPrefCityEmt?Text("Please select Prefer City",style: TextStyles.w300.copyWith(fontSize: 12.sp,color: Colors.red),):const SizedBox(),
                 ],
               ),
@@ -117,10 +96,17 @@ class JobSeekerRegisterProfileDetails3 extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
 
               children: [
-                Text(
-                  "Select your prefer working mode",
-                  style: TextStyles.w400.copyWith(
-                      fontSize: 12.sp, color: AppColors.colors.blueColors),
+                Showcase(
+                  key: registerProfileDetailsWatch.globalKeyWorkingMode,
+                  title: 'Working mode',
+                  description: 'Select your preferred working mode: remote, onsite, or hybrid',
+                  targetBorderRadius:  BorderRadius.circular(8.r),
+                  targetPadding: EdgeInsets.only(top: 5.h,left: 8.w,right: 8.w,bottom: 5.h),
+                  child: Text(
+                    "Select your prefer working mode",
+                    style: TextStyles.w400.copyWith(
+                        fontSize: 12.sp, color: AppColors.colors.blueColors),
+                  ),
                 ),
                 SizedBox(
                   height: 10.h,
@@ -171,16 +157,23 @@ class JobSeekerRegisterProfileDetails3 extends ConsumerWidget {
                   contentPadding: EdgeInsets.symmetric(vertical: 14.h),
                   hintText: "Developer",labelText: "Expertise",prefixIcon: SvgPicture.asset(AppAssets.skillsSvg,color: AppColors.colors.blueColors,).paddingSymmetric(vertical: 10.h,horizontal: 10.w),)),
                 SizedBox(width: 10.w,),
-                IconButton(
-                  onPressed: (){
-                    registerProfileDetailsWatch.addExpertise();
-                  }, icon: Icon(Icons.add,size: 20.sp,),style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    shadowColor: AppColors.colors.greyRegent,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.r)),
-                    elevation: 1.5,
-                    padding: EdgeInsets.symmetric(horizontal: 6.w,vertical: 8.h)
-                ),)
+                Showcase(
+                  key: registerProfileDetailsWatch.globalKeyExpertise,
+                  title: 'Add your Expertise',
+                  description: 'Specify the skills, knowledge, or expertise you have in your field',
+                  targetBorderRadius:  BorderRadius.circular(8.r),
+                  targetPadding: EdgeInsets.only(top: 5.h,left: 8.w,right: 8.w,bottom: 5.h),
+                  child: IconButton(
+                    onPressed: (){
+                      registerProfileDetailsWatch.addExpertise();
+                    }, icon: Icon(Icons.add,size: 20.sp,),style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      shadowColor: AppColors.colors.greyRegent,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.r)),
+                      elevation: 1.5,
+                      padding: EdgeInsets.symmetric(horizontal: 6.w,vertical: 8.h)
+                  ),),
+                )
               ],
             ),
             registerProfileDetailsWatch.expertiseList.isEmpty?const SizedBox(): Wrap(

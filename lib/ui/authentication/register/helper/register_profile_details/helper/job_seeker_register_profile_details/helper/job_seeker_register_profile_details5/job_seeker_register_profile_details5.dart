@@ -1,9 +1,9 @@
 import 'package:emploiflutter/frame_work/controller/authentication_controller/register_controller/job_seeker_register_profile_details_controller.dart';
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
-import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:lottie/lottie.dart';
+import 'package:showcaseview/showcaseview.dart';
 
 class JobSeekerRegisterProfileDetails5 extends ConsumerWidget {
   const JobSeekerRegisterProfileDetails5({super.key});
@@ -56,7 +56,13 @@ class JobSeekerRegisterProfileDetails5 extends ConsumerWidget {
                           children: [
                             Image.asset(AppAssets.resumeUpload,scale: 27,color: AppColors.colors.blueColors,),
                             SizedBox(width: 8.w,),
-                            Expanded(child: Text(registerProfileDetailsWatch.videoResumeName !=null ? "${registerProfileDetailsWatch.pdfName}" : "Upload your video resume",style: TextStyles.w400.copyWith(fontSize: 16.sp,color: AppColors.colors.blueColors),softWrap: true,))
+                            Expanded(child: Showcase(
+                                key: registerProfileDetailsWatch.globalKeyVideoResume,
+                                title: 'Video Resume',
+                                description: 'Record a video showcasing your professional journey, skills, and achievements',
+                                targetBorderRadius:  BorderRadius.circular(8.r),
+                                targetPadding: EdgeInsets.only(top: 5.h,left: 8.w,right: 8.w,bottom: 5.h),
+                                child: Text(registerProfileDetailsWatch.videoResumeName !=null ? "${registerProfileDetailsWatch.pdfName}" : "Upload your video resume",style: TextStyles.w400.copyWith(fontSize: 16.sp,color: AppColors.colors.blueColors),softWrap: true,)))
                           ],
                         ),
                       ),

@@ -12,9 +12,11 @@ import 'package:emploiflutter/ui/utils/constant/app_constant.dart';
 import 'package:emploiflutter/ui/utils/common_widget/helper.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:showcaseview/showcaseview.dart';
 
 import '../../../../ui/utils/constant/app_string_constant.dart';
 import '../../../repository/model/user_model/user_detail_data_model.dart';
@@ -32,24 +34,52 @@ class RecruiterRegisterProfileDetailsController extends ChangeNotifier {
 
   PageController pageController = PageController();
 
+  GlobalKey globalKeyBio = GlobalKey();
+  GlobalKey globalKeyQualification = GlobalKey();
+  GlobalKey globalKeyCompanyName = GlobalKey();
+  GlobalKey globalKeyDesignation = GlobalKey();
+  GlobalKey globalKeyPreferCity = GlobalKey();
+  GlobalKey globalKeyWorkingMode = GlobalKey();
+  GlobalKey globalKeyProfile = GlobalKey();
+
   int pageIndex = 0;
+  int showCaseIndex = 1;
 
   forwardBtn(BuildContext context) {
     if (pageIndex < 2) {
       pageIndex++;
       pageController.animateToPage(pageIndex,
-          duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
+          duration: const Duration(milliseconds: 200), curve: Curves.easeIn).then((value) {
+            /// showcase only show for the first time and if use back button then wont increment
+            if((showCaseIndex == pageIndex) &&  !SharedPrefServices.services.getBool(registerShowCaseRecruiter)){
+              Future.delayed(Duration(milliseconds: 300),() =>showCase(pageIndex,context));
+              showCaseIndex +=1;
+            }
+          },);
     } else {
+      SharedPrefServices.services.setBool(registerShowCaseRecruiter, true);
       registerSubmitButton(context);
+      showCaseIndex = 1;
     }
     notifyListeners();
+  }
+
+  showCase(int index,BuildContext context){
+    switch(index){
+      case 1:
+        ShowCaseWidget.of(context).startShowCase([globalKeyCompanyName,globalKeyDesignation,globalKeyPreferCity,globalKeyWorkingMode]);
+        break;
+      case 2:
+        ShowCaseWidget.of(context).startShowCase([globalKeyProfile]);
+        break;
+    }
   }
 
   backwardBtn() {
     if (pageIndex > 0) {
       pageIndex--;
       pageController.animateToPage(pageIndex,
-          duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
+          duration: const Duration(milliseconds: 200), curve: Curves.easeIn);
     }
     notifyListeners();
   }
