@@ -1,32 +1,21 @@
 import 'package:avatar_glow/avatar_glow.dart';
-import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
-import 'package:emploiflutter/ui/utils/constant/app_constant.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
-import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import '../utils/theme/theme.dart';
 import 'controller/on_boarding_controller.dart';
 import 'helper/intro_appbar.dart';
 import 'helper/on_boarding_next_button.dart';
 import 'helper/pages/intro_pages.dart';
 
-class OnBoarding extends ConsumerStatefulWidget {
-  const OnBoarding({super.key});
+class OnBoardingJobSeeker extends ConsumerStatefulWidget {
+  const OnBoardingJobSeeker({super.key});
 
   @override
-  ConsumerState<OnBoarding> createState() => _OnBoardingState();
+  ConsumerState<OnBoardingJobSeeker> createState() => _OnBoardingJobSeekerState();
 }
 
-class _OnBoardingState extends ConsumerState<OnBoarding> {
-  @override
-  void initState() {
-    super.initState();
-    SchedulerBinding.instance.addPostFrameCallback((timeStamp) async {
-      await SharedPrefServices.services.setBool(onBoardingKey, true);
-    });
-  }
-
+class _OnBoardingJobSeekerState extends ConsumerState<OnBoardingJobSeeker> {
   @override
   Widget build(BuildContext context) {
     return ScreenTypeLayout.builder(
@@ -39,11 +28,9 @@ class _OnBoardingState extends ConsumerState<OnBoarding> {
   Widget buildMobileLayout(BuildContext context) {
     return buildLayout(context);
   }
-
   Widget buildTabletLayout(BuildContext context) {
     return buildLayout(context);
   }
-
   Widget buildDesktopLayout(BuildContext context) {
     return buildLayout(context);
   }
@@ -52,12 +39,11 @@ class _OnBoardingState extends ConsumerState<OnBoarding> {
     final introViewWatch = ref.watch(onBoardingController);
     final size = MediaQuery.of(context).size;
 
-    final double fabGlowRadius = 85.r;
+    final double fabGlowRadius = 88.r;
     final double fabCenterOffset = fabGlowRadius;
-
     return Scaffold(
       backgroundColor: AppColors.colors.blueColors,
-      appBar: const IntroAppbar(onBoarding: OnBoardingEnum.onboarding),
+      appBar: const IntroAppbar(onBoarding: OnBoardingEnum.jobSeeker),
       floatingActionButton: AvatarGlow(
         animate: true,
         repeat: true,
@@ -65,9 +51,9 @@ class _OnBoardingState extends ConsumerState<OnBoarding> {
         glowColor: AppColors.colors.clayColors,
         startDelay: const Duration(milliseconds: 200),
         endRadius: fabGlowRadius,
-        child: const IntroNextButton(onBoarding: OnBoardingEnum.onboarding).animate().scale(duration: Duration(milliseconds: 500)),
+        child: const IntroNextButton(onBoarding: OnBoardingEnum.jobSeeker,).animate().scale(duration: Duration(milliseconds: 500)),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: LayoutBuilder(
         builder: (context, constraints) {
           final double availableHeight = constraints.maxHeight;
@@ -87,41 +73,42 @@ class _OnBoardingState extends ConsumerState<OnBoarding> {
                   ),
                 ),
                 child: PageView(
-                  controller: introViewWatch.pageController,
+                  controller: introViewWatch.jobSeekerPageController,
                   onPageChanged: (val) {
                     introViewWatch.onPageChange(val);
-                    SharedPrefServices.services.setBool(onBoardingKey, true);
                   },
                   children: [
-                    IntroPageView(
-                      model: (filePath: AppAssets.image1, title: "Welcome to EmploiHunt", subtile: "Discover your ideal job here"),
+                    IntroLottiePageView(
+                      model: (filePath: AppAssets.onBoardingSearchingLottie, title: "Smart Job Search Made Easy", subtile: "Searching for jobs is now easier than ever! Use advanced filters and voice search to discover the perfect opportunities effortlessly."),
                       imgEffects: [
                         ScaleEffect(
-                          duration: Duration(milliseconds: 700),
+                          duration: Duration(milliseconds: 450),
                         ),
-                        SlideEffect(),
                       ],
                     ),
-                    IntroPageView(
-                      model: (filePath: AppAssets.image2, title: "Recruit best employee", subtile: "Employ the best talent more quickly with Emploihunt"),
+                    IntroLottiePageView(
+                      width: 380.w,
+                      model: (filePath: AppAssets.onBoardingApplyingLottie, title: "Jobs That Fits you", subtile: "Say goodbye to irrelevant listings! Browse through job recommendations tailored to your skills and experience"),
                       imgEffects: [
                         SlideEffect(
                           begin: Offset(-1.0, 0.0),
                           end: Offset(0.0, 0.0),
-                          duration: Duration(milliseconds: 700),
+                          duration: Duration(milliseconds: 500),
                         )
                       ],
                     ),
-                    IntroPageView(
-                      model: (filePath: AppAssets.image3, title: "Get your Best Job Here", subtile: "Discover your ideal job here"),
+                    IntroLottiePageView(
+                      width: 350.w,
+                      model: (filePath: AppAssets.onBoardingChattingLottie, title: "Connect Directly with Recruiters", subtile: "No more waiting endlessly for responses. Our in-app chat feature allows you to contact recruiters directly, ensuring quick communication and personalized interaction."),
                       imgEffects: [
                         ScaleEffect(
                           duration: Duration(milliseconds: 700),
                         )
                       ],
                     ),
-                    IntroPageView(
-                      model: (filePath: AppAssets.image4, title: "Campus Placement", subtile: "Emploihunt can help you find your ideal job on campus"),
+                    IntroLottiePageView(
+                      width: 420.w,
+                      model: (filePath: AppAssets.onBoardingAILottie, title: "AI-Driven Interview Preparation", subtile: "AI-Powered Preparation for Interview Success!"),
                       imgEffects: [
                         ShimmerEffect(
                           duration: Duration(milliseconds: 1000),

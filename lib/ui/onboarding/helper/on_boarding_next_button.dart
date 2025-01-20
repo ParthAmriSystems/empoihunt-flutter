@@ -3,14 +3,21 @@ import '../../utils/theme/theme.dart';
 import '../controller/on_boarding_controller.dart';
 
 class IntroNextButton extends ConsumerWidget {
-  const IntroNextButton({super.key});
+  final OnBoardingEnum onBoarding;
+  const IntroNextButton( {super.key,required this.onBoarding});
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
     final introViewWatch = ref.watch(onBoardingController);
     return GestureDetector(
       onTap: (){
-        introViewWatch.nextButton(context);
+        if(onBoarding == OnBoardingEnum.onboarding){
+          introViewWatch.nextButton(context);
+        }else if(onBoarding == OnBoardingEnum.jobSeeker){
+          introViewWatch.jobSeekerNextButton(context);
+        }else if(onBoarding == OnBoardingEnum.recruiter){
+          introViewWatch.recruiterNextButton(context);
+        }
       },
       child: Container(
         height: 60.h,
@@ -33,4 +40,8 @@ class IntroNextButton extends ConsumerWidget {
       ),
     );
   }
+}
+
+enum OnBoardingEnum{
+  onboarding,jobSeeker,recruiter
 }

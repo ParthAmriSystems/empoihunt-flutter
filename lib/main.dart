@@ -1,13 +1,12 @@
 import 'dart:io';
-
 import 'package:emploiflutter/frame_work/repository/model/splash/native_device_model/native_device_model.dart';
 import 'package:emploiflutter/frame_work/repository/model/user_model/user_detail_data_model.dart';
 import 'package:emploiflutter/frame_work/repository/model/user_model/user_experience_model.dart';
 import 'package:emploiflutter/frame_work/repository/services/hive_service/box_service.dart';
 import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
+import 'package:emploiflutter/ui/onboarding/on_boarding_jobseeker.dart';
 import 'package:emploiflutter/ui/splash/splash.dart';
 import 'package:emploiflutter/ui/utils/constant/app_constant.dart';
-import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -29,13 +28,12 @@ Future main() async {
     ZegoUIKitPrebuiltCallInvitationService().useSystemCallingUI(
       [ZegoUIKitSignalingPlugin()],
     );
-
     runApp(ProviderScope(
         child: MyApp(
-      navigatorKey: navigatorKey,
-    )));
+          navigatorKey: navigatorKey,
+        )));
+
   });
-  // runApp( ProviderScope(child: MyApp(navigatorKey: navigatorKey,)));
 }
 
 class MyApp extends StatelessWidget {
@@ -53,12 +51,14 @@ class MyApp extends StatelessWidget {
       designSize: const Size(375, 812),
       minTextAdapt: true,
       child: MaterialApp(
-        navigatorKey: navigatorKey, /// Added for video call
+        navigatorKey: navigatorKey,
         debugShowCheckedModeBanner: false,
         theme: ThemeData(useMaterial3: true,
           colorScheme: ColorScheme.fromSeed(
               seedColor: AppColors.colors.blueColors),),
-        home: const Splash(),),);
+        home: const Splash()
+        // home: const OnBoardingJobSeeker()
+      ));
   }
 }
 
@@ -95,7 +95,6 @@ Future<void> appInitialize()async{
   }
   SharedPrefServices.services.pref.setString(fcmTokenKey, fcmToken ?? "");
   print("FCM Token ${SharedPrefServices.services.getString(fcmTokenKey)}");
-
   ///---------------FCM Token ------------///
 
   /// ------- Hive open Box Service ---------///

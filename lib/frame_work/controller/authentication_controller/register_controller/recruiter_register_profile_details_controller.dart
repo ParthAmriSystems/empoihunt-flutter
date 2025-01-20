@@ -7,6 +7,7 @@ import 'package:emploiflutter/frame_work/repository/services/fire_base/firebase_
 import 'package:emploiflutter/frame_work/repository/services/hive_service/box_service.dart';
 import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
 import 'package:emploiflutter/ui/dash_board/dash_board.dart';
+import 'package:emploiflutter/ui/onboarding/on_boarding_recruiter.dart';
 import 'package:emploiflutter/ui/utils/constant/app_constant.dart';
 import 'package:emploiflutter/ui/utils/common_widget/helper.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
@@ -339,7 +340,8 @@ class RecruiterRegisterProfileDetailsController extends ChangeNotifier {
           Navigator.pushAndRemoveUntil(
               context,
               PageTransition(
-                  child: const DashBoard(),
+                /*child: const DashBoard(),*/
+                  child: const OnBoardingRecruiter(),
                   type: PageTransitionType.rightToLeft,
                   duration: const Duration(milliseconds: 300)),
               (route) => false);

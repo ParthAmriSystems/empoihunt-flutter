@@ -144,6 +144,7 @@ flutter:
     - assets/svg/
     - assets/font/
     - assets/lottie/
+    - assets/lottie/on_boarding/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

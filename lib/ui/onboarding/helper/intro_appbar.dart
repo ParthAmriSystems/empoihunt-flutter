@@ -1,11 +1,12 @@
 
 
-import '../../utils/theme/app_color.dart';
+import 'package:emploiflutter/ui/onboarding/helper/on_boarding_next_button.dart';
 import '../../utils/theme/theme.dart';
 import '../controller/on_boarding_controller.dart';
 
 class IntroAppbar extends ConsumerWidget implements PreferredSizeWidget{
-  const IntroAppbar({super.key});
+  final OnBoardingEnum onBoarding;
+  const IntroAppbar( {super.key,required this.onBoarding});
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
@@ -20,7 +21,9 @@ class IntroAppbar extends ConsumerWidget implements PreferredSizeWidget{
         child: Row(
           mainAxisAlignment:  MainAxisAlignment.spaceBetween,
           children: [
-            ...List.generate(4, (index) {
+            ...List.generate(
+                onBoarding == OnBoardingEnum.recruiter?3:
+                4, (index) {
               if (introViewWatch.index == index) {
                 return Container(
                   height: 8.h,

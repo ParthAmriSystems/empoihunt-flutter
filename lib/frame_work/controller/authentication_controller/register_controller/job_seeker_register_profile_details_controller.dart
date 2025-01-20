@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:emploiflutter/frame_work/controller/authentication_controller/register_controller/register_controller.dart';
 import 'package:emploiflutter/frame_work/repository/services/fire_base/firebase_singleton.dart';
-import 'package:emploiflutter/ui/dash_board/dash_board.dart';
+import 'package:emploiflutter/ui/onboarding/on_boarding_jobseeker.dart';
 import 'package:emploiflutter/ui/utils/common_service/helper.dart';
 import 'package:emploiflutter/ui/utils/constant/app_string_constant.dart';
 import 'package:emploiflutter/ui/utils/common_widget/helper.dart';
@@ -590,7 +590,8 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
         await SharedPrefServices.services.setBool(isUserLoggedIn, true);
         if(context.mounted){
           Navigator.pushAndRemoveUntil(context, PageTransition(
-              child: const DashBoard(),
+              /*child: const DashBoard(),*/
+              child: const OnBoardingJobSeeker(),
               type: PageTransitionType.rightToLeft,
               duration: const Duration(milliseconds: 300)), (route) => false);
         }

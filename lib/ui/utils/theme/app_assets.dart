@@ -56,6 +56,10 @@ class AppAssets {
   static const String chatLottie = 'assets/lottie/chat.json';
   static const String campusAddedLottie = 'assets/lottie/campus_added_lottie.json';
   static const String searchingLottie = 'assets/lottie/searching.json';
+  static const String onBoardingSearchingLottie = 'assets/lottie/on_boarding/search.json';
+  static const String onBoardingApplyingLottie = 'assets/lottie/on_boarding/job_applying.json';
+  static const String onBoardingChattingLottie = 'assets/lottie/on_boarding/chatting.json';
+  static const String onBoardingAILottie = 'assets/lottie/on_boarding/machine_brain.json';
   static const String rocketLaunchLottie = 'assets/lottie/rocket_launch.json';
 }
 
