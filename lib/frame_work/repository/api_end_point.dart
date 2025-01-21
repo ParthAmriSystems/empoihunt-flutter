@@ -65,6 +65,7 @@ class APIEndPoint{
   static const String jobUpdateApi = '/job/update_jobs';
   static const String jobGetJobByHrIdApi = '/job/jobs_by_hrId';
   static const String jobDeleteApi = '/job/delete';
+  static const String jobDisableApi = '/job/disable';
   static const String jobAutoDescription = '/job/generate/';
 
   static const String jobsByHrIdWOPagination = '/job/jobs_by_hrId_withoutpagination';

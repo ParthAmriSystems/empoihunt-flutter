@@ -398,6 +398,24 @@ class ManageJobPostController extends ChangeNotifier {
       }
   }
 
+
+  Future disableJobAPi(int jobId,BuildContext context)async{
+    try{
+      final user = BoxService.boxService.userGetDetailBox.get(userDetailKey);
+      Options options = Options(headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ${user!.tAuthToken}',
+      });
+      Response response = await DioClient.client.postDataWithBearerToken("${APIEndPoint.jobDisableApi}?jobId=$jobId", options);
+      if(response.statusCode == 200){
+        if(context.mounted){
+          getJobPostApi(context);}
+      }
+    }catch(e){
+      Future.error("Delete Post Api----------->$e");
+    }
+  }
+
   List<JobPostModel> jobPostList = [];
   int? totalPages;
   int currentPage = 1;

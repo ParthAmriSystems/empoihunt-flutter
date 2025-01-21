@@ -1,8 +1,8 @@
 import 'package:emploiflutter/frame_work/controller/manage_job_post_controller/manage_job_post_controller.dart';
 import 'package:emploiflutter/frame_work/repository/model/job_seeker_model/job_post_model/job_post_model.dart';
 import 'package:emploiflutter/ui/update_post/update_post.dart';
+import 'package:emploiflutter/ui/utils/common_widget/helper.dart';
 import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
-import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 
@@ -25,10 +25,14 @@ class ManageJobTile extends ConsumerWidget {
           child:  Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              jobPost.iStatus == 2?
+              Text("Disabled Post !",style: TextStyles.w800.copyWith(
+                fontSize: 25.sp,color: AppColors.colors.greyRegent
+              ),):SizedBox(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(jobPost.vJobTitle??"",style: TextStyles.w500.copyWith(fontSize: 16.sp,color: AppColors.colors.blueColors),),
+                  Expanded(child: Text(jobPost.vJobTitle??"",style: TextStyles.w500.copyWith(fontSize: 16.sp,color: AppColors.colors.blueColors),)),
                   Text("${jobPost.vSalaryPackage} LPA +",style: TextStyles.w500.copyWith(fontSize: 16.sp,color: AppColors.colors.clayColors),)
                 ],
               ),
@@ -51,7 +55,6 @@ class ManageJobTile extends ConsumerWidget {
                       ),
                     ),
                   ),
-
                   Card(
                     child: Container(
                       padding:
@@ -98,10 +101,14 @@ class ManageJobTile extends ConsumerWidget {
               SizedBox(
                 height: 40.h,
                 child: FittedBox(
-                  child: IconButton(onPressed: (){
+                  child: IconButton(onPressed:
+                  jobPost.iStatus == 2? ()=>appCommonShowToast(context: context, msg: "Post is Disabled"):
+                      (){
                     manageJobPostWatch.addJobDetailToField(jobPost);
                     Navigator.push(context, MaterialPageRoute(builder: (_)=> UpdatePost(jobPostModel: jobPost,)));
-                  }, icon: Icon(Icons.edit,color: AppColors.colors.whiteColors,size: 20.sp,),style: ElevatedButton.styleFrom(
+                  }, icon: Icon(Icons.edit,color:
+                  jobPost.iStatus == 2? AppColors.colors.greyRegent:
+                  AppColors.colors.whiteColors,size: 20.sp,),style: ElevatedButton.styleFrom(
                       padding: EdgeInsets.all(3.sp),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100.r),side: BorderSide(color: Colors.grey.withOpacity(0.3))),
                       elevation: 8,
@@ -112,9 +119,13 @@ class ManageJobTile extends ConsumerWidget {
               SizedBox(
                 height: 40.h,
                 child: FittedBox(
-                  child: IconButton(onPressed: (){
+                  child: IconButton(onPressed:
+                  jobPost.iStatus == 2? ()=>appCommonShowToast(context: context, msg: "Post is Disabled"):
+                      (){
                     manageJobPostWatch.deleteJobAPi(jobPost.id!, context);
-                  }, icon: Icon(Icons.delete,color: AppColors.colors.whiteColors,size: 20.sp,),style: ElevatedButton.styleFrom(
+                  }, icon: Icon(Icons.delete,color:
+                  jobPost.iStatus == 2? AppColors.colors.greyRegent:
+                  AppColors.colors.whiteColors,size: 20.sp,),style: ElevatedButton.styleFrom(
                       padding: EdgeInsets.all(3.sp),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100.r),side: BorderSide(color: Colors.grey.withOpacity(0.3))),
                       elevation: 8,
@@ -122,6 +133,23 @@ class ManageJobTile extends ConsumerWidget {
                   ),),
                 ),
               ),
+              jobPost.iStatus != 2?
+              Container(
+                padding: EdgeInsets.only(left: 15.w),
+                height: 35.h,
+                child: FittedBox(
+                  child: ElevatedButton(onPressed: (){
+                    manageJobPostWatch.disableJobAPi(jobPost.id!, context);
+                  }, child: Text("  Disable  ",style: TextStyles.w400.copyWith(
+                    fontSize: 12.sp,color: AppColors.colors.whiteColors
+                  ),),style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.all(6.sp),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.r),side: BorderSide(color: Colors.grey.withOpacity(0.3))),
+                      elevation: 8,
+                      backgroundColor: AppColors.colors.blueColors
+                  ),),
+                ),
+              ):SizedBox()
             ],
           ),
         )

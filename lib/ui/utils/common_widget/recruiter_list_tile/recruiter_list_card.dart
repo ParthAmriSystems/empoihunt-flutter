@@ -30,6 +30,25 @@ class RecruiterListCard extends ConsumerWidget {
                 borderRadius: BorderRadius.circular(4.r)),
             child: Column(
               children: [
+                jobPostModel.iStatus == 2?
+                Card(
+                  child: Container(
+                    width: size.width,
+                    alignment: Alignment.center,
+                    padding:
+                    EdgeInsets.symmetric(horizontal: 6.w, vertical: 4.h),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(4.r),
+                        color: AppColors.colors.greyRegent),
+                    child: Text(
+                      "Post is not available",
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyles.w400.copyWith(
+                          fontSize: 14.sp, color: AppColors.colors.whiteColors),
+                    ),
+                  ),
+                ):SizedBox(),
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

@@ -85,7 +85,6 @@ class JobSeekerRegisterProfileDetails2 extends ConsumerWidget {
                     SizedBox(
                       height: 15.h,
                     ),
-
                     Showcase(
                       key: registerProfileDetailsWatch.globalKeyCLocation,
                       title: 'Location',

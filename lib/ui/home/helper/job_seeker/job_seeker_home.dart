@@ -6,7 +6,6 @@ import 'package:emploiflutter/frame_work/controller/job_details_controller/job_d
 import 'package:emploiflutter/ui/home/helper/job_seeker/helper/job_seeker_appbar.dart';
 import 'package:emploiflutter/ui/job_details/job_details.dart';
 import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
-import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';

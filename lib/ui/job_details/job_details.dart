@@ -8,7 +8,6 @@ import 'package:emploiflutter/ui/job_details/helper/job_details_appbar.dart';
 import 'package:emploiflutter/ui/job_details/helper/job_details_below_part.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_button.dart';
 import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
-import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
 class JobDetails extends ConsumerStatefulWidget {
@@ -57,27 +56,24 @@ class _JobDetailsState extends ConsumerState<JobDetails> {
                 ),
               ),
             ),
-            widget.jobDetail.iIsApplied == 1 || jobDetailsWatch.isApplied?
+
+
             CommonButton(
-              btnText: "Already Applied",
+              btnText:
+              widget.jobDetail.iStatus == 2? "Not available":
+              widget.jobDetail.iIsApplied == 1 || jobDetailsWatch.isApplied?
+              "Already Applied" : "Apply",
               fontSize: 16.sp,
-              onPressed: null,
+              onPressed:widget.jobDetail.iIsApplied == 1 || jobDetailsWatch.isApplied || widget.jobDetail.iStatus == 2?
+              null:
+                  () {
+                print(widget.jobDetail.id);
+                jobDetailsWatch.appliedApi(widget.jobDetail.id.toString(), context, widget.jobDetail.vCompanyName!);
+              },
               txtPadding: EdgeInsets.symmetric(horizontal: 80.w, vertical: 10.h),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.r)),
               backgroundColor: const Color(0xff85AFA6),
-            ).paddingOnly(bottom: 8.h):
-            CommonButton(
-              btnText: "Apply",
-              fontSize: 16.sp,
-              onPressed: () {
-                print(widget.jobDetail.id);
-                jobDetailsWatch.appliedApi(widget.jobDetail.id.toString(), context, widget.jobDetail.vCompanyName!);
-              },
-              txtPadding: EdgeInsets.symmetric(horizontal: 120.w, vertical: 10.h),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.r)),
-              backgroundColor: AppColors.colors.clayColors,
             ).paddingOnly(bottom: 8.h)
           ],
         ),
