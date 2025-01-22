@@ -8,6 +8,7 @@ import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:showcaseview/showcaseview.dart';
 
 class CreatePostJobSkillsWidget extends ConsumerWidget {
   const CreatePostJobSkillsWidget({super.key});
@@ -36,16 +37,23 @@ class CreatePostJobSkillsWidget extends ConsumerWidget {
                       contentPadding: EdgeInsets.symmetric(vertical: 14.h),
                       hintText: "Developer",labelText: "Required Technical Skills",prefixIcon: SvgPicture.asset(AppAssets.skillsSvg,color: AppColors.colors.blueColors,).paddingSymmetric(vertical: 10.h,horizontal: 10.w),)),
                     SizedBox(width: 10.w,),
-                    IconButton(
-                      onPressed: (){
-                        createPostJobWatch.addTechnicalSkill();
-                      }, icon: Icon(Icons.add,size: 20.sp,),style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        shadowColor: AppColors.colors.greyRegent,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.r)),
-                        elevation: 1.5,
-                        padding: EdgeInsets.symmetric(horizontal: 6.w,vertical: 8.h)
-                    ),)
+                    Showcase(
+                      key: createPostJobWatch.globalKeyTechSkill,
+                      title: 'Technical Skills',
+                      description: 'Define the technical skills and expertise required for this role',
+                      targetBorderRadius:  BorderRadius.circular(8.r),
+                      targetPadding: EdgeInsets.only(top: 5.h,left: 8.w,right: 8.w,bottom: 5.h),
+                      child: IconButton(
+                        onPressed: (){
+                          createPostJobWatch.addTechnicalSkill();
+                        }, icon: Icon(Icons.add,size: 20.sp,),style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          shadowColor: AppColors.colors.greyRegent,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.r)),
+                          elevation: 1.5,
+                          padding: EdgeInsets.symmetric(horizontal: 6.w,vertical: 8.h)
+                      ),),
+                    )
                   ],
                 ),
                createPostJobWatch.technicalSkillsList.isEmpty?const SizedBox(): Wrap(
@@ -87,16 +95,23 @@ class CreatePostJobSkillsWidget extends ConsumerWidget {
                       contentPadding: EdgeInsets.symmetric(vertical: 14.h),
                       hintText: "Communication",labelText: "Required Soft Skills",prefixIcon: SvgPicture.asset(AppAssets.skillsSvg,color: AppColors.colors.blueColors,).paddingSymmetric(vertical: 10.h,horizontal: 10.w),)),
                     SizedBox(width: 10.w,),
-                    IconButton(
-                      onPressed: (){
-                        createPostJobWatch.addSoftSkill();
-                      }, icon: Icon(Icons.add,size: 20.sp,),style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        shadowColor: AppColors.colors.greyRegent,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.r)),
-                        elevation: 1.5,
-                        padding: EdgeInsets.symmetric(horizontal: 6.w,vertical: 8.h)
-                    ),)
+                    Showcase(
+                      key: createPostJobWatch.globalKeySoftSkill,
+                      title: 'Soft Skills',
+                      description: 'Define the soft skills required for this role, such as communication or teamwork',
+                      targetBorderRadius:  BorderRadius.circular(8.r),
+                      targetPadding: EdgeInsets.only(top: 5.h,left: 8.w,right: 8.w,bottom: 5.h),
+                      child: IconButton(
+                        onPressed: (){
+                          createPostJobWatch.addSoftSkill();
+                        }, icon: Icon(Icons.add,size: 20.sp,),style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          shadowColor: AppColors.colors.greyRegent,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.r)),
+                          elevation: 1.5,
+                          padding: EdgeInsets.symmetric(horizontal: 6.w,vertical: 8.h)
+                      ),),
+                    )
                   ],
                 ),
                createPostJobWatch.softSkillsList.isEmpty?const SizedBox(): Wrap(

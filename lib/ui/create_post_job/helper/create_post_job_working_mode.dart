@@ -3,6 +3,7 @@ import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:showcaseview/showcaseview.dart';
 
 class CreatePostJobWorkingMode extends ConsumerWidget {
   const CreatePostJobWorkingMode({super.key});
@@ -47,7 +48,13 @@ class CreatePostJobWorkingMode extends ConsumerWidget {
                 child: Container(
                   padding: EdgeInsets.only(top: 8.h),
                   color: AppColors.colors.whiteColors,
-                  child: Text("Working Mode",style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.blackColors),),
+                  child: Showcase(
+                      key: createPostJobWatch.globalKeyWorkingMode,
+                      title: 'Working mode',
+                      description: 'Select the working arrangement that best suits this position: remote, onsite, or hybrid',
+                      targetBorderRadius:  BorderRadius.circular(8.r),
+                      targetPadding: EdgeInsets.only(top: 5.h,left: 8.w,right: 8.w,bottom: 5.h),
+                      child: Text("Working Mode",style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.blackColors),)),
                 ),
               )
             ],

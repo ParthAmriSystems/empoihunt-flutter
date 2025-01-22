@@ -15,44 +15,48 @@ class CommonTypeAheadFormField extends StatelessWidget {
   final InputDecorationTheme? inputDecorationTheme;
   final List<DropdownMenuEntry<String>> dropdownMenuEntries;
   final void Function(String?)? onSelected;
-  const CommonTypeAheadFormField({super.key, required this.controller, this.hintText, this.labelText, this.contentPadding, required this.dropdownMenuEntries, required this.onSelected, this.width, this.leadingIcon, this.inputDecorationTheme, this.focusNode, this.initialSelection});
+  final void Function()? onTap;
+  const CommonTypeAheadFormField({super.key, required this.controller, this.hintText, this.labelText, this.contentPadding, required this.dropdownMenuEntries, required this.onSelected, this.width, this.leadingIcon, this.inputDecorationTheme, this.focusNode, this.initialSelection, this.onTap});
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return DropdownMenu(
-      initialSelection: initialSelection,
-      focusNode: focusNode,
-        enableFilter: false,enableSearch: true,
-        requestFocusOnTap: true,
-        leadingIcon: leadingIcon??null,
-        trailingIcon: SizedBox(),
-        selectedTrailingIcon: SizedBox(),
-        controller:  controller,
-        textStyle: TextStyles.w400.copyWith(color: Colors.black,fontSize: 14.sp),
-        width: width??size.width * 0.93,
-        menuHeight: 350,
-        inputDecorationTheme:inputDecorationTheme?? InputDecorationTheme(
-          filled: true,
-          fillColor: AppColors.colors.whiteColors,
-          hintStyle: TextStyles.w400.copyWith(color: Colors.grey,fontSize: 14.sp),
-          labelStyle:  TextStyles.w400.copyWith(color: Colors.black,fontSize: 14.sp),
-          contentPadding:contentPadding??
-          EdgeInsets.symmetric(horizontal: 10.w, vertical: 0.h),
-          enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8.r),
-              borderSide:  BorderSide(color: AppColors.colors.blueColors,width: 1.w)),
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8.r),
-              borderSide:  BorderSide(color: AppColors.colors.blueColors,width: 1.w)),
-          focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8.r),
-              borderSide:  BorderSide(color: AppColors.colors.blueColors,width: 1.w)),
-        ),
-        onSelected: onSelected,
-        hintText: hintText??"",
-        label: labelText!=null ? Text(labelText!,):null,
-        dropdownMenuEntries: dropdownMenuEntries);
+    return GestureDetector(
+      onTap: onTap,
+      child: DropdownMenu(
+        initialSelection: initialSelection,
+        focusNode: focusNode,
+          enableFilter: false,enableSearch: true,
+          requestFocusOnTap: true,
+          leadingIcon: leadingIcon??null,
+          trailingIcon: SizedBox(),
+          selectedTrailingIcon: SizedBox(),
+          controller:  controller,
+          textStyle: TextStyles.w400.copyWith(color: Colors.black,fontSize: 14.sp),
+          width: width??size.width * 0.93,
+          menuHeight: 350,
+          inputDecorationTheme:inputDecorationTheme?? InputDecorationTheme(
+            filled: true,
+            fillColor: AppColors.colors.whiteColors,
+            hintStyle: TextStyles.w400.copyWith(color: Colors.grey,fontSize: 14.sp),
+            labelStyle:  TextStyles.w400.copyWith(color: Colors.black,fontSize: 14.sp),
+            contentPadding:contentPadding??
+            EdgeInsets.symmetric(horizontal: 10.w, vertical: 0.h),
+            enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.r),
+                borderSide:  BorderSide(color: AppColors.colors.blueColors,width: 1.w)),
+            border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.r),
+                borderSide:  BorderSide(color: AppColors.colors.blueColors,width: 1.w)),
+            focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.r),
+                borderSide:  BorderSide(color: AppColors.colors.blueColors,width: 1.w)),
+          ),
+          onSelected: onSelected,
+          hintText: hintText??"",
+          label: labelText!=null ? Text(labelText!,):null,
+          dropdownMenuEntries: dropdownMenuEntries),
+    );
   }
 }
 

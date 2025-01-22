@@ -17,6 +17,7 @@ import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:showcaseview/showcaseview.dart';
 import '../utils/theme/text_styles.dart';
 
 class CreatePostJob extends ConsumerStatefulWidget {
@@ -30,10 +31,10 @@ class _CreatePostJobState extends ConsumerState<CreatePostJob> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
       ref.read(createPostJobController).clearForm();
+      ref.read(createPostJobController).startShowCase(context);
     });
   }
   @override
@@ -51,75 +52,76 @@ class _CreatePostJobState extends ConsumerState<CreatePostJob> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
-              CommonTypeAheadFormField(
-                  leadingIcon: SvgPicture.asset(AppAssets.jobTitleSvg,color: AppColors.colors.blueColors,).paddingSymmetric(vertical: 10.h,horizontal: 10.w),
-                  focusNode: createPostJobWatch.jobTitleFocusNode,
-                  width: size.width * 0.93,
-                  controller: createPostJobWatch.jobTitleFieldController,
-                  hintText: "Job title",
-                  labelText: "Job Title",
-                  dropdownMenuEntries: designationList
-                      .map((element) => DropdownMenuEntry(
-                      value: element,
-                      label: element))
-                      .toList(),
-                  onSelected: (value)  {
-                    createPostJobWatch.jobTitleFieldController.text = value?? createPostJobWatch.jobTitleFieldController.text;
-                  }),
-              /*CommonTypeAheadFormField(
-                  direction: VerticalDirection.down,
-                  onChanged: (value)=>notAllowSpecialChar_withSpace(createPostJobWatch.jobTitleFieldController, value),
-                  controller: createPostJobWatch.jobTitleFieldController,
-                  hintText: "Job Title",
-                  labelText: "Job Title",
-                  suggestionsCallback: (pattern)async{
-                    print("========================================>$pattern");
-                    if (pattern.isEmpty) return ["fdk","fdg"];
-                    final suggestions = await createPostJobWatch.checkJobTitle(pattern);
-                    return suggestions;
-                   return await createPostJobWatch.checkJobTitle(pattern);
-
-                  },
-                  onSelected: (value) =>
-                  createPostJobWatch.jobTitleFieldController.text = value),*/
+              Showcase(
+                key: createPostJobWatch.globalKeyJobTitle,
+                title: 'Job title',
+                description: 'Enter the title of the job position you are hiring for',
+                targetBorderRadius:  BorderRadius.circular(8.r),
+                child: CommonTypeAheadFormField(
+                    leadingIcon: SvgPicture.asset(AppAssets.jobTitleSvg,color: AppColors.colors.blueColors,).paddingSymmetric(vertical: 10.h,horizontal: 10.w),
+                    focusNode: createPostJobWatch.jobTitleFocusNode,
+                    width: size.width * 0.93,
+                    controller: createPostJobWatch.jobTitleFieldController,
+                    hintText: "Job title",
+                    labelText: "Job Title",
+                    dropdownMenuEntries: designationList
+                        .map((element) => DropdownMenuEntry(
+                        value: element,
+                        label: element))
+                        .toList(),
+                    onSelected: (value)  {
+                      createPostJobWatch.jobTitleFieldController.text = value?? createPostJobWatch.jobTitleFieldController.text;
+                    }),
+              ),
               createPostJobWatch.isJobTitleEmpty?Text("Please fill the job title",style: TextStyles.w400.copyWith(fontSize: 10.sp,color: Colors.red.shade400,),).paddingVertical(4):const SizedBox(),
               SizedBox(height: 10.h,),
-              CommonFormField(
-                controller: createPostJobWatch.companyNameFieldController,
-                textInputAction: TextInputAction.none,
-                keyboardType: TextInputType.text,
-                autoValidateMode: AutovalidateMode.onUserInteraction,
-                validator: (value)=>requiredFieldValidator(input:value,errorMgs: "Please Enter company name"),
-                hintText: "Tellva Still Texus",labelText: "Company name",prefixIcon: SvgPicture.asset(AppAssets.companyBuildingSvg,color: AppColors.colors.blueColors,).paddingSymmetric(vertical: 10.h,horizontal: 10.w),),
+              Showcase(
+                key: createPostJobWatch.globalKeyCompanyName,
+                title: 'Your company name',
+                description: 'Provide the full name of your organization',
+                targetBorderRadius:  BorderRadius.circular(8.r),
+                child: CommonFormField(
+                  controller: createPostJobWatch.companyNameFieldController,
+                  textInputAction: TextInputAction.none,
+                  keyboardType: TextInputType.text,
+                  autoValidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (value)=>requiredFieldValidator(input:value,errorMgs: "Please Enter company name"),
+                  hintText: "Tellva Still Texus", labelText: "Company name",prefixIcon: SvgPicture.asset(AppAssets.companyBuildingSvg,color: AppColors.colors.blueColors,).paddingSymmetric(vertical: 10.h,horizontal: 10.w),),
+              ),
 
               /// Company Logo ///
           GestureDetector(
             onTap: createPostJobWatch.imagePicker,
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 16.w),
-              alignment: Alignment.center,
-              height: 100.h,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                  color: AppColors.colors.greyRegent.withOpacity(0.2),
-                  borderRadius: BorderRadius.circular(16.r)
-              ),
-              child: Row(
-                children: [
-                  createPostJobWatch.imageFile !=null? Container(
-                    height: 80.h,
-                    width: 80.w,
-                    clipBehavior: Clip.hardEdge,
-                    decoration: const BoxDecoration(
-                        shape: BoxShape.circle
-                    ),
-                    child: Image.file(createPostJobWatch.imageFile!,fit: BoxFit.fill,),
-                  ):
-                  Icon(Icons.cloud_upload,color: AppColors.colors.blueColors,size: 25.sp,),
-                  SizedBox(width: 10.w,),
-                  Expanded(child: Text(createPostJobWatch.imageName !=""? createPostJobWatch.imageName.toString(): "Select your Organization logo",style: TextStyles.w400.copyWith(fontSize: 14.sp,color: AppColors.colors.blackColors),overflow: TextOverflow.ellipsis,))
-                ],
+            child: Showcase(
+              key: createPostJobWatch.globalKeyLogo,
+              title: 'Organization logo',
+              description: 'Upload the logo of your organization',
+              targetBorderRadius:  BorderRadius.circular(8.r),
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                alignment: Alignment.center,
+                height: 100.h,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    color: AppColors.colors.greyRegent.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(16.r)
+                ),
+                child: Row(
+                  children: [
+                    createPostJobWatch.imageFile !=null? Container(
+                      height: 80.h,
+                      width: 80.w,
+                      clipBehavior: Clip.hardEdge,
+                      decoration: const BoxDecoration(
+                          shape: BoxShape.circle
+                      ),
+                      child: Image.file(createPostJobWatch.imageFile!,fit: BoxFit.fill,),
+                    ):
+                    Icon(Icons.cloud_upload,color: AppColors.colors.blueColors,size: 25.sp,),
+                    SizedBox(width: 10.w,),
+                    Expanded(child: Text(createPostJobWatch.imageName !=""? createPostJobWatch.imageName.toString(): "Select your Organization logo",style: TextStyles.w400.copyWith(fontSize: 14.sp,color: AppColors.colors.blackColors),overflow: TextOverflow.ellipsis,))
+                  ],
+                ),
               ),
             ),
           ).paddingVertical(10.h),
@@ -128,18 +130,28 @@ class _CreatePostJobState extends ConsumerState<CreatePostJob> {
               /// Job Skills Forms ///
               const CreatePostJobSkillsWidget(),
 
-              CommonFormField(
-                onEditingComplete: () {
-                  createPostJobWatch.autoDescriptionApi();
-                },
-                controller: createPostJobWatch.experienceFieldController,
-                textInputAction: TextInputAction.next,
-                keyboardType: TextInputType.phone,
-                autoValidateMode: AutovalidateMode.onUserInteraction,
-                onChanged: (value)=>{
+              Showcase(
+                key: createPostJobWatch.globalKeyExperience,
+                title: 'Required Experience',
+                description: 'Specify the number of years of experience required for this role',
+                targetBorderRadius:  BorderRadius.circular(8.r),
+                  targetPadding: EdgeInsets.only(top: 5.h,left: 8.w,right: 8.w,bottom: 5.h),
+                  child: CommonFormField(
+                  onTap: () {
+                    ShowCaseWidget.of(context).startShowCase([createPostJobWatch.globalKeyExperience]);
+                  },
+                  onEditingComplete: () {
+                    createPostJobWatch.autoDescriptionApi();
+                  },
+                  controller: createPostJobWatch.experienceFieldController,
+                  textInputAction: TextInputAction.next,
+                  keyboardType: TextInputType.phone,
+                  autoValidateMode: AutovalidateMode.onUserInteraction,
+                  onChanged: (value)=>{
                     notAllowSpecialChar(createPostJobWatch.experienceFieldController, value),createPostJobWatch.autoDescriptionApi()},
-                validator: (value)=>requiredFieldValidator(input:value , errorMgs: "Please enter experience in year"),
-                hintText: "2 years",labelText: "Required Experience",prefixIcon: Icon(Icons.star,color: AppColors.colors.blueColors,),).paddingOnly(top: 10.h),
+                  validator: (value)=>requiredFieldValidator(input:value , errorMgs: "Please enter experience in year"),
+                  hintText: "2 years",labelText: "Required Experience",prefixIcon: Icon(Icons.star,color: AppColors.colors.blueColors,),).paddingOnly(top: 10.h)
+              ),
 
               /// Job DropDown Forms ///
               const CreatePostJobDropDownForms(),
@@ -154,45 +166,80 @@ class _CreatePostJobState extends ConsumerState<CreatePostJob> {
                   Text(createPostJobWatch.autoDescriptionTxt,style: TextStyle(color: Colors.black54),maxLines: 2,),
                 ],
               )):SizedBox(),
-              CommonFormField(
-                controller: createPostJobWatch.jobDescriptionFieldController,
-                textInputAction: TextInputAction.next,
-                keyboardType: TextInputType.text,
-                autoValidateMode: AutovalidateMode.onUserInteraction,
-                validator: (value)=>
-                    requiredFieldValidator(input:value , errorMgs: "Please enter job description"),
-                hintText: "Job Description Here", prefixIcon: SvgPicture.asset(AppAssets.bioGraphSvg,color: AppColors.colors.blueColors,).paddingSymmetric(vertical: 10.h,horizontal: 10.w), maxLine: 4, contentPadding: EdgeInsets.symmetric(vertical: 30, horizontal: 10.w),).paddingVertical(10.h),
 
-              CommonFormField(
-                controller: createPostJobWatch.jobRoleRespFieldController,
-                textInputAction: TextInputAction.next,
-                keyboardType: TextInputType.text,
-                autoValidateMode: AutovalidateMode.onUserInteraction,
-                validator: (value)=>requiredFieldValidator(input:value , errorMgs: "Please enter job role & Responsibility"),
-                hintText: "Job Role & Responsibility", prefixIcon: SvgPicture.asset(AppAssets.baselinePlaylistAddCheckCircleSvg,color: AppColors.colors.blueColors,).paddingSymmetric(vertical: 10.h,horizontal: 10.w), maxLine: 4, contentPadding: EdgeInsets.symmetric(vertical: 30, horizontal: 10.w),),
+              Showcase(
+                  key: createPostJobWatch.globalKeyDescription,
+                  title: 'Job Description',
+                  description: 'Write a comprehensive job description that outlines the expectations',
+                  targetBorderRadius: BorderRadius.circular(8.r),
+                  targetPadding: EdgeInsets.only(top: 5.h,left: 8.w,right: 8.w,bottom: 5.h),
+                  child: CommonFormField(
+                    onTap: () => ShowCaseWidget.of(context).startShowCase([createPostJobWatch.globalKeyDescription]),
+                    controller: createPostJobWatch.jobDescriptionFieldController,
+                    textInputAction: TextInputAction.next,
+                    keyboardType: TextInputType.text,
+                    autoValidateMode: AutovalidateMode.onUserInteraction,
+                    validator: (value)=>
+                        requiredFieldValidator(input:value , errorMgs: "Please enter job description"),
+                    hintText: "Job Description Here", prefixIcon:
+                  SvgPicture.asset(AppAssets.bioGraphSvg,color: AppColors.colors.blueColors,).paddingSymmetric(vertical: 10.h,horizontal: 10.w), maxLine: 4, contentPadding: EdgeInsets.symmetric(vertical: 30, horizontal: 10.w),).paddingVertical(10.h)
+              ),
+
+              Showcase(
+                key: createPostJobWatch.globalKeyRoleRes,
+                title: 'Job Role & Responsibility',
+                description: 'Outline the core duties, responsibilities, and expectations associated with this job position',
+                targetBorderRadius: BorderRadius.circular(8.r),
+                targetPadding: EdgeInsets.only(top: 5.h,left: 8.w,right: 8.w,bottom: 5.h),
+                child: CommonFormField(
+                  onTap: () => ShowCaseWidget.of(context).startShowCase([createPostJobWatch.globalKeyRoleRes]),
+                  controller: createPostJobWatch.jobRoleRespFieldController,
+                  textInputAction: TextInputAction.next,
+                  keyboardType: TextInputType.text,
+                  autoValidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (value)=>requiredFieldValidator(input:value , errorMgs: "Please enter job role & Responsibility"),
+                  hintText: "Job Role & Responsibility", prefixIcon:
+                SvgPicture.asset(AppAssets.baselinePlaylistAddCheckCircleSvg,color: AppColors.colors.blueColors,).paddingSymmetric(vertical: 10.h,horizontal: 10.w), maxLine: 4, contentPadding: EdgeInsets.symmetric(vertical: 30, horizontal: 10.w),),
+              ),
 
 
               SizedBox(height: 10.h,),
-              CommonFormField(
-                controller: createPostJobWatch.salaryFieldController,
-                textInputAction: TextInputAction.next,
-                keyboardType: TextInputType.phone,
-                autoValidateMode: AutovalidateMode.onUserInteraction,
-                onChanged: (value){notAllowSpecialCharSal(createPostJobWatch.salaryFieldController, value);},
-                validator:(val) =>requiredFieldValidator(input: val, errorMgs: "Please enter salary in LPA"),
-                hintText: "12 LPA",labelText: "Salary Package",prefixIcon: Icon(Icons.currency_rupee,color: AppColors.colors.blueColors,),),
+              Showcase(
+                key: createPostJobWatch.globalKeySPackage,
+                title: 'Salary Package',
+                description: 'Enter the salary package you are offering for this position, such as 3.6 LPA or 5 LPA',
+                targetBorderRadius:  BorderRadius.circular(8.r),
+                targetPadding: EdgeInsets.only(top: 9.h,left: 8.w,right: 8.w,bottom: 5.h),
+                child: CommonFormField(
+                  onTap: () => ShowCaseWidget.of(context).startShowCase([createPostJobWatch.globalKeySPackage]),
+                  controller: createPostJobWatch.salaryFieldController,
+                  textInputAction: TextInputAction.next,
+                  keyboardType: TextInputType.phone,
+                  autoValidateMode: AutovalidateMode.onUserInteraction,
+                  onChanged: (value){notAllowSpecialCharSal(createPostJobWatch.salaryFieldController, value);},
+                  validator:(val) =>requiredFieldValidator(input: val, errorMgs: "Please enter salary in LPA"),
+                  hintText: "12 LPA",labelText: "Salary Package",prefixIcon: Icon(Icons.currency_rupee,color: AppColors.colors.blueColors)),
+              ),
 
               /// Working Mode
               const CreatePostJobWorkingMode(),
 
-              CommonFormField(
-                controller: createPostJobWatch.numberOfEmpFieldController,
-                textInputAction: TextInputAction.next,
-                keyboardType: TextInputType.phone,
-                autoValidateMode: AutovalidateMode.onUserInteraction,
-                onChanged: (value)=>notAllowSpecialChar(createPostJobWatch.numberOfEmpFieldController, value),
-                validator: (value)=>requiredFieldValidator(input:value , errorMgs: "Please enter number of employee"),
-                hintText: "Need of Employees",labelText: "Number of Employees",prefixIcon: Icon(Icons.people,color: AppColors.colors.blueColors,),),
+              Showcase(
+                key: createPostJobWatch.globalKeyNumOfE,
+                title: 'Need of Employees',
+                description: 'Specify the number of employees you need to hire for this role',
+                targetBorderRadius:  BorderRadius.circular(8.r),
+                targetPadding: EdgeInsets.only(top: 9.h,left: 8.w,right: 8.w,bottom: 5.h),
+                child: CommonFormField(
+                  onTap: () => Future.delayed(Duration(milliseconds: 300),() => ShowCaseWidget.of(context).startShowCase([createPostJobWatch.globalKeyNumOfE])),
+                  controller: createPostJobWatch.numberOfEmpFieldController,
+                  textInputAction: TextInputAction.next,
+                  keyboardType: TextInputType.phone,
+                  autoValidateMode: AutovalidateMode.onUserInteraction,
+                  onChanged: (value)=>notAllowSpecialChar(createPostJobWatch.numberOfEmpFieldController, value),
+                  validator: (value)=>requiredFieldValidator(input:value , errorMgs: "Please enter number of employee"),
+                  hintText: "Need of Employees",labelText: "Number of Employees",prefixIcon: Icon(Icons.people,color: AppColors.colors.blueColors,),),
+              ),
                SizedBox(height: 10.h,),
               /// Bottom Button ///
               const CreatePostJobBottomButton()

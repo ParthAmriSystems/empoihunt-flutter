@@ -10,6 +10,7 @@ import 'package:emploiflutter/ui/utils/constant/app_string_constant.dart';
 import 'package:emploiflutter/ui/utils/common_widget/helper.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:showcaseview/showcaseview.dart';
 
 import '../../../ui/utils/constant/app_constant.dart';
 import '../../repository/services/hive_service/box_service.dart';
@@ -34,6 +35,32 @@ class CreatePostJobController extends ChangeNotifier{
   final numberOfEmpFieldController = TextEditingController();
 
 
+
+  /// Show case ///
+  GlobalKey globalKeyJobTitle = GlobalKey();
+  GlobalKey globalKeyCompanyName = GlobalKey();
+  GlobalKey globalKeyLogo = GlobalKey();
+  GlobalKey globalKeyTechSkill = GlobalKey();
+  GlobalKey globalKeySoftSkill = GlobalKey();
+  GlobalKey globalKeyExperience = GlobalKey();
+  GlobalKey globalKeyEducation = GlobalKey();
+  GlobalKey globalKeyLocation = GlobalKey();
+  GlobalKey globalKeyDescription = GlobalKey();
+  GlobalKey globalKeyRoleRes = GlobalKey();
+  GlobalKey globalKeySPackage = GlobalKey();
+  GlobalKey globalKeyWorkingMode = GlobalKey();
+  GlobalKey globalKeyNumOfE = GlobalKey();
+
+  void startShowCase(BuildContext context){
+    Future.delayed(Duration(milliseconds: 400),() {
+      ShowCaseWidget.of(context).startShowCase([globalKeyJobTitle,globalKeyCompanyName,globalKeyLogo,globalKeyTechSkill,globalKeySoftSkill,
+        // globalKeyExperience,globalKeyEducation,globalKeyLocation,globalKeyDescription,globalKeyRoleRes,globalKeySPackage,globalKeyWorkingMode,globalKeyNumOfE
+      ]);
+    },);
+
+  }
+
+  /// Show case ///
 
 
    bool isJobTitleEmpty = false;
