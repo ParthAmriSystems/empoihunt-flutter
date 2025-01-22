@@ -708,7 +708,6 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
 
   @override
   void dispose() {
-    // TODO: implement dispose
     companyNameController.dispose();
     jobSearchController.dispose();
     designationSearchController.dispose();

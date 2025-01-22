@@ -7,6 +7,9 @@ import 'package:flutter/services.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:showcaseview/showcaseview.dart';
 
+import '../../../../../../../frame_work/repository/services/shared_pref_services.dart';
+import '../../../../../../utils/constant/app_constant.dart';
+
 class JobSeekerRegisterProfileDetails extends ConsumerStatefulWidget {
   const JobSeekerRegisterProfileDetails({super.key});
 
@@ -24,9 +27,11 @@ class _RegisterProfileDetailsState extends ConsumerState<JobSeekerRegisterProfil
     super.initState();
     /// For the First show case ///
     WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((timeStamp) {
-      final jobSeekerRead = ref.read(jobSeekerRegisterProfileDetailsController);
-      Future.delayed(Duration(milliseconds: 300),
-              () => ShowCaseWidget.of(context).startShowCase([jobSeekerRead.globalKeyBio,jobSeekerRead.globalKeyQualification,jobSeekerRead.globalKeyIsExperience]));
+      if(!SharedPrefServices.services.getBool(registerShowCaseJobSeeker)){
+        final jobSeekerRead = ref.read(jobSeekerRegisterProfileDetailsController);
+        Future.delayed(Duration(milliseconds: 300),
+                () => ShowCaseWidget.of(context).startShowCase([jobSeekerRead.globalKeyBio,jobSeekerRead.globalKeyQualification,jobSeekerRead.globalKeyIsExperience]));
+      }
     },);
   }
 

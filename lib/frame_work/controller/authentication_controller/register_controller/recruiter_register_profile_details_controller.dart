@@ -1,18 +1,15 @@
 import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:emploiflutter/frame_work/repository/api_end_point.dart';
 import 'package:emploiflutter/frame_work/repository/dio_client.dart';
 import 'package:emploiflutter/frame_work/repository/services/fire_base/firebase_singleton.dart';
 import 'package:emploiflutter/frame_work/repository/services/hive_service/box_service.dart';
 import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
-import 'package:emploiflutter/ui/dash_board/dash_board.dart';
 import 'package:emploiflutter/ui/onboarding/on_boarding_recruiter.dart';
 import 'package:emploiflutter/ui/utils/constant/app_constant.dart';
 import 'package:emploiflutter/ui/utils/common_widget/helper.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -400,15 +397,11 @@ class RecruiterRegisterProfileDetailsController extends ChangeNotifier {
     designationSearchController.clear();
     jobLocationSearchController.clear();
     profilePic = null;
-    companyNameController.dispose();
-    designationSearchController.dispose();
-    qualificationSearchController.dispose();
   }
 
 
   @override
   void dispose() {
-    // TODO: implement dispose
     companyNameController.dispose();
     designationSearchController.dispose();
     qualificationSearchController.dispose();

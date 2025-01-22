@@ -60,6 +60,23 @@ class CreatePostJobController extends ChangeNotifier{
 
   }
 
+  void getScrollControllerValues() {
+    final scrollController = this.scrollController;
+
+    if (scrollController.hasClients) {
+      final currentOffset = scrollController.position.pixels;
+      final startOffset = scrollController.position.minScrollExtent;
+      final endOffset = scrollController.position.maxScrollExtent;
+
+      kPrint('Current Offset: $currentOffset');
+      kPrint('Start Offset: $startOffset');
+      kPrint('End Offset: $endOffset');
+    } else {
+      kPrint('ScrollController has no clients yet.');
+    }
+  }
+
+
   /// Show case ///
 
 
