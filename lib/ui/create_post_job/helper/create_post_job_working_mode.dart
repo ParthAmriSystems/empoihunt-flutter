@@ -6,7 +6,9 @@ import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:showcaseview/showcaseview.dart';
 
 class CreatePostJobWorkingMode extends ConsumerWidget {
-  const CreatePostJobWorkingMode({super.key});
+  final BuildContext widgetContext;
+
+  const CreatePostJobWorkingMode({super.key,required this.widgetContext});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -54,6 +56,7 @@ class CreatePostJobWorkingMode extends ConsumerWidget {
                       description: 'Select the working arrangement that best suits this position: remote, onsite, or hybrid',
                       targetBorderRadius:  BorderRadius.circular(8.r),
                       targetPadding: EdgeInsets.only(top: 5.h,left: 8.w,right: 8.w,bottom: 5.h),
+                      onBarrierClick: () => createPostJobWatch.scrollAndShowcase(createPostJobWatch.globalKeyNumOfE,widgetContext),
                       child: Text("Working Mode",style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.blackColors),)),
                 ),
               )

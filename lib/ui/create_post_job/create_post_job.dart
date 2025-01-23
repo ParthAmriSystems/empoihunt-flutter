@@ -1,5 +1,4 @@
 // ignore_for_file: deprecated_member_use
-
 import 'package:emploiflutter/frame_work/controller/create_post_job_controller/create_post_job_controller.dart';
 import 'package:emploiflutter/ui/create_post_job/helper/create_post_job_bottom_button.dart';
 import 'package:emploiflutter/ui/create_post_job/helper/create_post_job_dropdown_forms.dart';
@@ -33,9 +32,11 @@ class _CreatePostJobState extends ConsumerState<CreatePostJob> {
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
       final read = ref.read(createPostJobController);
       read.clearForm();
-      read.startShowCase(context);
-      read.scrollController.addListener(() => read.getScrollControllerValues());
     });
+
+    WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((timeStamp) {
+      ref.read(createPostJobController).startShowcaseSequence(context);
+    },);
   }
   @override
   Widget build(BuildContext context,) {
@@ -45,34 +46,38 @@ class _CreatePostJobState extends ConsumerState<CreatePostJob> {
       appBar: const CommonAppBar(title: "Create Job Post",),
       body: SingleChildScrollView(
         controller: createPostJobWatch.scrollController,
-        physics: const BouncingScrollPhysics(),
+        physics: const AlwaysScrollableScrollPhysics(),
         padding: EdgeInsets.symmetric(horizontal: 12.w,vertical: 15.h),
         child: Form(
           key: createPostJobWatch.formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Showcase(
-                key: createPostJobWatch.globalKeyJobTitle,
-                title: 'Job title',
-                description: 'Enter the title of the job position you are hiring for',
-                targetBorderRadius:  BorderRadius.circular(8.r),
-                child: CommonTypeAheadFormField(
-                    leadingIcon: SvgPicture.asset(AppAssets.jobTitleSvg,color: AppColors.colors.blueColors,).paddingSymmetric(vertical: 10.h,horizontal: 10.w),
-                    focusNode: createPostJobWatch.jobTitleFocusNode,
-                    width: size.width * 0.93,
-                    controller: createPostJobWatch.jobTitleFieldController,
-                    hintText: "Job title",
-                    labelText: "Job Title",
-                    dropdownMenuEntries: designationList
-                        .map((element) => DropdownMenuEntry(
-                        value: element,
-                        label: element))
-                        .toList(),
-                    onSelected: (value)  {
-                      createPostJobWatch.jobTitleFieldController.text = value?? createPostJobWatch.jobTitleFieldController.text;
-                    }),
-              ),
+            Showcase(
+            key: createPostJobWatch.globalKeyJobTitle,
+            title: 'Job Title',
+            description: 'Enter the title of the job position you are hiring for',
+            targetBorderRadius: BorderRadius.circular(8.r),
+            onBarrierClick: () => createPostJobWatch.scrollAndShowcase(createPostJobWatch.globalKeyCompanyName,context),
+            child: CommonTypeAheadFormField(
+              leadingIcon: SvgPicture.asset(
+                AppAssets.jobTitleSvg,
+                color: AppColors.colors.blueColors,
+              ).paddingSymmetric(vertical: 10.h, horizontal: 10.w),
+              focusNode: createPostJobWatch.jobTitleFocusNode,
+              width: size.width * 0.93,
+              controller: createPostJobWatch.jobTitleFieldController,
+              hintText: "Job title",
+              labelText: "Job Title",
+              dropdownMenuEntries: designationList
+                  .map((element) => DropdownMenuEntry(value: element, label: element))
+                  .toList(),
+              onSelected: (value) {
+                createPostJobWatch.jobTitleFieldController.text =
+                    value ?? createPostJobWatch.jobTitleFieldController.text;
+              },
+            ),
+          ),
               createPostJobWatch.isJobTitleEmpty?Text("Please fill the job title",style: TextStyles.w400.copyWith(fontSize: 10.sp,color: Colors.red.shade400,),).paddingVertical(4):const SizedBox(),
               SizedBox(height: 10.h,),
               Showcase(
@@ -80,6 +85,7 @@ class _CreatePostJobState extends ConsumerState<CreatePostJob> {
                 title: 'Your company name',
                 description: 'Provide the full name of your organization',
                 targetBorderRadius:  BorderRadius.circular(8.r),
+                onBarrierClick: () => createPostJobWatch.scrollAndShowcase(createPostJobWatch.globalKeyLogo,context),
                 child: CommonFormField(
                   controller: createPostJobWatch.companyNameFieldController,
                   textInputAction: TextInputAction.none,
@@ -97,6 +103,7 @@ class _CreatePostJobState extends ConsumerState<CreatePostJob> {
               title: 'Organization logo',
               description: 'Upload the logo of your organization',
               targetBorderRadius:  BorderRadius.circular(8.r),
+              onBarrierClick: () => createPostJobWatch.scrollAndShowcase(createPostJobWatch.globalKeyTechSkill,context),
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
                 alignment: Alignment.center,
@@ -128,18 +135,16 @@ class _CreatePostJobState extends ConsumerState<CreatePostJob> {
               createPostJobWatch.isFileSelected?Text("Please Select organization logo",style: TextStyles.w400.copyWith(fontSize: 10.sp,color: Colors.red.shade400,),):const SizedBox(),
 
               /// Job Skills Forms ///
-              const CreatePostJobSkillsWidget(),
+              CreatePostJobSkillsWidget(widgetContext: context),
 
               Showcase(
-                key: createPostJobWatch.globalKeyExperience,
+                  key: createPostJobWatch.globalKeyExperience,
                 title: 'Required Experience',
                 description: 'Specify the number of years of experience required for this role',
                 targetBorderRadius:  BorderRadius.circular(8.r),
                   targetPadding: EdgeInsets.only(top: 5.h,left: 8.w,right: 8.w,bottom: 5.h),
+                  onBarrierClick: () => createPostJobWatch.scrollAndShowcase(createPostJobWatch.globalKeyEducation,context),
                   child: CommonFormField(
-                  onTap: () {
-                    ShowCaseWidget.of(context).startShowCase([createPostJobWatch.globalKeyExperience]);
-                  },
                   onEditingComplete: () {
                     createPostJobWatch.autoDescriptionApi();
                   },
@@ -154,7 +159,7 @@ class _CreatePostJobState extends ConsumerState<CreatePostJob> {
               ),
 
               /// Job DropDown Forms ///
-              const CreatePostJobDropDownForms(),
+              CreatePostJobDropDownForms(widgetContext: context),
 
 
               createPostJobWatch.autoDescriptionTxt!=""?TextButton(onPressed: (){
@@ -173,8 +178,8 @@ class _CreatePostJobState extends ConsumerState<CreatePostJob> {
                   description: 'Write a comprehensive job description that outlines the expectations',
                   targetBorderRadius: BorderRadius.circular(8.r),
                   targetPadding: EdgeInsets.only(top: 5.h,left: 8.w,right: 8.w,bottom: 5.h),
+                  onBarrierClick: () => createPostJobWatch.scrollAndShowcase(createPostJobWatch.globalKeyRoleRes,context),
                   child: CommonFormField(
-                    onTap: () => ShowCaseWidget.of(context).startShowCase([createPostJobWatch.globalKeyDescription]),
                     controller: createPostJobWatch.jobDescriptionFieldController,
                     textInputAction: TextInputAction.next,
                     keyboardType: TextInputType.text,
@@ -191,8 +196,8 @@ class _CreatePostJobState extends ConsumerState<CreatePostJob> {
                 description: 'Outline the core duties, responsibilities, and expectations associated with this job position',
                 targetBorderRadius: BorderRadius.circular(8.r),
                 targetPadding: EdgeInsets.only(top: 5.h,left: 8.w,right: 8.w,bottom: 5.h),
+                onBarrierClick: () => createPostJobWatch.scrollAndShowcase(createPostJobWatch.globalKeySPackage,context),
                 child: CommonFormField(
-                  onTap: () => ShowCaseWidget.of(context).startShowCase([createPostJobWatch.globalKeyRoleRes]),
                   controller: createPostJobWatch.jobRoleRespFieldController,
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.text,
@@ -210,8 +215,8 @@ class _CreatePostJobState extends ConsumerState<CreatePostJob> {
                 description: 'Enter the salary package you are offering for this position, such as 3.6 LPA or 5 LPA',
                 targetBorderRadius:  BorderRadius.circular(8.r),
                 targetPadding: EdgeInsets.only(top: 9.h,left: 8.w,right: 8.w,bottom: 5.h),
+                onBarrierClick: () => createPostJobWatch.scrollAndShowcase(createPostJobWatch.globalKeyWorkingMode,context),
                 child: CommonFormField(
-                  onTap: () => ShowCaseWidget.of(context).startShowCase([createPostJobWatch.globalKeySPackage]),
                   controller: createPostJobWatch.salaryFieldController,
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.phone,
@@ -222,7 +227,7 @@ class _CreatePostJobState extends ConsumerState<CreatePostJob> {
               ),
 
               /// Working Mode
-              const CreatePostJobWorkingMode(),
+              CreatePostJobWorkingMode(widgetContext: context),
 
               Showcase(
                 key: createPostJobWatch.globalKeyNumOfE,
@@ -231,7 +236,6 @@ class _CreatePostJobState extends ConsumerState<CreatePostJob> {
                 targetBorderRadius:  BorderRadius.circular(8.r),
                 targetPadding: EdgeInsets.only(top: 9.h,left: 8.w,right: 8.w,bottom: 5.h),
                 child: CommonFormField(
-                  onTap: () => Future.delayed(Duration(milliseconds: 300),() => ShowCaseWidget.of(context).startShowCase([createPostJobWatch.globalKeyNumOfE])),
                   controller: createPostJobWatch.numberOfEmpFieldController,
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.phone,

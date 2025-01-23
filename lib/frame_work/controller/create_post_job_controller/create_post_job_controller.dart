@@ -42,7 +42,7 @@ class CreatePostJobController extends ChangeNotifier{
   GlobalKey globalKeyLogo = GlobalKey();
   GlobalKey globalKeyTechSkill = GlobalKey();
   GlobalKey globalKeySoftSkill = GlobalKey();
-  GlobalKey globalKeyExperience = GlobalKey();
+    GlobalKey globalKeyExperience = GlobalKey();
   GlobalKey globalKeyEducation = GlobalKey();
   GlobalKey globalKeyLocation = GlobalKey();
   GlobalKey globalKeyDescription = GlobalKey();
@@ -51,30 +51,46 @@ class CreatePostJobController extends ChangeNotifier{
   GlobalKey globalKeyWorkingMode = GlobalKey();
   GlobalKey globalKeyNumOfE = GlobalKey();
 
-  void startShowCase(BuildContext context){
-    Future.delayed(Duration(milliseconds: 400),() {
-      ShowCaseWidget.of(context).startShowCase([globalKeyJobTitle,globalKeyCompanyName,globalKeyLogo,globalKeyTechSkill,globalKeySoftSkill,
-        // globalKeyExperience,globalKeyEducation,globalKeyLocation,globalKeyDescription,globalKeyRoleRes,globalKeySPackage,globalKeyWorkingMode,globalKeyNumOfE
-      ]);
-    },);
+  late final List<GlobalKey> showcaseKeys;
 
+  void initializeKeys() {
+    showcaseKeys = [
+      globalKeyJobTitle,
+      globalKeyCompanyName,
+      globalKeyLogo,
+      globalKeyTechSkill,
+      globalKeySoftSkill,
+      globalKeyExperience,
+      globalKeyEducation,
+      globalKeyLocation,
+      globalKeyDescription,
+      globalKeyRoleRes,
+      globalKeySPackage,
+      globalKeyWorkingMode,
+      globalKeyNumOfE,
+    ];
   }
 
-  void getScrollControllerValues() {
-    final scrollController = this.scrollController;
+  void startShowcaseSequence(BuildContext context) async {
+    initializeKeys();
+    scrollAndShowcase(globalKeyJobTitle,context);
+  }
 
-    if (scrollController.hasClients) {
-      final currentOffset = scrollController.position.pixels;
-      final startOffset = scrollController.position.minScrollExtent;
-      final endOffset = scrollController.position.maxScrollExtent;
-
-      kPrint('Current Offset: $currentOffset');
-      kPrint('Start Offset: $startOffset');
-      kPrint('End Offset: $endOffset');
-    } else {
-      kPrint('ScrollController has no clients yet.');
+  Future<void> scrollAndShowcase(GlobalKey key, BuildContext context) async {
+    final RenderObject? renderObject = key.currentContext?.findRenderObject();
+    if (renderObject is RenderBox) {
+      final position = renderObject.localToGlobal(
+        Offset.zero,
+        ancestor: context.findRenderObject(),
+      );
+      await scrollController.animateTo(
+        scrollController.offset + position.dy - 100,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+      ).then((value) =>  ShowCaseWidget.of(context).startShowCase([key]),);
     }
   }
+
 
 
   /// Show case ///
@@ -91,7 +107,7 @@ class CreatePostJobController extends ChangeNotifier{
    }
 
   Future<List<String>> checkJobTitle(String query) async{
-    await Future.delayed(const Duration(milliseconds: 500)); // Simulate delay
+    await Future.delayed(const Duration(milliseconds: 500));
     query = query.toUpperCase().trim();
     return designationList.where((jobTitle) => jobTitle.toUpperCase().trim().contains(query)).toList();
   }

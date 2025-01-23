@@ -11,7 +11,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:showcaseview/showcaseview.dart';
 
 class CreatePostJobSkillsWidget extends ConsumerWidget {
-  const CreatePostJobSkillsWidget({super.key});
+  final BuildContext widgetContext;
+  const CreatePostJobSkillsWidget( {super.key,required this.widgetContext});
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
@@ -41,6 +42,7 @@ class CreatePostJobSkillsWidget extends ConsumerWidget {
                       key: createPostJobWatch.globalKeyTechSkill,
                       title: 'Technical Skills',
                       description: 'Define the technical skills and expertise required for this role',
+                      onBarrierClick: () => createPostJobWatch.scrollAndShowcase(createPostJobWatch.globalKeySoftSkill,context),
                       targetBorderRadius:  BorderRadius.circular(8.r),
                       targetPadding: EdgeInsets.only(top: 5.h,left: 8.w,right: 8.w,bottom: 5.h),
                       child: IconButton(
@@ -99,6 +101,7 @@ class CreatePostJobSkillsWidget extends ConsumerWidget {
                       key: createPostJobWatch.globalKeySoftSkill,
                       title: 'Soft Skills',
                       description: 'Define the soft skills required for this role, such as communication or teamwork',
+                      onBarrierClick: () => createPostJobWatch.scrollAndShowcase(createPostJobWatch.globalKeyExperience,widgetContext),
                       targetBorderRadius:  BorderRadius.circular(8.r),
                       targetPadding: EdgeInsets.only(top: 5.h,left: 8.w,right: 8.w,bottom: 5.h),
                       child: IconButton(

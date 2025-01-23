@@ -17,7 +17,8 @@ import 'package:showcaseview/showcaseview.dart';
 import '../../utils/constant/app_string_constant.dart';
 
 class CreatePostJobDropDownForms extends ConsumerWidget {
-  const CreatePostJobDropDownForms({super.key});
+  final BuildContext widgetContext;
+  const CreatePostJobDropDownForms({super.key,required this.widgetContext});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -30,6 +31,7 @@ class CreatePostJobDropDownForms extends ConsumerWidget {
           key: createPostJobWatch.globalKeyEducation,
           title: 'Education',
           description: 'Specify the educational qualifications required for this role',
+          onBarrierClick: () => createPostJobWatch.scrollAndShowcase(createPostJobWatch.globalKeyLocation,context),
           targetBorderRadius:  BorderRadius.circular(8.r),
           child: CommonTypeAheadFormField(
             // onTap: () => ShowCaseWidget.of(context).startShowCase([createPostJobWatch.globalKeyEducation]),
@@ -56,6 +58,7 @@ class CreatePostJobDropDownForms extends ConsumerWidget {
           title: 'Location',
           description: 'Enter the city where the job position is based',
           targetBorderRadius:  BorderRadius.circular(8.r),
+          onBarrierClick: () => createPostJobWatch.scrollAndShowcase(createPostJobWatch.globalKeyDescription,widgetContext),
           child: CommonTypeAheadFormField(
               width: context.screenWidth * 0.93  ,
               controller: createPostJobWatch.jobLocationSearchController,
